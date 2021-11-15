@@ -35,15 +35,16 @@ function App() {
     <Router>
       <div>
         <Nav />
+
         <Switch>
           {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
-          <Redirect exact from="/" to="/home" />
+          <Redirect exact from="/" to="/dashboard" />
 
           {/* Visiting localhost:3000/about will show the about page. */}
           <Route
             // shows AboutPage at all times (logged in or not)
             exact
-            path="/about"
+            path="/collection"
           >
             <AboutPage />
           </Route>
@@ -55,7 +56,7 @@ function App() {
           <ProtectedRoute
             // logged in shows UserPage else shows LoginPage
             exact
-            path="/user"
+            path="/add_plant"
           >
             <UserPage />
           </ProtectedRoute>
@@ -63,7 +64,7 @@ function App() {
           <ProtectedRoute
             // logged in shows InfoPage else shows LoginPage
             exact
-            path="/info"
+            path="/user_profile"
           >
             <InfoPage />
           </ProtectedRoute>
@@ -75,7 +76,7 @@ function App() {
             {user.id ?
               // If the user is already logged in, 
               // redirect to the /user page
-              <Redirect to="/user" />
+              <Redirect to="/dashboard" />
               :
               // Otherwise, show the login page
               <LoginPage />
@@ -89,7 +90,7 @@ function App() {
             {user.id ?
               // If the user is already logged in, 
               // redirect them to the /user page
-              <Redirect to="/user" />
+              <Redirect to="/dashbarod" />
               :
               // Otherwise, show the registration page
               <RegisterPage />
@@ -98,12 +99,12 @@ function App() {
 
           <Route
             exact
-            path="/home"
+            path="/dashboard"
           >
             {user.id ?
               // If the user is already logged in, 
               // redirect them to the /user page
-              <Redirect to="/user" />
+              <Redirect to="/dashboard" />
               :
               // Otherwise, show the Landing page
               <LandingPage />

@@ -4,66 +4,93 @@
 -- ex. SELECT * FROM "user";
 -- Otherwise you will have errors!
 
-CREATE TABLE "users" (
-	"id"            serial NOT NULL,
-	"username"      varchar(100) NOT NULL UNIQUE,
-	"password"      varchar(100) NOT NULL,
-	"access_level"  int NOT NULL DEFAULT '0',
-	CONSTRAINT "users_pk" PRIMARY KEY ("id")
+-- table of users -- 
+CREATE TABLE "user" (
+	"id" serial NOT NULL,
+	"username" varchar(100) NOT NULL UNIQUE,
+	"password" varchar(100) NOT NULL,
+	"access_level" int NOT NULL DEFAULT '0',
+	CONSTRAINT "user_pk" PRIMARY KEY ("id")
 ) WITH (
   OIDS=FALSE
 );
 
 
+-- plants -- 
 
-CREATE TABLE "plants" (
-	"id"            serial NOT NULL,
-	"user_id"       int NOT NULL,
-	"nickname"      varchar(100) NOT NULL,
-	"date_added"    DATE NOT NULL,
-	"plant_type"    varchar(100) NOT NULL,
-	"light_level"   int NOT NULL,
-	"water_freq"    int NOT NULL DEFAULT '7',
-	"date_watered"  DATE NOT NULL,
-	"date_potted"   DATE NOT NULL,
+CREATE TABLE "plant" (
+	"id" serial NOT NULL,
+	"user_id" int NOT NULL,
+	"nickname" varchar(100) NOT NULL,
+	"date_added" DATE NOT NULL,
+	"plant_type" varchar(100) NOT NULL,
+	"light_level" int NOT NULL,
+	"water_freq" int NOT NULL DEFAULT '7',
+	"date_watered" DATE NOT NULL,
+	"date_potted" DATE NOT NULL,
 	"date_fertilized" DATE,
-	"notes" varchar(255) NOT NULL,
-	CONSTRAINT "plants_pk" PRIMARY KEY ("id")
+	"notes" varchar(255) DEFAULT 'n/a',
+	CONSTRAINT "plant_pk" PRIMARY KEY ("id")
 ) WITH (
   OIDS=FALSE
 );
 
 
+INSERT INTO "plant"
+	("user_id", "nickname", "date_added", "plant_type", "light_level", "water_freq", "date_watered", "date_potted", "date_fertilized", "notes") 
+VALUES 
+	('2', 'Figgy', '2019-10-11', 'Fiddle Leaf Fig', '3', '9', '2021-11-08', '2019-10-11', '2020-03-09', 'Turn on first water of the month' ),
+	('2', 'Devil', '2020-08-19', 'Golden Pothos', '2', '7', '2021-11-15', '2020-08-19', '2020-08-19', null),
+	('3', 'Dummy', '2021-05-22', 'Dumbcane', '2', '6', '2021-11-15', '2021-05-22', '2021-05-22', null )
+;
 
-CREATE TABLE "photos" (
-	"id" serial     NOT NULL,
-	"plants_id"     int NOT NULL,
-	"photo_url"     varchar(255) NOT NULL,
+
+-- photos -- 
+
+CREATE TABLE "photo" (
+	"id" serial NOT NULL,
+	"plant_id" int NOT NULL,
+	"photo_url" varchar(255) NOT NULL,
 	"date_uploaded" DATE NOT NULL,
-	CONSTRAINT "photos_pk" PRIMARY KEY ("id")
+	CONSTRAINT "photo_pk" PRIMARY KEY ("id")
+) WITH (
+  OIDS=FALSE
+);
+
+
+INSERT INTO "photo"
+	("plant_id", "photo_url", "date_uploaded")
+VALUES 
+	('1', 'https://bit.ly/3owgpgV', CURRENT_DATE),
+	('1', 'https://bit.ly/3qGdOnl', CURRENT_DATE),
+	('2', 'https://bit.ly/3qD0Bvp', CURRENT_DATE),
+	('2', 'https://bit.ly/3ccBV4A', CURRENT_DATE),
+	('3', 'https://bit.ly/3Hpi2pl', CURRENT_DATE),
+	('3', 'https://bit.ly/3CiWKWO', CURRENT_DATE)
+;
+
+
+
+-- stretch comments --
+
+CREATE TABLE "comment" (
+	"id" serial NOT NULL,
+	"user_id" int NOT NULL,
+	"comment" varchar(255) NOT NULL,
+	"type" varchar(100) NOT NULL,
+	CONSTRAINT "comment_pk" PRIMARY KEY ("id")
 ) WITH (
   OIDS=FALSE
 );
 
 
 
-CREATE TABLE "comments" (
-	"id"        serial NOT NULL,
-	"user_id"   int NOT NULL,
-	"comment"   varchar(255) NOT NULL,
-	"type"      varchar(100) NOT NULL,
-	CONSTRAINT "comments_pk" PRIMARY KEY ("id")
-) WITH (
-  OIDS=FALSE
-);
 
+ALTER TABLE "plant" ADD CONSTRAINT "plant_fk0" FOREIGN KEY ("user_id") REFERENCES "user"("id");
 
+ALTER TABLE "photo" ADD CONSTRAINT "photo_fk0" FOREIGN KEY ("plant_id") REFERENCES "plant"("id");
 
-ALTER TABLE "plants" ADD CONSTRAINT "plants_fk0" FOREIGN KEY ("user_id") REFERENCES "users"("id");
-
-ALTER TABLE "photos" ADD CONSTRAINT "photos_fk0" FOREIGN KEY ("plants_id") REFERENCES "plants"("id");
-
-ALTER TABLE "comments" ADD CONSTRAINT "comments_fk0" FOREIGN KEY ("user_id") REFERENCES "users"("id");
+ALTER TABLE "comment" ADD CONSTRAINT "comment_fk0" FOREIGN KEY ("user_id") REFERENCES "user"("id");
 
 
 
@@ -79,7 +106,7 @@ ALTER TABLE "comments" ADD CONSTRAINT "comments_fk0" FOREIGN KEY ("user_id") REF
 
 
 
--- // from spike below here // -- 
+-- // NOTES from spike below here // -- 
 
 
 --"date_watered" TIMESTAMP DEFAULT CURRENT_DATE NOT NULL,
