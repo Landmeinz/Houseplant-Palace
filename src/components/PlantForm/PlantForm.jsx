@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 // --- MUI --- // 
 import Box from '@mui/material/Box';
@@ -7,14 +7,17 @@ import Box from '@mui/material/Box';
 // Basic functional component structure for React with default state
 // value setup. When making a new component be sure to replace the
 // component name TemplateFunction with the name for the new component.
+
 function PlantForm(props) {
+
+  const dispatch = useDispatch();
+
   // Using hooks we're creating local state for a "heading" variable with
   // a default value of 'Functional Component'
   const store = useSelector((store) => store);
   const [heading, setHeading] = useState('Functional Component');
 
-
-  const [newPlant, setNewPlant] = useState({
+  const emptyPlant = {
     nickname: '',
     date_added: '',
     plant_type: '',
@@ -23,29 +26,28 @@ function PlantForm(props) {
     date_watered: '',
     date_potted: '',
     date_fertilized: '',
-    notes: ''
-  })
+    notes: null
+  }
+
+  const [newPlant, setNewPlant] = useState(emptyPlant);
 
 
   const handleNameChange = (event, property) => {
-    setNewItem({
+    setNewPlant({
       ...newPlant,
       [property]: event.target.value
     })
-  } // end handleNameChange
+  } // handleNameChange
 
 
   const handleSubmit = (event) => {
+    console.log('--- CLICKED --- hit handleSubmit Add Plant');
     event.preventDefault();
-    console.log('clicked');
-    console.log(newPlant);
-    dispatch({ type: 'ADD_ITEM', payload: newPlant })
-    setNewItem({
-      description: '',
-      image_url: '',
-    })
+    console.log('-- the newPlant:', newPlant);
 
-  } // end handleSubmit
+    dispatch({ type: 'ADD_PLANT', payload: newPlant });
+    setNewPlant(emptyPlant);
+  } // handleSubmit
 
 
   const sxFormBox = {
@@ -78,7 +80,7 @@ function PlantForm(props) {
           type="date"
           value={newPlant.date_added}
           onChange={(event) => handleNameChange(event, 'date_added')}
-          placeholder="date_added"
+        // placeholder="date_added"
         />
         {/* PLANT_TYPE */}
         <input
@@ -89,14 +91,20 @@ function PlantForm(props) {
           placeholder="plant_type"
         />
         {/* LIGHT_LEVEL */}
-        <select value={newPlant.light_level} name="" id="">
-          <option hidden>Light Level</option>
-          <option>option 1</option>
-          <option>option 2</option>
-          <option>option 3</option>
+        <select
+          required
+          value={newPlant.light_level}
+          name="light_level"
+          id="light_level"
+          onChange={(event) => handleNameChange(event, 'light_level')}
+        >
+          <option hidden value="null">Light Level</option>
+          <option value="1">Low</option>
+          <option value="2">Medium</option>
+          <option value="3">High</option>
         </select>
-         {/* WATER_FREQ */}
-         <input
+        {/* WATER_FREQ */}
+        <input
           required
           type="number"
           value={newPlant.water_freq}
@@ -109,7 +117,7 @@ function PlantForm(props) {
           type="date"
           value={newPlant.date_watered}
           onChange={(event) => handleNameChange(event, 'date_watered')}
-          placeholder="date_watered"
+        // placeholder="date_watered"
         />
         {/* DATE_POTTED */}
         <input
@@ -117,19 +125,18 @@ function PlantForm(props) {
           type="date"
           value={newPlant.date_potted}
           onChange={(event) => handleNameChange(event, 'date_potted')}
-          placeholder="date_potted"
+        // placeholder="date_potted"
         />
-          {/* DATE_FERTILIZED */}
-          <input
+        {/* DATE_FERTILIZED */}
+        <input
           required
           type="date"
           value={newPlant.date_fertilized}
           onChange={(event) => handleNameChange(event, 'date_fertilized')}
-          placeholder="date_fertilized"
+        // placeholder="date_fertilized"
         />
-         {/* NOTES */}
-         <input
-          required
+        {/* NOTES */}
+        <input
           type="text"
           value={newPlant.notes}
           onChange={(event) => handleNameChange(event, 'notes')}

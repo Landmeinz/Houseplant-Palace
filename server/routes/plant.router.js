@@ -1,3 +1,4 @@
+const { default: axios } = require('axios');
 const express = require('express');
 const {
     rejectUnauthenticated,
@@ -36,8 +37,28 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 
 // POST a new plant to the plant database // 
 
-router.post('/', (req, res) => {
+router.post('/', rejectUnauthenticated, (req, res) => {
     // POST route code here
+    console.log('--- in router.POST /api/plant');
+    console.log('is authenticated?', req.isAuthenticated());
+    console.log('router.POST /api/plants req.user', req.user);
+    console.log('--- in router.POST req.body', req.body);
+    
+
+    let queryText = `
+    INSERT INTO "plant"
+	    ("user_id", "nickname", "date_added", "plant_type", "light_level", "water_freq", "date_watered", "date_potted", "date_fertilized", "notes") 
+    VALUES 
+	    ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10);` ;
+
+    const values = [req.user.id, req.body.nickname, req.body.date_added, req.body.plant_type, req.body.light_level, req.body.water_freq, req.body.date_watered, req.body.date_potted, req.body.date_fertilized, req.body.notes]
+
+    pool.query(queryText, values)
+        .then(result => {
+            res.sendStatus(201);
+        }).catch(error => {
+            res.sendStatus(500);
+        });
 });
 
 module.exports = router;
