@@ -14,15 +14,15 @@ function Dashboard(props) {
   const [heading, setHeading] = useState('Functional Component');
 
 
-  const sxPlantBox = {
+  const sxDashboardContainer = {
     border: 1,
     m: 2,
     overflow: 'scroll',
 
-  }
+  }; // sxDashboardContainer
 
   return (
-    <Box sx={sxPlantBox}>
+    <Box sx={sxDashboardContainer}>
       <h2>DASHBOARD STUFF!</h2>
 
       {plants.map(plant => (
@@ -40,6 +40,6 @@ function Dashboard(props) {
       ))}
     </Box>
   );
-}
+}; // Dashboard
 
 export default Dashboard;

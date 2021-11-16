@@ -14,8 +14,8 @@ function PlantForm(props) {
 
   // Using hooks we're creating local state for a "heading" variable with
   // a default value of 'Functional Component'
-  const store = useSelector((store) => store);
-  const [heading, setHeading] = useState('Functional Component');
+  // const store = useSelector((store) => store);
+  // const [heading, setHeading] = useState('Functional Component');
 
   const emptyPlant = {
     nickname: '',
@@ -27,7 +27,7 @@ function PlantForm(props) {
     date_potted: '',
     date_fertilized: '',
     notes: null
-  }
+  }; // emptyPlant
 
   const [newPlant, setNewPlant] = useState(emptyPlant);
 
@@ -50,21 +50,21 @@ function PlantForm(props) {
   } // handleSubmit
 
 
-  const sxFormBox = {
+  const sxFormContainer = {
     border: 1,
     m: 2,
     overflow: 'scroll',
 
-  }
+  }; // sxFormContainer
 
 
   return (
-    <Box sx={sxFormBox}>
+    <Box sx={sxFormContainer}>
       <h2>PLANT FORM</h2>
 
       <form onSubmit={handleSubmit}>
 
-        <p>image uploader</p>
+        <p>image uploader goes here</p>
 
         {/* NICKNAME */}
         <input
@@ -74,6 +74,7 @@ function PlantForm(props) {
           onChange={(event) => handleNameChange(event, 'nickname')}
           placeholder="nickname"
         />
+
         {/* DATE_ADDED */}
         <input
           required
@@ -82,6 +83,7 @@ function PlantForm(props) {
           onChange={(event) => handleNameChange(event, 'date_added')}
         // placeholder="date_added"
         />
+
         {/* PLANT_TYPE */}
         <input
           required
@@ -90,6 +92,7 @@ function PlantForm(props) {
           onChange={(event) => handleNameChange(event, 'plant_type')}
           placeholder="plant_type"
         />
+
         {/* LIGHT_LEVEL */}
         <select
           required
@@ -103,6 +106,7 @@ function PlantForm(props) {
           <option value="2">Medium</option>
           <option value="3">High</option>
         </select>
+
         {/* WATER_FREQ */}
         <input
           required
@@ -111,6 +115,7 @@ function PlantForm(props) {
           onChange={(event) => handleNameChange(event, 'water_freq')}
           placeholder="water_freq"
         />
+
         {/* DATE_WATERED */}
         <input
           required
@@ -119,6 +124,7 @@ function PlantForm(props) {
           onChange={(event) => handleNameChange(event, 'date_watered')}
         // placeholder="date_watered"
         />
+
         {/* DATE_POTTED */}
         <input
           required
@@ -127,6 +133,7 @@ function PlantForm(props) {
           onChange={(event) => handleNameChange(event, 'date_potted')}
         // placeholder="date_potted"
         />
+
         {/* DATE_FERTILIZED */}
         <input
           required
@@ -135,6 +142,7 @@ function PlantForm(props) {
           onChange={(event) => handleNameChange(event, 'date_fertilized')}
         // placeholder="date_fertilized"
         />
+
         {/* NOTES */}
         <input
           type="text"
@@ -143,11 +151,10 @@ function PlantForm(props) {
           placeholder="notes"
         />
 
-
         <button type="submit">SUBMIT</button>
       </form>
     </Box>
   );
-}
+}; // PlantForm
 
 export default PlantForm;

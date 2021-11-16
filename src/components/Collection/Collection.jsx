@@ -13,15 +13,15 @@ function Collection(props) {
   const photos = useSelector((store) => store.photos);
   const [heading, setHeading] = useState('Functional Component');
 
-  const sxPhotoBox = {
+  const sxCollectionContainer = {
     border: 1,
     m: 2,
     overflow: 'scroll',
 
-  }
+  }; // sxCollectionContainer
 
   return (
-    <Box sx={sxPhotoBox}>
+    <Box sx={sxCollectionContainer}>
       <h2>COLLECTION OF PLANTS</h2>
 
       {photos.map(photo => (
@@ -33,6 +33,6 @@ function Collection(props) {
 
     </Box>
   );
-}
+}; // Collection
 
 export default Collection;
