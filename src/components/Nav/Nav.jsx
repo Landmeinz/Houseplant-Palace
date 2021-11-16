@@ -34,40 +34,37 @@ function Nav() {
       </Link> */}
 
       <Box sx={sxNavContent}>
-    {/* If no user is logged in, show these links */}
-    {user.id === null &&
-      // If there's no user, show login/registration links
-      <Link className="navLink" to="/login">
-      Login / Register
-      </Link>
-    }
+        {/* If no user is logged in, show these links */}
+        {user.id === null &&
+          // If there's no user, show login/registration links
+          <Link className="navLink" to="/login">
+            Login / Register
+          </Link>
+        }
 
-    {/* If a user is logged in, show these links */}
-    {user.id && (
-      <>
-      <Link className="navLink" to="/dashboard">
-      Dashboard
-      </Link>
+        {/* If a user is logged in, show these links */}
+        {user.id && (
+          <>
+            <Link className="navLink" to="/dashboard">
+              Dashboard
+            </Link>
 
-      <Link className="navLink" to="/collection">
-      Collection
-      </Link>
+            <Link className="navLink" to="/collection">
+              Collection
+            </Link>
 
-      <Link className="navLink" to="/add_plant">
-      Add Plant
-      </Link>
+            <Link className="navLink" to="/add_plant">
+              Add Plant
+            </Link>
 
-      <Link className="navLink" to="/user_profile">
-      Profile
-      </Link>
+            <Link className="navLink" to="/user_profile">
+              Profile
+            </Link>
 
-      <LogOutButton className="navLink" />
-      </>
-    )}
+          </>
+        )}
 
-     
-
-    </Box>
+      </Box>
 
     </div>
   );
