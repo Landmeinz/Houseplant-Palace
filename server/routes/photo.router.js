@@ -1,7 +1,7 @@
 const express = require('express');
 const {
-    rejectUnauthenticated,
-  } = require('../modules/authentication-middleware');
+  rejectUnauthenticated,
+} = require('../modules/authentication-middleware');
 const pool = require('../modules/pool');
 const router = express.Router();
 
@@ -15,17 +15,20 @@ router.get('/', rejectUnauthenticated, (req, res) => {
   console.log('router.get photo req.user', req.user);
 
   let queryText = `
-    SELECT    *
-    FROM      "photo"; ` ;
+    SELECT 	*
+    FROM 	"photo"
+    WHERE 	"user_id" = $1;` ;
 
-  pool.query(queryText)
-      .then(result => {
-          console.log('--- result.rows', result.rows);
-          res.send(result.rows);
-      }).catch(error => {
-          console.log('ERROR router.GET /api/photo', error);
-          res.sendStatus(500);
-      });
+  let userId = [req.user.id];
+
+  pool.query(queryText, userId)
+    .then(result => {
+      console.log('--- router.GET /api/photo result.rows', result.rows);
+      res.send(result.rows);
+    }).catch(error => {
+      console.log('ERROR router.GET /api/photo', error);
+      res.sendStatus(500);
+    });
 });
 
 /**

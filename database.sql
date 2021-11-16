@@ -4,7 +4,8 @@
 -- ex. SELECT * FROM "user";
 -- Otherwise you will have errors!
 
--- table of users -- 
+-- new table --
+
 CREATE TABLE "user" (
 	"id" serial NOT NULL,
 	"username" varchar(100) NOT NULL UNIQUE,
@@ -16,7 +17,6 @@ CREATE TABLE "user" (
 );
 
 
--- plants -- 
 
 CREATE TABLE "plant" (
 	"id" serial NOT NULL,
@@ -25,30 +25,21 @@ CREATE TABLE "plant" (
 	"date_added" DATE NOT NULL,
 	"plant_type" varchar(100) NOT NULL,
 	"light_level" int NOT NULL,
-	"water_freq" int NOT NULL DEFAULT '7',
+	"water_freq" int NOT NULL,
 	"date_watered" DATE NOT NULL,
 	"date_potted" DATE NOT NULL,
-	"date_fertilized" DATE,
-	"notes" varchar(255) DEFAULT 'n/a',
+	"date_fertilized" DATE NOT NULL,
+	"notes" varchar(255) DEFAULT 'null',
 	CONSTRAINT "plant_pk" PRIMARY KEY ("id")
 ) WITH (
   OIDS=FALSE
 );
 
 
-INSERT INTO "plant"
-	("user_id", "nickname", "date_added", "plant_type", "light_level", "water_freq", "date_watered", "date_potted", "date_fertilized", "notes") 
-VALUES 
-	('2', 'Figgy', '2019-10-11', 'Fiddle Leaf Fig', '3', '9', '2021-11-08', '2019-10-11', '2020-03-09', 'Turn on first water of the month' ),
-	('2', 'Devil', '2020-08-19', 'Golden Pothos', '2', '7', '2021-11-15', '2020-08-19', '2020-08-19', null),
-	('3', 'Dummy', '2021-05-22', 'Dumbcane', '2', '6', '2021-11-15', '2021-05-22', '2021-05-22', null )
-;
-
-
--- photos -- 
 
 CREATE TABLE "photo" (
 	"id" serial NOT NULL,
+	"user_id" int NOT NULL,
 	"plant_id" int NOT NULL,
 	"photo_url" varchar(255) NOT NULL,
 	"date_uploaded" DATE NOT NULL,
@@ -58,20 +49,6 @@ CREATE TABLE "photo" (
 );
 
 
-INSERT INTO "photo"
-	("plant_id", "photo_url", "date_uploaded")
-VALUES 
-	('1', 'https://bit.ly/3owgpgV', CURRENT_DATE),
-	('1', 'https://bit.ly/3qGdOnl', CURRENT_DATE),
-	('2', 'https://bit.ly/3qD0Bvp', CURRENT_DATE),
-	('2', 'https://bit.ly/3ccBV4A', CURRENT_DATE),
-	('3', 'https://bit.ly/3Hpi2pl', CURRENT_DATE),
-	('3', 'https://bit.ly/3CiWKWO', CURRENT_DATE)
-;
-
-
-
--- stretch comments --
 
 CREATE TABLE "comment" (
 	"id" serial NOT NULL,
@@ -85,15 +62,40 @@ CREATE TABLE "comment" (
 
 
 
-
 ALTER TABLE "plant" ADD CONSTRAINT "plant_fk0" FOREIGN KEY ("user_id") REFERENCES "user"("id");
 
-ALTER TABLE "photo" ADD CONSTRAINT "photo_fk0" FOREIGN KEY ("plant_id") REFERENCES "plant"("id");
+ALTER TABLE "photo" ADD CONSTRAINT "photo_fk0" FOREIGN KEY ("user_id") REFERENCES "user"("id");
+ALTER TABLE "photo" ADD CONSTRAINT "photo_fk1" FOREIGN KEY ("plant_id") REFERENCES "plant"("id");
 
 ALTER TABLE "comment" ADD CONSTRAINT "comment_fk0" FOREIGN KEY ("user_id") REFERENCES "user"("id");
 
 
 
+-- insert plant data -- 
+
+INSERT INTO "plant"
+	("user_id", "nickname", "date_added", "plant_type", "light_level", "water_freq", "date_watered", "date_potted", "date_fertilized", "notes") 
+VALUES 
+	('1', 'Figgy', '2019-10-11', 'Fiddle Leaf Fig', '3', '9', '2021-11-08', '2019-10-11', '2020-03-09', 'Turn on first water of the month' ),
+	('1', 'Devil', '2020-08-19', 'Golden Pothos', '2', '7', '2021-11-15', '2020-08-19', '2020-08-19', null),
+	('1', 'Dummy', '2021-05-22', 'Dumbcane', '2', '6', '2021-11-15', '2021-05-22', '2021-05-22', null ),
+	('1', 'Joey', '2020-08-19', 'Golden Pothos', '2', '7', '2021-11-15', '2020-08-19', '2020-08-19', null),
+	('2', 'Tony', '2019-12-09', 'Golden Pothos', '2', '7', '2021-08-19', '2020-08-19', '2020-08-19', null)
+;
+
+
+-- insert photo data -- 
+
+INSERT INTO "photo"
+	("user_id", "plant_id", "photo_url", "date_uploaded")
+VALUES 
+	('1', '1', 'https://bit.ly/3owgpgV', CURRENT_DATE),
+	('1', '1', 'https://bit.ly/3qGdOnl', CURRENT_DATE),
+	('1', '2', 'https://bit.ly/3qD0Bvp', CURRENT_DATE),
+	('1', '3', 'https://bit.ly/3ccBV4A', CURRENT_DATE),
+	('1', '4', 'https://bit.ly/3Hpi2pl', CURRENT_DATE),
+	('2', '5', 'https://bit.ly/3CiWKWO', CURRENT_DATE)
+;
 
 
 

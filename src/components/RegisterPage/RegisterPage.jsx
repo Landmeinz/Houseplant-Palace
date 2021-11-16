@@ -8,8 +8,17 @@ function RegisterPage() {
 
   return (
     <div>
+      <h1>Houseplant Palace</h1>
+
+      <img
+        src="place-of-worship-solid.svg"
+        alt="Houseplant Palace Logo"
+        width="200"
+      />
+
       <RegisterForm />
 
+      {/* navigate to Login page */}
       <center>
         <button
           type="button"
@@ -18,7 +27,7 @@ function RegisterPage() {
             history.push('/login');
           }}
         >
-          Login
+          Tap here to Login with username
         </button>
       </center>
     </div>

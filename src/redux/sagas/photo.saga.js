@@ -6,7 +6,7 @@ function* fetchPhotos() {
 
     try {
         const response = yield axios.get('/api/photo')
-        console.log('--- fetchPhotos saga response.data', response.data);
+        // console.log('--- fetchPhotos saga response.data', response.data);
 
         yield put({ type: 'SET_PHOTOS', payload: response.data })
 
