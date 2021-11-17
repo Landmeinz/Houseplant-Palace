@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
+// --- FILESTACK for image upload --- // 
+import { PickerDropPane } from 'filestack-react'; // PickerOverlay, PickerInline
+
 // --- MUI --- // 
 import Box from '@mui/material/Box';
 
@@ -50,13 +53,34 @@ function PlantForm(props) {
     setNewPlant(emptyPlant);
   } // handleSubmit
 
+  const handleClick = () => {
+    console.log('CLICKED on uploadImage');
 
+  }
+
+
+  // holds all page content
   const sxFormContainer = {
     border: 1,
     m: 2,
     overflow: 'scroll',
 
   }; // sxFormContainer
+
+  // box around the drop pane
+  const sxUploaderBox = {
+    display: 'flex',
+    flexDirection: 'column',
+    // justifyContent: 'left',
+    // alignItems: 'center',
+    gap: 2,
+    width: 'auto',
+    height: 'auto',
+    cursor: 'pointer',
+    mx: 'auto',
+    p: 'auto',
+    boxShadow: 3,
+  }; // sxUploaderBox
 
 
   return (
@@ -65,7 +89,20 @@ function PlantForm(props) {
 
       <form onSubmit={handleSubmit}>
 
-        <p>image uploader goes here</p>
+        <p>1: Select your image and click on upload</p>
+
+        <Box sx={sxUploaderBox}>
+          <PickerDropPane
+            mode={'pick'}
+            apikey='A09e78cDRI65bPtSGZMEwz'
+            onSuccess={(response) => console.log(response)}
+            onUploadDone={(response) => console.log(response)}
+          // buttonText={'Pick File'}
+          />
+          <button>upload</button>
+        </Box>
+
+        <p>2: Fill out all of the info below</p>
 
         {/* NICKNAME */}
         <input
@@ -76,8 +113,8 @@ function PlantForm(props) {
           placeholder="nickname"
         />
 
-         {/* AVATAR_URL */}
-         <input
+        {/* AVATAR_URL */}
+        <input
           required
           type="text"
           value={newPlant.avatar_url}
@@ -161,7 +198,10 @@ function PlantForm(props) {
           placeholder="notes"
         />
 
-        <button type="submit">SUBMIT</button>
+        <button
+          type="submit"
+          onClick={handleClick}
+        >SUBMIT</button>
       </form>
     </Box>
   );

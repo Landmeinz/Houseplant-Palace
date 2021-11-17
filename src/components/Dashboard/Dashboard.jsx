@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
+
 // --- MUI --- // 
 import Box from '@mui/material/Box';
 
@@ -20,8 +21,27 @@ function Dashboard(props) {
   const [heading, setHeading] = useState('Functional Component');
 
   console.log('--- plants from the store in Dashboard,', plants);
-  // console.log('--- the current date:', current_date);
+  console.log('--- the current date:', current_date);
 
+
+  function handleClick(input, plant) {
+
+    switch (input) {
+      case 'dispatch':
+        console.log('CLICKED on the image');
+        console.log('this is the current plant from handleClick', plant);
+        dispatch({
+          type: 'FETCH_SELECTED_PLANT',
+          payload: plant.id
+        });
+        history.push('/PlantDetails');
+        break;
+
+      default:
+        break;
+    }; // switch
+
+  }; // handleClick
 
 
   const showContent = (
@@ -30,13 +50,13 @@ function Dashboard(props) {
 
       {/* display the current date from the server */}
       {current_date.map(today => (
-        <h3 key={today.id}>{today.current_date.split(`T`)[0]}</h3>
+        <h3 key={today.current_date}>{today.current_date.split(`T`)[0]}</h3>
       ))}
 
       {plants.map(plant => (
         <div key={plant.id}>
           <h3>{plant.nickname}</h3>
-          <img onClick={() => history.push('/PlantDetails')} src={plant.avatar_url} width="200" height="200" />
+          <img onClick={() => handleClick('dispatch', plant)} src={plant.avatar_url} width="150" height="150" />
           {/* <p>current_date : {plant.current_date.split(`T`)[0]}</p> */}
           <p>Water Every {plant.water_freq} Days</p>
           <p>Last Watered: {plant.date_watered.split(`T`)[0]}</p>
