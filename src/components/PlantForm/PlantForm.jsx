@@ -19,6 +19,7 @@ function PlantForm(props) {
 
   const emptyPlant = {
     nickname: '',
+    avatar_url: '',
     date_added: '',
     plant_type: '',
     light_level: '',
@@ -73,6 +74,15 @@ function PlantForm(props) {
           value={newPlant.nickname}
           onChange={(event) => handleNameChange(event, 'nickname')}
           placeholder="nickname"
+        />
+
+         {/* AVATAR_URL */}
+         <input
+          required
+          type="text"
+          value={newPlant.avatar_url}
+          onChange={(event) => handleNameChange(event, 'avatar_url')}
+          placeholder="avatar_url"
         />
 
         {/* DATE_ADDED */}

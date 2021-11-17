@@ -22,6 +22,7 @@ CREATE TABLE "plant" (
 	"id" serial NOT NULL,
 	"user_id" int NOT NULL,
 	"nickname" varchar(100) NOT NULL,
+	"avatar_url" varchar(255) NOT NULL,
 	"date_added" DATE NOT NULL,
 	"plant_type" varchar(100) NOT NULL,
 	"light_level" int NOT NULL,
@@ -70,17 +71,19 @@ ALTER TABLE "photo" ADD CONSTRAINT "photo_fk1" FOREIGN KEY ("plant_id") REFERENC
 ALTER TABLE "comment" ADD CONSTRAINT "comment_fk0" FOREIGN KEY ("user_id") REFERENCES "user"("id");
 
 
+-- new table end --
+
 
 -- insert plant data -- 
 
 INSERT INTO "plant"
-	("user_id", "nickname", "date_added", "plant_type", "light_level", "water_freq", "date_watered", "date_potted", "date_fertilized", "notes") 
+	("user_id", "nickname", "avatar_url", "date_added", "plant_type", "light_level", "water_freq", "date_watered", "date_potted", "date_fertilized", "notes") 
 VALUES 
-	('1', 'Figgy', '2019-10-11', 'Fiddle Leaf Fig', '3', '9', '2021-11-08', '2019-10-11', '2020-03-09', 'Turn on first water of the month' ),
-	('1', 'Devil', '2020-08-19', 'Golden Pothos', '2', '7', '2021-11-15', '2020-08-19', '2020-08-19', null),
-	('1', 'Dummy', '2021-05-22', 'Dumbcane', '2', '6', '2021-11-15', '2021-05-22', '2021-05-22', null ),
-	('1', 'Joey', '2020-08-19', 'Golden Pothos', '2', '7', '2021-11-15', '2020-08-19', '2020-08-19', null),
-	('2', 'Tony', '2019-12-09', 'Golden Pothos', '2', '7', '2021-08-19', '2020-08-19', '2020-08-19', null)
+	('1', 'Figgy', 'https://bit.ly/3owgpgV', '2019-10-11', 'Fiddle Leaf Fig', '3', '9', '2021-11-08', '2019-10-11', '2020-03-09', 'Turn on first water of the month' ),
+	('1', 'Devil', 'https://bit.ly/3qD0Bvp', '2020-08-19', 'Golden Pothos', '2', '7', '2021-11-15', '2020-08-19', '2020-08-19', null),
+	('1', 'Dummy', 'https://bit.ly/3ccBV4A', '2021-05-22', 'Dumbcane', '2', '6', '2021-11-15', '2021-05-22', '2021-05-22', null ),
+	('1', 'Joey', 'https://bit.ly/3Hpi2pl', '2020-08-19', 'Golden Pothos', '2', '7', '2021-11-15', '2020-08-19', '2020-08-19', null),
+	('2', 'Tony', 'https://bit.ly/3CiWKWO', '2019-12-09', 'Golden Pothos', '2', '7', '2021-08-19', '2020-08-19', '2020-08-19', null)
 ;
 
 
@@ -89,14 +92,13 @@ VALUES
 INSERT INTO "photo"
 	("user_id", "plant_id", "photo_url", "date_uploaded")
 VALUES 
-	('1', '1', 'https://bit.ly/3owgpgV', CURRENT_DATE),
-	('1', '1', 'https://bit.ly/3qGdOnl', CURRENT_DATE),
-	('1', '2', 'https://bit.ly/3qD0Bvp', CURRENT_DATE),
-	('1', '3', 'https://bit.ly/3ccBV4A', CURRENT_DATE),
-	('1', '4', 'https://bit.ly/3Hpi2pl', CURRENT_DATE),
-	('2', '5', 'https://bit.ly/3CiWKWO', CURRENT_DATE)
+	('1', '1', 'https://media.istockphoto.com/vectors/cute-plant-cartoon-hand-drawn-style-vector-id1163488567', '2021-08-19'),
+	('1', '1', 'https://media.istockphoto.com/vectors/cute-plant-cartoon-hand-drawn-style-vector-id1163488567', '2020-10-09'),
+	('1', '2', 'https://media.istockphoto.com/vectors/cute-plant-cartoon-hand-drawn-style-vector-id1163488567', '2020-08-19'),
+	('1', '3', 'https://media.istockphoto.com/vectors/cute-plant-cartoon-hand-drawn-style-vector-id1163488567', '2019-03-28'),
+	('1', '4', 'https://media.istockphoto.com/vectors/cute-plant-cartoon-hand-drawn-style-vector-id1163488567', '2020-06-03'),
+	('2', '5', 'https://media.istockphoto.com/vectors/cute-plant-cartoon-hand-drawn-style-vector-id1163488567', '2020-11-14')
 ;
-
 
 
 

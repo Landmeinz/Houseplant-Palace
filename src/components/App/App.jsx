@@ -23,6 +23,7 @@ import Collection from '../Collection/Collection.jsx';
 import Dashboard from '../Dashboard/Dashboard.jsx';
 import PlantForm from '../PlantForm/PlantForm.jsx';
 import Profile from '../Profile/Profile.jsx';
+import PlantDetails from '../PlantDetails/PlantDetails.jsx';
 
 import './App.css';
 
@@ -35,6 +36,7 @@ function App() {
     dispatch({ type: 'FETCH_USER' });
     dispatch({ type: 'FETCH_PLANTS' });
     dispatch({ type: 'FETCH_PHOTOS' });
+    dispatch({ type: 'FETCH_CURRENT_DATE' })
   }, [dispatch]);
 
 
@@ -69,6 +71,15 @@ function App() {
             path="/collection"
           >
             <Collection />
+          </ProtectedRoute>
+
+          {/* by tapping on the plant in either the dashboard or the collection page you will be brought here*/}
+          <ProtectedRoute
+            // logged in shows PlantDetails when tapped on 
+            exact
+            path="/PlantDetails"
+          >
+            <PlantDetails />
           </ProtectedRoute>
 
           {/* Visiting localhost:3000/add_plant will allow user to add a new plant. */}

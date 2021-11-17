@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 // --- MUI --- // 
 import Box from '@mui/material/Box';
@@ -10,31 +11,35 @@ import Box from '@mui/material/Box';
 // value setup. When making a new component be sure to replace the
 // component name TemplateFunction with the name for the new component.
 function Dashboard(props) {
-  const dispatch = useDispatch();
-
   // Using hooks we're creating local state for a "heading" variable with
   // a default value of 'Functional Component'
+  const dispatch = useDispatch();
+  const history = useHistory();
   const plants = useSelector((store) => store.plants);
+  const current_date = useSelector((store) => store.current_date);
   const [heading, setHeading] = useState('Functional Component');
 
   console.log('--- plants from the store in Dashboard,', plants);
+  // console.log('--- the current date:', current_date);
 
 
 
   const showContent = (
     <div>
-      <p>showContent</p>
+      <h2>DASHBOARD</h2>
+
+      {/* display the current date from the server */}
+      {current_date.map(today => (
+        <h3 key={today.id}>{today.current_date.split(`T`)[0]}</h3>
+      ))}
+
       {plants.map(plant => (
         <div key={plant.id}>
           <h3>{plant.nickname}</h3>
-          <p>date_added : {plant.date_added.split(`T`)[0]}</p>
-          <p>plant_type : {plant.plant_type}</p>
-          <p>light_level : {plant.light_level}</p>
-          <p>water_freq : Every {plant.water_freq} Days</p>
-          <p>date_watered : {plant.date_watered.split(`T`)[0]}</p>
-          <p>date_potted : {plant.date_potted.split(`T`)[0]}</p>
-          <p>date_fertilized : {plant.date_fertilized.split(`T`)[0]}</p>
-          <p>notes : {plant.notes}</p>
+          <img onClick={() => history.push('/PlantDetails')} src={plant.avatar_url} width="200" height="200" />
+          {/* <p>current_date : {plant.current_date.split(`T`)[0]}</p> */}
+          <p>Water Every {plant.water_freq} Days</p>
+          <p>Last Watered: {plant.date_watered.split(`T`)[0]}</p>
         </div>
       ))}
     </div>
@@ -58,11 +63,7 @@ function Dashboard(props) {
 
   return (
     <Box sx={sxDashboardContainer}>
-
-      <h2>DASHBOARD STUFF!</h2>
-
       {plants.length > 0 ? showContent : showMessage}
-
     </Box>
   );
 }; // Dashboard

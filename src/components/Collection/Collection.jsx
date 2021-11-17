@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 // --- MUI --- // 
 import Box from '@mui/material/Box';
@@ -10,20 +11,24 @@ import Box from '@mui/material/Box';
 function Collection(props) {
   // Using hooks we're creating local state for a "heading" variable with
   // a default value of 'Functional Component'
+  const history = useHistory();
   const photos = useSelector((store) => store.photos);
+  const plants = useSelector((store) => store.plants);
+  const current_date = useSelector((store) => store.current_date);
   const [heading, setHeading] = useState('Functional Component');
 
   console.log('these are the photos in Collection:', photos);
+  console.log('these are the plants in Collection:', plants);
 
   const showContent = (
     <div>
-      <p>showContent</p>
-      {photos.map(photo => (
-        <div key={photo.id}>
-          <p>photo id: {photo.id}</p>
-          <img src={photo.photo_url} />
-          <p>{photo.date_uploaded.split(`T`)[0]}</p>
-          
+
+      {plants.map(plant => (
+        <div key={plant.id}>
+          <h3>{plant.nickname}</h3>
+          <p>{plant.date_added.split(`T`)[0]}</p>
+          <img onClick={() => history.push('/PlantDetails')} src={plant.avatar_url} />
+
         </div>
       ))}
     </div>
