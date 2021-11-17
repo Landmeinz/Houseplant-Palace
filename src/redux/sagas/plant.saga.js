@@ -7,7 +7,7 @@ function* fetchPlants() {
 
     try {
         const response = yield axios.get('/api/plant')
-        console.log('--- fetchPlants saga response.data', response.data);
+        // console.log('--- fetchPlants saga response.data', response.data);
 
         yield put({ type: 'SET_PLANTS', payload: response.data })
 
@@ -29,6 +29,7 @@ function* postPlant(action) {
         yield put({ type: 'ERROR postPlant SAGA' })
     }
 }
+
 
 function* plantSaga() {
     yield takeLatest('FETCH_PLANTS', fetchPlants)

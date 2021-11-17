@@ -17,6 +17,9 @@ function RegisterForm() {
         password: password,
       },
     });
+    dispatch({ type: 'FETCH_PLANTS' });
+    dispatch({ type: 'FETCH_PHOTOS' });
+    window.location.reload(false);
   }; // end registerUser
 
   return (

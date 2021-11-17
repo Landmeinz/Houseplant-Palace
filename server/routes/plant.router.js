@@ -1,4 +1,4 @@
-const { default: axios } = require('axios');
+
 const express = require('express');
 const {
     rejectUnauthenticated,
@@ -16,7 +16,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
     console.log('router.GET /api/plants req.user', req.user);
 
     let queryText = `
-      SELECT    *
+      SELECT    *, CURRENT_DATE, "date_watered" + INTERVAL '1 day' * "water_freq" AS "next_water"
       FROM      "plant"
       WHERE     "user_id" = $1 ; ` ;
 
@@ -47,9 +47,9 @@ router.post('/', rejectUnauthenticated, (req, res) => {
 
     let queryText = `
     INSERT INTO "plant"
-	    ("user_id", "nickname", "date_added", "plant_type", "light_level", "water_freq", "date_watered", "date_potted", "date_fertilized", "notes") 
+	    ("user_id", "nickname", "avatar_url", "date_added", "plant_type", "light_level", "water_freq", "date_watered", "date_potted", "date_fertilized", "notes") 
     VALUES 
-	    ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10);` ;
+	    ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11);` ;
 
     const values = [req.user.id, req.body.nickname, req.body.date_added, req.body.plant_type, req.body.light_level, req.body.water_freq, req.body.date_watered, req.body.date_potted, req.body.date_fertilized, req.body.notes]
 

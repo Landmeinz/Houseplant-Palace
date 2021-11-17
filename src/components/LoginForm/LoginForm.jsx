@@ -19,6 +19,9 @@ function LoginForm() {
           password: password,
         },
       });
+      dispatch({type: 'FETCH_PLANTS'});
+      dispatch({type: 'FETCH_PHOTOS'});
+      dispatch({type: 'FETCH_USER'})
     } else {
       dispatch({ type: 'LOGIN_INPUT_ERROR' });
     }
@@ -26,7 +29,9 @@ function LoginForm() {
 
   return (
     <form className="formPanel" onSubmit={login}>
+
       <h2>Login</h2>
+      
       {errors.loginMessage && (
         <h3 className="alert" role="alert">
           {errors.loginMessage}

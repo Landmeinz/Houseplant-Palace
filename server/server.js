@@ -11,6 +11,7 @@ const passport = require('./strategies/user.strategy');
 const userRouter = require('./routes/user.router.js');
 const plantRouter = require('./routes/plant.router.js');
 const photoRouter = require('./routes/photo.router.js');
+const current_dateRouter = require('./routes/current_date.router.js')
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -27,6 +28,7 @@ app.use(passport.session());
 app.use('/api/user',  userRouter);
 app.use('/api/plant', plantRouter);
 app.use('/api/photo', photoRouter);
+app.use('/api/current_date', current_dateRouter);
 
 // Serve static files
 app.use(express.static('build'));

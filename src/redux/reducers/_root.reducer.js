@@ -3,6 +3,7 @@ import errors from './errors.reducer';
 import user from './user.reducer';
 import plants from './plant.reducer';
 import photos from './photo.reducer';
+import current_date from './current_date.reducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   user,     // will have an id and username if someone is logged in
   plants,   // getting the user's plants from the store
   photos,   // getting the photo's of all the plants
+  current_date,   // getting the current year month and day
 });
 
 export default rootReducer;

@@ -23,6 +23,7 @@ import Collection from '../Collection/Collection.jsx';
 import Dashboard from '../Dashboard/Dashboard.jsx';
 import PlantForm from '../PlantForm/PlantForm.jsx';
 import Profile from '../Profile/Profile.jsx';
+import PlantDetails from '../PlantDetails/PlantDetails.jsx';
 
 import './App.css';
 
@@ -35,10 +36,11 @@ function App() {
     dispatch({ type: 'FETCH_USER' });
     dispatch({ type: 'FETCH_PLANTS' });
     dispatch({ type: 'FETCH_PHOTOS' });
+    dispatch({ type: 'FETCH_CURRENT_DATE' })
   }, [dispatch]);
 
 
-  
+
   return (
     <Router>
       <div>
@@ -53,7 +55,7 @@ function App() {
               If the user is not logged in, the ProtectedRoute will show the LoginPage (component).
               Even though it seems like they are different pages, the user is always on localhost:3000/user */}
 
-          {/* Visiting localhost:3000/dashboard will show the dashboard water schedule. */}
+          {/* Visiting localhost:3000/dashboard will show the user their dashboard & water schedule. */}
           <ProtectedRoute
             // logged in shows Dashboard else shows LoginPage
             exact
@@ -62,7 +64,7 @@ function App() {
             <Dashboard />
           </ProtectedRoute>
 
-          {/* Visiting localhost:3000/collection will show the collection of plants. */}
+          {/* Visiting localhost:3000/collection will show the use their collection of plants. */}
           <ProtectedRoute
             // logged in shows Collection else shows LoginPage
             exact
@@ -71,6 +73,16 @@ function App() {
             <Collection />
           </ProtectedRoute>
 
+          {/* by tapping on the plant in either the dashboard or the collection page you will be brought here*/}
+          <ProtectedRoute
+            // logged in shows PlantDetails when tapped on 
+            exact
+            path="/PlantDetails"
+          >
+            <PlantDetails />
+          </ProtectedRoute>
+
+          {/* Visiting localhost:3000/add_plant will allow user to add a new plant. */}
           <ProtectedRoute
             // logged in shows PlantForm else shows LoginPage
             exact
@@ -79,6 +91,7 @@ function App() {
             <PlantForm />
           </ProtectedRoute>
 
+          {/* Visiting localhost:3000/user_profile will allow user to view their profile */}
           <ProtectedRoute
             // logged in shows Profile else shows LoginPage
             exact
@@ -87,8 +100,9 @@ function App() {
             <Profile />
           </ProtectedRoute>
 
-              {/* // -- check under here -- //  */}
+          {/* // -- LOGIN vs REGISTER -- //  */}
 
+          {/* LOGIN PAGE */}
           <Route
             exact
             path="/login"
@@ -103,6 +117,7 @@ function App() {
             }
           </Route>
 
+          {/* REGISTER PAGE */}
           <Route
             exact
             path="/registration"
@@ -117,31 +132,15 @@ function App() {
             }
           </Route>
 
-          <Route
-            exact
-            path="/dashboard"
-          >
-            {user.id ?
-              // If the user is already logged in, 
-              // redirect them to the /user page
-              <Redirect to="/dashboard" />
-              :
-              // Otherwise, show the Landing page
-              <LandingPage />
-            }
-          </Route>
-
-          {/* If none of the other routes matched, we will show a 404. */}
+          {/* ELSE IF no other routes matched, we will show a 404. */}
           <Route>
             <h1>404</h1>
           </Route>
 
-          <UserPage />
-
         </Switch>
 
+        {/* show NAV on ALL views */}
         <Nav />
-        <Footer />
 
       </div>
     </Router>
