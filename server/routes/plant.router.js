@@ -33,6 +33,33 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 });
 
 
+router.get('/:id', rejectUnauthenticated, (req, res) => {
+    // GET route code here
+    console.log('--- in router.GET /api/plant/:id');
+    console.log('is authenticated?', req.isAuthenticated());
+    console.log('router.GET /api/plants/:id req.user', req.user);
+    console.log('req.params.id'), req.params.id;
+    
+
+    let queryText = `
+      SELECT    *
+      FROM      "photo"
+      WHERE     "user_id" = $1 
+      AND       "plant_id" = $2; ` ;
+
+    const values = [req.user.id, req.params.id]
+
+    pool.query(queryText, values)
+        .then(result => {
+            console.log('--- router.get --- photo/:id --- result.rows', result.rows);
+            res.send(result.rows);
+        }).catch(error => {
+            console.log('ERROR router.GET /api/plant', error);
+            res.sendStatus(500);
+        });
+});
+
+
 
 
 // POST a new plant to the plant database // 
