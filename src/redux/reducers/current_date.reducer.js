@@ -7,6 +7,6 @@ const currentDateReducer = (state = [], action) => {
         default:
             return state;
     }
-}; // plantsReducer
+}; // currentDateReducer
 
 export default currentDateReducer;

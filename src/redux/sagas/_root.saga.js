@@ -22,4 +22,4 @@ export default function* rootSaga() {
     photoSaga(),
     currentDateSaga(),
   ]);
-}
+}; // rootSaga

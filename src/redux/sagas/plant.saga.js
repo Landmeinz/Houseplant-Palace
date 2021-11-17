@@ -11,10 +11,10 @@ function* fetchPlants() {
 
         yield put({ type: 'SET_PLANTS', payload: response.data })
 
-    } catch (err) {
-        console.log('ERROR fetchPlants Saga', err);
+    } catch (error) {
+        console.log('ERROR fetchPlants Saga', error);
     }
-}
+}; // fetchPlants
 
 
 function* postPlant(action) {
@@ -28,12 +28,26 @@ function* postPlant(action) {
         console.log('ERROR', error);
         yield put({ type: 'ERROR postPlant SAGA' })
     }
-}
+}; // postPlant
+
+
+function* selectedPlant(action) {
+    try {
+        const response = yield axios.get(`/api/plant/${action.payload}`)
+        console.log('--- selectedPlant saga response.data', response.data);
+
+        yield put({ type: 'SET_SELECTED_PLANT', payload: response.data })
+
+    } catch (error) {
+        console.log('ERROR fetchPlants Saga', error);
+    }
+}; // selectedPlant
 
 
 function* plantSaga() {
     yield takeLatest('FETCH_PLANTS', fetchPlants)
     yield takeLatest('ADD_PLANT', postPlant)
-}
+    yield takeLatest('FETCH_SELECTED_PLANT', selectedPlant)
+}; // plantSaga
 
 export default plantSaga;

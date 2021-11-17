@@ -31,6 +31,8 @@ router.get('/', rejectUnauthenticated, (req, res) => {
     });
 });
 
+
+
 /**
  * POST route template
  */

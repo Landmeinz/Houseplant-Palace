@@ -15,12 +15,12 @@ function* fetchCurrentDate() {
     } catch (error) {
         console.log('ERROR fetchCurrentDate Saga', error);
     }
-}
+}; // fetchCurrentDate
 
 
 
 function* currentDateSaga() {
     yield takeLatest('FETCH_CURRENT_DATE', fetchCurrentDate)
-}
+}; // currentDateSaga
 
 export default currentDateSaga;

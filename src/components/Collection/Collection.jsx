@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
 // --- MUI --- // 
 import Box from '@mui/material/Box';
@@ -11,6 +11,7 @@ import Box from '@mui/material/Box';
 function Collection(props) {
   // Using hooks we're creating local state for a "heading" variable with
   // a default value of 'Functional Component'
+  const dispatch = useDispatch();
   const history = useHistory();
   const photos = useSelector((store) => store.photos);
   const plants = useSelector((store) => store.plants);
@@ -20,6 +21,28 @@ function Collection(props) {
   console.log('these are the photos in Collection:', photos);
   console.log('these are the plants in Collection:', plants);
 
+
+  function handleClick(input, plant) {
+
+    switch (input) {
+      case 'dispatch':
+        console.log('CLICKED on the image');
+        console.log('this is the current plant from handleClick', plant);
+        dispatch({
+          type: 'FETCH_SELECTED_PLANT',
+          payload: plant.id
+        });
+        history.push('/PlantDetails');
+        break;
+
+      default:
+        break;
+    }; // switch
+
+  }; // handleClick
+
+
+
   const showContent = (
     <div>
 
@@ -27,12 +50,13 @@ function Collection(props) {
         <div key={plant.id}>
           <h3>{plant.nickname}</h3>
           <p>{plant.date_added.split(`T`)[0]}</p>
-          <img onClick={() => history.push('/PlantDetails')} src={plant.avatar_url} />
+          <img onClick={() => handleClick('dispatch', plant)} src={plant.avatar_url} />
 
         </div>
       ))}
     </div>
   ); // showContent
+
 
   const showMessage = (
     <div>
