@@ -50,10 +50,13 @@ function* selectedPlant(action) {
 // --- REMOVE SELECTED PLANT --- // 
 function* removePlant(action) {
     console.log('--- in removePlant Saga!');
+    console.log('---- id to remove action.payload:', action.payload);
+    
+    const removeId = action.payload
 
     try {
-        yield axios.delete(`/api/plant/${action.payload}`)
-        yield put({ type: 'FETCH_PLANTS' })
+        yield axios.delete(`/api/plant/${removeId}`)
+        yield history.push('/collection')
 
     } catch (error) {
         console.log('ERROR', error);

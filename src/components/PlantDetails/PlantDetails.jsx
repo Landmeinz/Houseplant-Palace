@@ -206,7 +206,7 @@ function PlantDetails(props) {
             {selectedPlant.length > 0 ? <p>Birthday: {selectedPlant[0].date_added.split(`T`)[0]}</p> : <></>}
             {selectedPlant.length > 0 ? <p>Light Level: {selectedPlant[0].light_level}</p> : <></>}
             {selectedPlant.length > 0 ? <p>Water Every {selectedPlant[0].water_freq} Days</p> : <></>}
-            {selectedPlant.length > 0 ? <p>Last Water Date: {selectedPlant[0].date_watered.split(`T`)[0]} Days</p> : <></>}
+            {selectedPlant.length > 0 ? <p>Last Water Date: {selectedPlant[0].date_watered.split(`T`)[0]}</p> : <></>}
             {selectedPlant.length > 0 ? <p>Date Potted: {selectedPlant[0].date_potted.split(`T`)[0]}</p> : <></>}
             {selectedPlant.length > 0 ? <p>Date Fertilized: {selectedPlant[0].date_fertilized.split(`T`)[0]}</p> : <></>}
             {selectedPlant.length > 0 ? <p>Notes: {selectedPlant[0].notes}</p> : <></>}

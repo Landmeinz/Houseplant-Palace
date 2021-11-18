@@ -39,7 +39,7 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
     console.log('is authenticated?', req.isAuthenticated());
     console.log('router.GET /api/plants/:id req.user', req.user);
     console.log('req.params.id'), req.params.id;
-    
+
 
     let queryText = `
         SELECT 	*, "photo".id as "photo_id"
@@ -69,7 +69,7 @@ router.post('/', rejectUnauthenticated, (req, res) => {
     console.log('is authenticated?', req.isAuthenticated());
     console.log('router.POST /api/plants req.user', req.user);
     console.log('--- in router.POST req.body', req.body);
-    
+
 
     let queryText = `
     INSERT INTO "plant"
@@ -89,25 +89,26 @@ router.post('/', rejectUnauthenticated, (req, res) => {
 
 
 // DELETE plant // 
-router.get('/:id', rejectUnauthenticated, (req, res) => {
+router.delete('/:id', rejectUnauthenticated, (req, res) => {
     // GET route code here
-    console.log('--- in router.DELETE /api/plant/:id');
+    console.log('----- in router.DELETE /api/plant/:id');
     console.log('is authenticated?', req.isAuthenticated());
     console.log('router.DELETE /api/plants/:id req.user', req.user);
-    console.log('req.params'), req.params;
-    
+    console.log('req.params'), req.params.id;
+
 
     let queryText = `
-        DELETE ` ;
+        DELETE 	FROM "plant"
+        WHERE 	"id" = $1;` ;
 
-    const values = [req.user.id, req.params]
+    const values = [req.params.id]
 
     pool.query(queryText, values)
         .then(result => {
-            console.log('--- router.get --- photo/:id --- result.rows', result.rows);
+            console.log('--- router.delete --- plant/:id --- result.rows', result.rows);
             res.send(result.rows);
         }).catch(error => {
-            console.log('ERROR router.GET /api/plant', error);
+            console.log('ERROR router.DELETE /api/plant/:ID', error);
             res.sendStatus(500);
         });
 });
