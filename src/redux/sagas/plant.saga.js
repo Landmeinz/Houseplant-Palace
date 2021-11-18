@@ -56,8 +56,8 @@ function* removePlant(action) {
 
     try {
         yield axios.delete(`/api/plant/${removeId}`)
-        yield history.push('/collection')
-
+        yield put({type: 'FETCH_PLANTS'})
+        
     } catch (error) {
         console.log('ERROR', error);
         yield put({ type: 'ERROR removePlant SAGA' })
