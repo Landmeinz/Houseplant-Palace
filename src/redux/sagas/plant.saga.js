@@ -2,6 +2,7 @@ import axios from 'axios';
 import { put, takeLatest } from 'redux-saga/effects';
 
 
+// --- GET ALL PLANTS --- //
 function* fetchPlants() {
     console.log('--- in fetchPlants Saga!');
 
@@ -17,6 +18,7 @@ function* fetchPlants() {
 }; // fetchPlants
 
 
+// --- ADD NEW PLANT --- //
 function* postPlant(action) {
     console.log('--- in postPlant Saga!');
 
@@ -31,6 +33,7 @@ function* postPlant(action) {
 }; // postPlant
 
 
+// --- SELECTED PLANT --- //
 function* selectedPlant(action) {
     try {
         const response = yield axios.get(`/api/plant/${action.payload}`)
@@ -44,10 +47,27 @@ function* selectedPlant(action) {
 }; // selectedPlant
 
 
+// --- REMOVE SELECTED PLANT --- // 
+function* removePlant(action) {
+    console.log('--- in removePlant Saga!');
+
+    try {
+        yield axios.delete(`/api/plant/${action.payload}`)
+        yield put({ type: 'FETCH_PLANTS' })
+
+    } catch (error) {
+        console.log('ERROR', error);
+        yield put({ type: 'ERROR removePlant SAGA' })
+    }
+}; // removePlant
+
+
+
 function* plantSaga() {
     yield takeLatest('FETCH_PLANTS', fetchPlants)
     yield takeLatest('ADD_PLANT', postPlant)
     yield takeLatest('FETCH_SELECTED_PLANT', selectedPlant)
+    yield takeLatest('REMOVE_PLANT', removePlant)
 }; // plantSaga
 
 export default plantSaga;

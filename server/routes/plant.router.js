@@ -7,8 +7,7 @@ const pool = require('../modules/pool');
 const router = express.Router();
 
 
-// GET all of the plants associated to the logged-in user //
-
+// GET all of the plants associated to the logged-in user along with the current date and next_water date //
 router.get('/', rejectUnauthenticated, (req, res) => {
     // GET route code here
     console.log('--- in router.GET /api/plant');
@@ -33,6 +32,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 });
 
 
+// GET all of the photos associated to the logged-in user and to the SPECIFIC plant //
 router.get('/:id', rejectUnauthenticated, (req, res) => {
     // GET route code here
     console.log('--- in router.GET /api/plant/:id');
@@ -42,10 +42,12 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
     
 
     let queryText = `
-      SELECT    *
-      FROM      "photo"
-      WHERE     "user_id" = $1 
-      AND       "plant_id" = $2; ` ;
+        SELECT 	*, "photo".id as "photo_id"
+        FROM   	"photo"
+        JOIN 	"plant"
+        ON 		"photo".plant_id = "plant".id
+        WHERE  	"plant"."user_id" = $1 
+        AND    	"photo"."plant_id" = $2;` ;
 
     const values = [req.user.id, req.params.id]
 
@@ -60,10 +62,7 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
 });
 
 
-
-
 // POST a new plant to the plant database // 
-
 router.post('/', rejectUnauthenticated, (req, res) => {
     // POST route code here
     console.log('--- in router.POST /api/plant');
@@ -87,5 +86,33 @@ router.post('/', rejectUnauthenticated, (req, res) => {
             res.sendStatus(500);
         });
 });
+
+
+// DELETE plant // 
+router.get('/:id', rejectUnauthenticated, (req, res) => {
+    // GET route code here
+    console.log('--- in router.DELETE /api/plant/:id');
+    console.log('is authenticated?', req.isAuthenticated());
+    console.log('router.DELETE /api/plants/:id req.user', req.user);
+    console.log('req.params'), req.params;
+    
+
+    let queryText = `
+        DELETE ` ;
+
+    const values = [req.user.id, req.params]
+
+    pool.query(queryText, values)
+        .then(result => {
+            console.log('--- router.get --- photo/:id --- result.rows', result.rows);
+            res.send(result.rows);
+        }).catch(error => {
+            console.log('ERROR router.GET /api/plant', error);
+            res.sendStatus(500);
+        });
+});
+
+
+
 
 module.exports = router;

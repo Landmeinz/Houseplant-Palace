@@ -35,7 +35,6 @@ function PlantForm(props) {
 
   const [newPlant, setNewPlant] = useState(emptyPlant);
 
-
   const handleNameChange = (event, property) => {
     setNewPlant({
       ...newPlant,
@@ -53,6 +52,8 @@ function PlantForm(props) {
     setNewPlant(emptyPlant);
   } // handleSubmit
 
+
+  // for image upload? 
   const handleClick = () => {
     console.log('CLICKED on uploadImage');
 
@@ -89,7 +90,7 @@ function PlantForm(props) {
 
       <form onSubmit={handleSubmit}>
 
-        <p>1: Select your image and click on upload</p>
+        {/* <p>1: Select your image and click on upload</p>
 
         <Box sx={sxUploaderBox}>
           <PickerDropPane
@@ -100,7 +101,7 @@ function PlantForm(props) {
           // buttonText={'Pick File'}
           />
           <button>upload</button>
-        </Box>
+        </Box> */}
 
         <p>2: Fill out all of the info below</p>
 

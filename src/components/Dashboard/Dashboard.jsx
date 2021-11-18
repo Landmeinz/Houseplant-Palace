@@ -60,6 +60,7 @@ function Dashboard(props) {
           {/* <p>current_date : {plant.current_date.split(`T`)[0]}</p> */}
           <p>Water Every {plant.water_freq} Days</p>
           <p>Last Watered: {plant.date_watered.split(`T`)[0]}</p>
+          <p>Next Water Day: {plant.next_water.split(`T`)[0]}</p>
         </div>
       ))}
     </div>
