@@ -30,7 +30,7 @@ function Dashboard(props) {
       case 'plantDetails':
         console.log('CLICKED on the image');
         console.log('this is the current plant from handleClick', plant);
-        dispatch({type: 'FETCH_SELECTED_PLANT', payload: plant.id});
+        dispatch({ type: 'FETCH_SELECTED_PLANT', payload: plant.id });
         history.push('/PlantDetails');
         break;
 
@@ -49,6 +49,8 @@ function Dashboard(props) {
       {current_date.map(today => (
         <h3 key={today.current_date}>{today.current_date.split(`T`)[0]}</h3>
       ))}
+
+      <h2>{current_date.current_date}</h2>
 
       {plants.map(plant => (
         <div key={plant.id}>

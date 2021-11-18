@@ -34,22 +34,24 @@ function PlantDetails(props) {
     }; // emptyPlant
 
 
-
     const existingPlant = {
-        nickname: '',
-        avatar_url: '',
-        date_added: '',
-        plant_type: '',
-        light_level: '',
-        water_freq: '',
-        date_watered: '',
-        date_potted: '',
-        date_fertilized: '',
-        notes: null
+        nickname: selectedPlant.nickname,
+        avatar_url: selectedPlant.avatar_url,
+        date_added: selectedPlant.date_added,
+        plant_type: selectedPlant.plant_type,
+        light_level: selectedPlant.light_level,
+        water_freq: selectedPlant.water_freq,
+        date_watered: selectedPlant.date_watered,
+        date_potted: selectedPlant.date_potted,
+        date_fertilized: selectedPlant.date_fertilized,
+        notes: selectedPlant.notes
     }; // existingPlant
+
+    console.log('--- this is the existingPlant --- ', existingPlant);
 
     const [editPlant, setEditPlant] = useState(existingPlant);
 
+    console.log('--- this is the editPlant --- ', editPlant);
 
 
     const handleNameChange = (event, property) => {
@@ -61,13 +63,14 @@ function PlantDetails(props) {
 
 
     const handleSubmit = (event) => {
-        console.log('--- CLICKED --- hit handleSubmit editPlant');
+        console.log('--- CLICKED --- hit handleSubmit of editPlant');
         event.preventDefault();
         console.log('--- the editPlant:', editPlant);
 
         dispatch({ type: 'EDIT_PLANT', payload: editPlant });
-        setEditPlant(emptyPlant);
+        // setEditPlant(emptyPlant);
     } // handleSubmit
+
 
     const handleRemove = (plantId) => {
         console.log('--- CLICKED --- hit handleRemove');
@@ -76,110 +79,126 @@ function PlantDetails(props) {
     }; // handleRemove
 
 
+    // const handleEdit = (plant) => {
+    //     console.log('--- CLICKED --- hit handleEdit');
+    //     console.log('--- the editPlant:', editPlant);
+
+    //     setEditMode(!editMode)
+    //     dispatch({ type: 'FETCH_SELECTED_PLANT', payload: plant.id });
+    // }
+
+
+    const sxEditFormBox = {
+        display: 'flex',
+        flexDirection: 'column',
+        gap: .5,
+        border: 1,
+        mb: 4,
+    }
+
     // --- EDIT info --- // 
     const showInputs = (
+
         <form onSubmit={handleSubmit}>
+            <Box sx={sxEditFormBox}>
+                {selectedPlant.map(plant => (
+                    <>
+                        <label for="nickname">Update Plant Nickname: </label>
+                        <input
+                            id="nickname"
+                            type="text"
+                            value={plant.nickname}
+                            onChange={(event) => handleNameChange(event, 'nickname')}
+                        // placeholder="Set New Nickname"
+                        />
 
-            {/* NICKNAME */}
-            <input
-                // required
-                type="text"
-                value={editPlant?.nickname}
-                onChange={(event) => handleNameChange(event, 'nickname')}
-            // placeholder="Set New Nickname"
-            />
+                        <label for="avatar_url">Update Plant Avatar URL: </label>
+                        <input
+                            id="avatar_url"
+                            type="text"
+                            value={plant.avatar_url}
+                            onChange={(event) => handleNameChange(event, 'avatar_url')}
+                            placeholder="Update Avatar URL"
+                        />
 
-            {/* AVATAR_URL */}
-            <input
-                // required
-                type="text"
-                value={editPlant.avatar_url}
-                onChange={(event) => handleNameChange(event, 'avatar_url')}
-                placeholder="Update Avatar URL"
-            />
+                        <label for="date_added">Date Added To Collection: </label>
+                        <input
+                            id="date_added"
+                            type="date"
+                            value={plant.date_added.split(`T`)[0]}
+                            onChange={(event) => handleNameChange(event, 'date_added')}
+                        />
 
-            {/* DATE_ADDED */}
-            <label for="date_added">Birthday:</label>
-            <input
-                id="date_added"
-                // required
-                type="date"
-                value={editPlant.date_added}
-                onChange={(event) => handleNameChange(event, 'date_added')}
-            />
+                        <label for="plant_type">Date Added To Collection: </label>
+                        <input
+                            id="plant_type"
+                            type="text"
+                            value={plant.plant_type}
+                            onChange={(event) => handleNameChange(event, 'plant_type')}
+                            placeholder="Update Plant Type"
+                        />
 
-            {/* PLANT_TYPE */}
-            <input
-                // required
-                type="text"
-                value={editPlant.plant_type}
-                onChange={(event) => handleNameChange(event, 'plant_type')}
-                placeholder="Update Plant Type"
-            />
+                        <label for="light_level">Update Light Level: </label>
+                        <select
+                            value={plant.light_level}
+                            name="light_level"
+                            id="light_level"
+                            onChange={(event) => handleNameChange(event, 'light_level')}
+                        >
+                            <option hidden value="null">Light Level</option>
+                            <option value="1">Low</option>
+                            <option value="2">Medium</option>
+                            <option value="3">High</option>
+                        </select>
 
-            {/* LIGHT_LEVEL */}
-            <select
-                // required
-                value={editPlant.light_level}
-                name="light_level"
-                id="light_level"
-                onChange={(event) => handleNameChange(event, 'light_level')}
-            >
-                <option hidden value="null">Light Level</option>
-                <option value="1">Low</option>
-                <option value="2">Medium</option>
-                <option value="3">High</option>
-            </select>
+                        <label for="water_freq">Update Days Between Watering: </label>
+                        <input
+                            id="water_freq"
+                            type="number"
+                            value={plant.water_freq}
+                            onChange={(event) => handleNameChange(event, 'water_freq')}
+                            placeholder="Update Number of Days Between Watering"
+                        />
 
-            {/* WATER_FREQ */}
-            <input
-                // required
-                type="number"
-                value={editPlant.water_freq}
-                onChange={(event) => handleNameChange(event, 'water_freq')}
-                placeholder="Update Number of Days Between Watering"
-            />
+                        <label for="date_watered">Update Date Last Watered: </label>
+                        <input
+                            id="date_watered"
+                            type="date"
+                            value={plant.date_watered.split(`T`)[0]}
+                            onChange={(event) => handleNameChange(event, 'date_watered')}
+                        />
 
-            {/* DATE_WATERED */}
-            <label for="date_watered">Update Date Last Watered:</label>
-            <input
-                id="date_watered"
-                // required
-                type="date"
-                value={editPlant.date_watered}
-                onChange={(event) => handleNameChange(event, 'date_watered')}
-            />
+                        <label for="date_potted">Update Date Potted: </label>
+                        <input
+                            id="date_potted"
+                            type="date"
+                            value={plant.date_potted.split(`T`)[0]}
+                            onChange={(event) => handleNameChange(event, 'date_potted')}
+                        />
 
-            {/* DATE_POTTED */}
-            <label for="date_potted">Update Date Potted:</label>
-            <input
-                id="date_potted"
-                // required
-                type="date"
-                value={editPlant.date_potted}
-                onChange={(event) => handleNameChange(event, 'date_potted')}
-            />
+                        <label for="date_added">Update Date Fertilized: </label>
+                        <input
+                            id="date_fertilized"
+                            type="date"
+                            value={plant.date_fertilized.split(`T`)[0]}
+                            onChange={(event) => handleNameChange(event, 'date_fertilized')}
+                        />
 
-            {/* DATE_FERTILIZED */}
-            <label for="date_added">Update Date Fertilized:</label>
-            <input
-                id="date_fertilized"
-                // required
-                type="date"
-                value={editPlant.date_fertilized}
-                onChange={(event) => handleNameChange(event, 'date_fertilized')}
-            />
+                        <label for="notes">Update Plant Notes: </label>
+                        <input
+                            id="notes"
+                            type="text"
+                            value={plant.notes}
+                            onChange={(event) => handleNameChange(event, 'notes')}
+                            placeholder="Update Plant Notes"
+                        />
 
-            {/* NOTES */}
-            <input
-                type="text"
-                value={editPlant.notes}
-                onChange={(event) => handleNameChange(event, 'notes')}
-                placeholder="Update Plant Notes"
-            />
-
-            <button type="submit">Submit Edited Plant</button>
+                        <button type="submit">Submit Edited Plant</button>
+                    </>
+                ))}
+            </Box>
         </form >
+
     ); // showInputs
 
 
@@ -202,10 +221,13 @@ function PlantDetails(props) {
     }; // sxPlantCard
 
     console.log('--- these are the selected plants', selectedPlant);
-    console.log('--- these are the selected photo', selectedPhoto);
+    console.log('--- these are the selected photos', selectedPhoto);
+    console.log('--- this is the current_date', current_date);
+
 
     return (
         <div>
+
             <button onClick={() => handleRemove(selectedPlant[0].id)}>Remove Plant From Collection</button>
             <Box sx={sxPlantContainer}>
 
@@ -213,18 +235,23 @@ function PlantDetails(props) {
                     <Box sx={sxInfoBox} key={plant.id}>
                         <h2>PLANT DETAILS</h2>
 
-                        {!editMode ? <button onClick={() => setEditMode(!editMode)}>Edit Info</button> : <button onClick={() => setEditMode(!editMode)}>Hide Info</button>}
+                        {!editMode ? <button onClick={() => { setEditMode(!editMode), dispatch({ type: 'FETCH_SELECTED_PLANT', payload: plant.id }) }}>Edit Info</button> : <button onClick={() => setEditMode(!editMode)}>Hide Info</button>}
+
+                        {/* <button onClick={() => handleEdit(plant)}>Edit Info</button> */}
+
                         {editMode ? showInputs : <></>}
+
                         <h3>{plant.nickname}</h3>
-                        <p>Avatar URL: {selectedPlant[0].avatar_url}</p>
-                        <p>Plant Type: {selectedPlant[0].plant_type}</p>
-                        <p>Birthday: {selectedPlant[0].date_added.split(`T`)[0]}</p>
-                        <p>Light Level: {selectedPlant[0].light_level}</p>
-                        <p>Water Every {selectedPlant[0].water_freq} Days</p>
-                        <p>Date Potted: {selectedPlant[0].date_potted.split(`T`)[0]}</p>
-                        <p>Last Water Date: {selectedPlant[0].date_watered.split(`T`)[0]}</p>
-                        <p>Notes: {selectedPlant[0].notes}</p>
-                        <p>Date Fertilized: {selectedPlant[0].date_fertilized.split(`T`)[0]}</p>
+
+                        <p>Avatar URL: {plant.avatar_url}</p>
+                        <p>Plant Type: {plant.plant_type}</p>
+                        <p>Birthday: {plant.date_added.split(`T`)[0]}</p>
+                        <p>Light Level: {plant.light_level}</p>
+                        <p>Water Every {plant.water_freq} Days</p>
+                        <p>Date Potted: {plant.date_potted.split(`T`)[0]}</p>
+                        <p>Last Water Date: {plant.date_watered.split(`T`)[0]}</p>
+                        <p>Notes: {plant.notes}</p>
+                        <p>Date Fertilized: {plant.date_fertilized.split(`T`)[0]}</p>
                     </Box>
                 ))}
 

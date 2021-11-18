@@ -15,9 +15,9 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 
     let queryText = `
         SELECT CURRENT_DATE, 
-            DATE_PART('year', NOW()) AS "YEAR",
-            DATE_PART('month', NOW()) AS "MONTH",
-            DATE_PART('day', NOW()) AS "DAY" ; ` ;
+            DATE_PART('year', NOW()) AS "year",
+            DATE_PART('month', NOW()) AS "month",
+            DATE_PART('day', NOW()) AS "day" ; ` ;
 
     pool.query(queryText)
         .then(result => {
