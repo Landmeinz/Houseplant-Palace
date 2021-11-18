@@ -14,9 +14,11 @@ function PlantDetails(props) {
     const dispatch = useDispatch();
     const history = useHistory();
     const selectedPlant = useSelector((store) => store.selectedPlant);
+    const selectedPhoto = useSelector((store) => store.selectedPhoto);
     const current_date = useSelector((store) => store.current_date);
 
-
+    const [editMode, setEditMode] = useState(false);
+    
 
     const emptyPlant = {
         nickname: '',
@@ -31,6 +33,8 @@ function PlantDetails(props) {
         notes: null
     }; // emptyPlant
 
+
+
     const existingPlant = {
         nickname: '',
         avatar_url: '',
@@ -44,8 +48,8 @@ function PlantDetails(props) {
         notes: null
     }; // existingPlant
 
-    const [editMode, setEditMode] = useState(false);
     const [editPlant, setEditPlant] = useState(existingPlant);
+   
 
 
     const handleNameChange = (event, property) => {
@@ -72,6 +76,7 @@ function PlantDetails(props) {
     }; // handleRemove
 
 
+    // --- EDIT info --- // 
     const showInputs = (
         <form onSubmit={handleSubmit}>
 
@@ -79,9 +84,9 @@ function PlantDetails(props) {
             <input
                 // required
                 type="text"
-                value={editPlant.nickname}
+                value={editPlant?.nickname}
                 onChange={(event) => handleNameChange(event, 'nickname')}
-                placeholder="Set New Nickname"
+                // placeholder="Set New Nickname"
             />
 
             {/* AVATAR_URL */}
@@ -94,7 +99,7 @@ function PlantDetails(props) {
             />
 
             {/* DATE_ADDED */}
-            <label for="date_added">Date Added to Collection:</label>
+            <label for="date_added">Birthday:</label>
             <input
                 id="date_added"
                 // required
@@ -136,7 +141,7 @@ function PlantDetails(props) {
             />
 
             {/* DATE_WATERED */}
-            <label for="date_watered">Date Added to Collection:</label>
+            <label for="date_watered">Update Date Last Watered:</label>
             <input
                 id="date_watered"
                 // required
@@ -155,7 +160,7 @@ function PlantDetails(props) {
                 onChange={(event) => handleNameChange(event, 'date_potted')}
             />
 
-            {/* date_fertilized */}
+            {/* DATE_FERTILIZED */}
             <label for="date_added">Update Date Fertilized:</label>
             <input
                 id="date_fertilized"
@@ -192,6 +197,7 @@ function PlantDetails(props) {
     }; // sxPlantCard
 
     console.log('--- these are the selected plants', selectedPlant);
+    console.log('--- these are the selected photo', selectedPhoto);
 
     return (
         <div>
@@ -204,6 +210,7 @@ function PlantDetails(props) {
 
             {selectedPlant.length > 0 ? <h3>{selectedPlant[0].nickname}</h3> : <></>}
             {selectedPlant.length > 0 ? <p>Avatar URL: {selectedPlant[0].avatar_url}</p> : <></>}
+            {selectedPlant.length > 0 ? <p>Plant Type: {selectedPlant[0].plant_type}</p> : <></>}
             {selectedPlant.length > 0 ? <p>Birthday: {selectedPlant[0].date_added.split(`T`)[0]}</p> : <></>}
             {selectedPlant.length > 0 ? <p>Light Level: {selectedPlant[0].light_level}</p> : <></>}
             {selectedPlant.length > 0 ? <p>Water Every {selectedPlant[0].water_freq} Days</p> : <></>}
@@ -214,11 +221,11 @@ function PlantDetails(props) {
 
             <Box sx={sxPlantContainer}>
 
-                {selectedPlant.map(plant => (
-                    <Box sx={sxPlantCard} key={plant.photo_id}>
+                {selectedPhoto.map(photo => (
+                    <Box sx={sxPlantCard} key={photo.id}>
 
-                        <img src={plant.photo_url} />
-                        <p>Documented: {plant.date_uploaded.split(`T`)[0]}</p>
+                        <img src={photo.photo_url} />
+                        <p>Documented: {photo.date_uploaded.split(`T`)[0]}</p>
 
                     </Box>
                 ))}

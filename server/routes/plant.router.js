@@ -32,7 +32,16 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 });
 
 
-// GET all of the photos associated to the logged-in user and to the SPECIFIC plant //
+
+// let queryText = `
+// SELECT 	*, "photo".id as "photo_id"
+// FROM   	"photo"
+// JOIN 	"plant"
+// ON 		"photo".plant_id = "plant".id
+// WHERE  	"plant"."user_id" = $1 
+// AND    	"photo"."plant_id" = $2;` ;
+
+// GET all of the data on the SPECIFIC plant //
 router.get('/:id', rejectUnauthenticated, (req, res) => {
     // GET route code here
     console.log('--- in router.GET /api/plant/:id');
@@ -40,14 +49,11 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
     console.log('router.GET /api/plants/:id req.user', req.user);
     console.log('req.params.id'), req.params.id;
 
-
     let queryText = `
-        SELECT 	*, "photo".id as "photo_id"
-        FROM   	"photo"
-        JOIN 	"plant"
-        ON 		"photo".plant_id = "plant".id
+        SELECT 	*, CURRENT_DATE, "date_watered" + INTERVAL '1 day' * "water_freq" AS "next_water"
+        FROM   	"plant"
         WHERE  	"plant"."user_id" = $1 
-        AND    	"photo"."plant_id" = $2;` ;
+        AND    	"plant"."id" = $2;` ;
 
     const values = [req.user.id, req.params.id]
 

@@ -27,13 +27,10 @@ function Dashboard(props) {
   function handleClick(input, plant) {
 
     switch (input) {
-      case 'dispatch':
+      case 'plantDetails':
         console.log('CLICKED on the image');
         console.log('this is the current plant from handleClick', plant);
-        dispatch({
-          type: 'FETCH_SELECTED_PLANT',
-          payload: plant.id
-        });
+        dispatch({type: 'FETCH_SELECTED_PLANT', payload: plant.id});
         history.push('/PlantDetails');
         break;
 
@@ -56,7 +53,7 @@ function Dashboard(props) {
       {plants.map(plant => (
         <div key={plant.id}>
           <h3>{plant.nickname}</h3>
-          <img onClick={() => handleClick('dispatch', plant)} src={plant.avatar_url} width="150" height="150" />
+          <img onClick={() => handleClick('plantDetails', plant)} src={plant.avatar_url} width="150" height="150" />
           {/* <p>current_date : {plant.current_date.split(`T`)[0]}</p> */}
           <p>Water Every {plant.water_freq} Days</p>
           <p>Last Watered: {plant.date_watered.split(`T`)[0]}</p>

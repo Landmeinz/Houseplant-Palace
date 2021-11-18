@@ -24,6 +24,7 @@ import Dashboard from '../Dashboard/Dashboard.jsx';
 import PlantForm from '../PlantForm/PlantForm.jsx';
 import Profile from '../Profile/Profile.jsx';
 import PlantDetails from '../PlantDetails/PlantDetails.jsx';
+import AdminPage from '../AdminPage/AdminPage.jsx';
 
 import './App.css';
 
@@ -99,6 +100,17 @@ function App() {
           >
             <Profile />
           </ProtectedRoute>
+
+          {/* Visiting localhost:3000/admin will allow the admin to view their profile */}
+          <ProtectedRoute
+            // logged in shows Profile else shows LoginPage
+            exact
+            path="/admin"
+          >
+            <AdminPage />
+          </ProtectedRoute>
+
+          
 
           {/* // -- LOGIN vs REGISTER -- //  */}
 

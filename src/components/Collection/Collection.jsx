@@ -24,14 +24,20 @@ function Collection(props) {
 
   function handleClick(input, plant) {
 
+    console.log('--- plant being sent', plant);
+
     switch (input) {
-      case 'dispatch':
+      case 'plantDetails':
         console.log('CLICKED on the image');
         console.log('this is the current plant from handleClick', plant);
         dispatch({
           type: 'FETCH_SELECTED_PLANT',
           payload: plant.id
         });
+        dispatch({
+          type: 'FETCH_SELECTED_PHOTO',
+          payload: plant.id
+        })
         history.push('/PlantDetails');
         break;
 
@@ -50,7 +56,7 @@ function Collection(props) {
         <div key={plant.id}>
           <h3>{plant.nickname}</h3>
           <p>{plant.date_added.split(`T`)[0]}</p>
-          <img onClick={() => handleClick('dispatch', plant)} src={plant.avatar_url} />
+          <img onClick={() => handleClick('plantDetails', plant)} src={plant.avatar_url} />
 
         </div>
       ))}
