@@ -18,7 +18,7 @@ function PlantDetails(props) {
     const current_date = useSelector((store) => store.current_date);
 
     const [editMode, setEditMode] = useState(false);
-    
+
 
     const emptyPlant = {
         nickname: '',
@@ -49,7 +49,7 @@ function PlantDetails(props) {
     }; // existingPlant
 
     const [editPlant, setEditPlant] = useState(existingPlant);
-   
+
 
 
     const handleNameChange = (event, property) => {
@@ -86,7 +86,7 @@ function PlantDetails(props) {
                 type="text"
                 value={editPlant?.nickname}
                 onChange={(event) => handleNameChange(event, 'nickname')}
-                // placeholder="Set New Nickname"
+            // placeholder="Set New Nickname"
             />
 
             {/* AVATAR_URL */}
@@ -190,7 +190,12 @@ function PlantDetails(props) {
 
     }; // sxPlantContainer
 
-    const sxPlantCard = {
+    const sxInfoBox = {
+        border: 1,
+        mb: 4,
+    }; // sxInfoBox
+
+    const sxPhotoBox = {
         border: 1,
         mb: 4,
 
@@ -202,27 +207,29 @@ function PlantDetails(props) {
     return (
         <div>
             <button onClick={() => handleRemove(selectedPlant[0].id)}>Remove Plant From Collection</button>
-
-            <h2>PLANT DETAILS</h2>
-
-            {!editMode ? <button onClick={() => setEditMode(!editMode)}>Edit Info</button> : <button onClick={() => setEditMode(!editMode)}>Hide Info</button>}
-            {editMode ? showInputs : <></>}
-
-            {selectedPlant.length > 0 ? <h3>{selectedPlant[0].nickname}</h3> : <></>}
-            {selectedPlant.length > 0 ? <p>Avatar URL: {selectedPlant[0].avatar_url}</p> : <></>}
-            {selectedPlant.length > 0 ? <p>Plant Type: {selectedPlant[0].plant_type}</p> : <></>}
-            {selectedPlant.length > 0 ? <p>Birthday: {selectedPlant[0].date_added.split(`T`)[0]}</p> : <></>}
-            {selectedPlant.length > 0 ? <p>Light Level: {selectedPlant[0].light_level}</p> : <></>}
-            {selectedPlant.length > 0 ? <p>Water Every {selectedPlant[0].water_freq} Days</p> : <></>}
-            {selectedPlant.length > 0 ? <p>Last Water Date: {selectedPlant[0].date_watered.split(`T`)[0]}</p> : <></>}
-            {selectedPlant.length > 0 ? <p>Date Potted: {selectedPlant[0].date_potted.split(`T`)[0]}</p> : <></>}
-            {selectedPlant.length > 0 ? <p>Date Fertilized: {selectedPlant[0].date_fertilized.split(`T`)[0]}</p> : <></>}
-            {selectedPlant.length > 0 ? <p>Notes: {selectedPlant[0].notes}</p> : <></>}
-
             <Box sx={sxPlantContainer}>
 
+                {selectedPlant.map(plant => (
+                    <Box sx={sxInfoBox} key={plant.id}>
+                        <h2>PLANT DETAILS</h2>
+
+                        {!editMode ? <button onClick={() => setEditMode(!editMode)}>Edit Info</button> : <button onClick={() => setEditMode(!editMode)}>Hide Info</button>}
+                        {editMode ? showInputs : <></>}
+                        <h3>{plant.nickname}</h3>
+                        <p>Avatar URL: {selectedPlant[0].avatar_url}</p>
+                        <p>Plant Type: {selectedPlant[0].plant_type}</p>
+                        <p>Birthday: {selectedPlant[0].date_added.split(`T`)[0]}</p>
+                        <p>Light Level: {selectedPlant[0].light_level}</p>
+                        <p>Water Every {selectedPlant[0].water_freq} Days</p>
+                        <p>Date Potted: {selectedPlant[0].date_potted.split(`T`)[0]}</p>
+                        <p>Last Water Date: {selectedPlant[0].date_watered.split(`T`)[0]}</p>
+                        <p>Notes: {selectedPlant[0].notes}</p>
+                        <p>Date Fertilized: {selectedPlant[0].date_fertilized.split(`T`)[0]}</p>
+                    </Box>
+                ))}
+
                 {selectedPhoto.map(photo => (
-                    <Box sx={sxPlantCard} key={photo.id}>
+                    <Box sx={sxPhotoBox} key={photo.id}>
 
                         <img src={photo.photo_url} />
                         <p>Documented: {photo.date_uploaded.split(`T`)[0]}</p>
