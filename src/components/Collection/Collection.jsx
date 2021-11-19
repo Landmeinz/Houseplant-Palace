@@ -70,6 +70,7 @@ function Collection(props) {
   const sxCollectionContainer = {
     border: 1,
     m: 2,
+    mb: 8,
     overflow: 'scroll',
 
   }; // sxCollectionContainer

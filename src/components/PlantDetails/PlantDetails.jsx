@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
@@ -36,22 +36,21 @@ function PlantDetails(props) {
 
     const existingPlant = {
         nickname: selectedPlant.nickname,
-        avatar_url: selectedPlant.avatar_url,
-        date_added: selectedPlant.date_added,
-        plant_type: selectedPlant.plant_type,
-        light_level: selectedPlant.light_level,
-        water_freq: selectedPlant.water_freq,
-        date_watered: selectedPlant.date_watered,
-        date_potted: selectedPlant.date_potted,
-        date_fertilized: selectedPlant.date_fertilized,
-        notes: selectedPlant.notes
+        // avatar_url: selectedPlant.avatar_url,
+        // date_added: selectedPlant.date_added,
+        // plant_type: selectedPlant.plant_type,
+        // light_level: selectedPlant.light_level,
+        // water_freq: selectedPlant.water_freq,
+        // date_watered: selectedPlant.date_watered,
+        // date_potted: selectedPlant.date_potted,
+        // date_fertilized: selectedPlant.date_fertilized,
+        // notes: selectedPlant.notes
     }; // existingPlant
 
     console.log('--- this is the existingPlant --- ', existingPlant);
 
     const [editPlant, setEditPlant] = useState(existingPlant);
 
-    console.log('--- this is the editPlant --- ', editPlant);
 
 
     const handleNameChange = (event, property) => {
@@ -63,12 +62,11 @@ function PlantDetails(props) {
 
 
     const handleSubmit = (event) => {
-        console.log('--- CLICKED --- hit handleSubmit of editPlant');
+        console.log('--- CLICKED --- hit handleSubmit to update details');
         event.preventDefault();
-        console.log('--- the editPlant:', editPlant);
 
-        dispatch({ type: 'EDIT_PLANT', payload: editPlant });
-        // setEditPlant(emptyPlant);
+        dispatch({ type: 'UPDATE_SELECTED_PLANT', payload: selectedPlant });
+        setEditMode(false)
     } // handleSubmit
 
 
@@ -81,17 +79,9 @@ function PlantDetails(props) {
 
     const handleRemovePhoto = (photoId, plantId) => {
         console.log('--- CLICKED --- hit handleRemovePhoto');
-        dispatch({ type: 'REMOVE_PHOTO', payload: {photoId, plantId} });
+        dispatch({ type: 'REMOVE_PHOTO', payload: { photoId, plantId } });
     }; // handleRemoveImage
 
-
-    // const handleEdit = (plant) => {
-    //     console.log('--- CLICKED --- hit handleEdit');
-    //     console.log('--- the editPlant:', editPlant);
-
-    //     setEditMode(!editMode)
-    //     dispatch({ type: 'FETCH_SELECTED_PLANT', payload: plant.id });
-    // }
 
 
     const sxEditFormBox = {
@@ -117,9 +107,90 @@ function PlantDetails(props) {
                     id="nickname"
                     type="text"
                     value={selectedPlant.nickname}
-                    onChange={(event) => dispatch({type: 'EDIT_PLANT', payload: 'yes'})}
-                // placeholder="Set New Nickname"
+                    onChange={(event) => dispatch({ type: 'EDIT_PLANT', payload: event.target.value, key: 'nickname' })}
+                    placeholder="Set New Nickname"
                 />
+
+                <label htmlFor="avatar_url">Update Plant Avatar URL: </label>
+                <input
+                    id="avatar_url"
+                    type="text"
+                    value={selectedPlant.avatar_url}
+                    onChange={(event) => dispatch({ type: 'EDIT_PLANT', payload: event.target.value, key: 'avatar_url'})}
+                    placeholder="Update Avatar URL"
+                />
+                <label htmlFor="date_added">Date Added To Collection: </label>
+                <input
+                    id="date_added"
+                    type="date"
+                    value={selectedPlant.date_added}
+                    onChange={(event) => dispatch({ type: 'EDIT_PLANT', payload: event.target.value, key: 'date_added' })}
+                />
+
+                <label htmlFor="plant_type">Update Plant Type: </label>
+                <input
+                    id="plant_type"
+                    type="text"
+                    value={selectedPlant.plant_type}
+                    onChange={(event) => dispatch({ type: 'EDIT_PLANT', payload: event.target.value, key: 'plant_type' })}
+                    placeholder="Update Plant Type"
+                />
+
+                <label htmlFor="light_level">Update Light Level: </label>
+                <select
+                    value={selectedPlant.light_level}
+                    name="light_level"
+                    id="light_level"
+                    onChange={(event) => dispatch({ type: 'EDIT_PLANT', payload: event.target.value, key: 'light_level' })}
+                >
+                    <option hidden value="null">Light Level</option>
+                    <option value="1">Low</option>
+                    <option value="2">Medium</option>
+                    <option value="3">High</option>
+                </select>
+
+                <label htmlFor="water_freq">Update Days Between Watering: </label>
+                <input
+                    id="water_freq"
+                    type="number"
+                    value={selectedPlant.water_freq}
+                    onChange={(event) => dispatch({ type: 'EDIT_PLANT', payload: event.target.value, key: 'water_freq' })}
+                    placeholder="Update Number of Days Between Watering"
+                />
+
+                <label htmlFor="date_watered">Update Date Last Watered: </label>
+                <input
+                    id="date_watered"
+                    type="date"
+                    value={selectedPlant.date_watered}
+                    onChange={(event) => dispatch({ type: 'EDIT_PLANT', payload: event.target.value, key: 'date_watered' })}
+                />
+
+                <label htmlFor="date_potted">Update Date Potted: </label>
+                <input
+                    id="date_potted"
+                    type="date"
+                    value={selectedPlant.date_potted}
+                    onChange={(event) => dispatch({ type: 'EDIT_PLANT', payload: event.target.value, key: 'date_potted' })}
+                />
+
+                <label htmlFor="date_added">Update Date Fertilized: </label>
+                <input
+                    id="date_fertilized"
+                    type="date"
+                    value={selectedPlant.date_fertilized}
+                    onChange={(event) => dispatch({ type: 'EDIT_PLANT', payload: event.target.value, key: 'date_fertilized' })}
+                />
+
+                <label htmlFor="notes">Update Plant Notes: </label>
+                <input
+                    id="notes"
+                    type="text"
+                    value={selectedPlant.notes}
+                    onChange={(event) => dispatch({ type: 'EDIT_PLANT', payload: event.target.value, key: 'notes' })}
+                    placeholder="Update Plant Notes"
+                />
+
 
                 {/* {selectedPlant.map(plant => (
                     <>
@@ -281,11 +352,23 @@ function PlantDetails(props) {
                     </Box>
                 ))} */}
 
+                <h3>{selectedPlant.nickname}</h3>
+                <p>Avatar URL:  {selectedPlant.avatar_url}</p>
+                <p>Plant Type:  {selectedPlant.plant_type}</p>
+                <p>Birthday:    {selectedPlant.date_added}</p>
+                <p>Light Level: {selectedPlant.light_level}</p>
+                <p>Water Every  {selectedPlant.water_freq} Days</p>
+                <p>Date Potted: {selectedPlant.date_potted}</p>
+                <p>Last Water Date: {selectedPlant.date_watered}</p>
+                <p>Notes:           {selectedPlant.notes}</p>
+                <p>Date Fertilized: {selectedPlant.date_fertilized}</p>
+
                 {selectedPhoto.map(photo => (
                     <Box sx={sxPhotoBox} key={photo.id}>
 
                         <img src={photo.photo_url} />
                         <p>Documented: {photo.date_uploaded.split(`T`)[0]}</p>
+
                         <button onClick={() => handleRemovePhoto(photo.id, photo.plant_id)}>Remove Image</button>
 
                     </Box>

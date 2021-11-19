@@ -17,7 +17,8 @@ router.get('/', rejectUnauthenticated, (req, res) => {
     let queryText = `
       SELECT    *, CURRENT_DATE, "date_watered" + INTERVAL '1 day' * "water_freq" AS "next_water"
       FROM      "plant"
-      WHERE     "user_id" = $1 ; ` ;
+      WHERE     "user_id" = $1 
+      ORDER BY  "next_water" ASC ; ` ;
 
     const values = [req.user.id]
 
@@ -31,15 +32,6 @@ router.get('/', rejectUnauthenticated, (req, res) => {
         });
 });
 
-
-
-// let queryText = `
-// SELECT 	*, "photo".id as "photo_id"
-// FROM   	"photo"
-// JOIN 	"plant"
-// ON 		"photo".plant_id = "plant".id
-// WHERE  	"plant"."user_id" = $1 
-// AND    	"photo"."plant_id" = $2;` ;f
 
 // GET all of the data on the SPECIFIC plant //
 router.get('/:id', rejectUnauthenticated, (req, res) => {
@@ -96,7 +88,7 @@ router.post('/', rejectUnauthenticated, (req, res) => {
 
 // DELETE plant // 
 router.delete('/:id', rejectUnauthenticated, (req, res) => {
-    // GET route code here
+    // DELETE route code here
     console.log('----- in router.DELETE /api/plant/:id');
     console.log('is authenticated?', req.isAuthenticated());
     console.log('router.DELETE /api/plants/:id req.user', req.user);
@@ -120,6 +112,56 @@ router.delete('/:id', rejectUnauthenticated, (req, res) => {
 });
 
 
+// UPDATE plant // 
+router.put('/:id', rejectUnauthenticated, (req, res) => {
+    // PUT route code here
+    console.log('---------- in router.PUT /api/plant/:id');
+    console.log('is authenticated?', req.isAuthenticated());
+    console.log('router.DELETE /api/plants/:id req.user', req.user);
+    console.log('req.params'), req.params.id;
+    console.log('req.body', req.body);
+    
+
+
+    let queryText = `
+        UPDATE 	"plant"
+        SET 	"nickname" = $1,
+                "avatar_url" = $2,
+                "date_added" = $3,
+                "plant_type" = $4,
+                "light_level" = $5,
+                "water_freq" = $6,
+                "date_watered" = $7,
+                "date_potted" = $8,
+                "date_fertilized" = $9,
+                "notes" = $10
+        WHERE 	"id" = $11;` ;
+
+
+    const values = [
+        req.body.nickname,
+        req.body.avatar_url,
+        req.body.date_added,
+        req.body.plant_type,
+        req.body.light_level,
+        req.body.water_freq,
+        req.body.date_watered,
+        req.body.date_potted,
+        req.body.date_fertilized,
+        req.body.notes,
+        req.params.id
+    ]; 
+
+
+    pool.query(queryText, values)
+        .then(result => {
+            console.log('--- router.PUT --- plant/:id --- result.rows', result.rows);
+            res.send(result.rows);
+        }).catch(error => {
+            console.log('ERROR router.PUT /api/plant/:ID', error);
+            res.sendStatus(500);
+        });
+});
 
 
 module.exports = router;

@@ -38,7 +38,6 @@ function App() {
     dispatch({ type: 'FETCH_PLANTS' });
     dispatch({ type: 'FETCH_PHOTOS' });
     dispatch({ type: 'FETCH_CURRENT_DATE' })
-    dispatch({ type: 'FETCH_SELECTED_PLANT' })
   }, [dispatch]);
 
 

@@ -51,7 +51,7 @@ function PlantForm(props) {
     console.log('-- the newPlant:', newPlant);
 
     dispatch({ type: 'ADD_PLANT', payload: newPlant });
-    dispatch({ type: 'ADD_PHOTO', payload: newPlant })
+    dispatch({ type: 'ADD_PHOTO', payload: newPlant.avatar_url })
     setNewPlant(emptyPlant);
   } // handleSubmit
 
@@ -136,7 +136,7 @@ function PlantForm(props) {
             type="text"
             value={newPlant.avatar_url}
             onChange={(event) => handleNameChange(event, 'avatar_url')}
-            placeholder="uploadedimage."
+            placeholder="uploadedimage"
           />
 
           {/* DATE_ADDED */}

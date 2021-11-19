@@ -47,14 +47,17 @@ function Dashboard(props) {
       <h2>DASHBOARD</h2>
 
       {current_date && <h3>{current_date.year}-{current_date.month}-{current_date.day}</h3>}
+      
 
       {plants.map(plant => (
         <div key={plant.id}>
           <h3>{plant.nickname}</h3>
+          
           <img onClick={() => handleClick('plantDetails', plant)} src={plant.avatar_url} width="150" height="150" />
           <p>Water Every {plant.water_freq} Days</p>
           <p>Last Watered: {plant.date_watered.split(`T`)[0]}</p>
           <p>Next Water Day: {plant.next_water.split(`T`)[0]}</p>
+          {plant.current_date >= plant.next_water ? <><h4>water me today!</h4><button>Mark Watered</button></> : <></>}
         </div>
       ))}
     </div>
@@ -73,6 +76,7 @@ function Dashboard(props) {
   const sxDashboardContainer = {
     border: 1,
     m: 2,
+    mb: 8,
     overflow: 'scroll',
 
   }; // sxDashboardContainer

@@ -42,7 +42,7 @@ function* selectedPlant(action) {
         yield put({ type: 'SET_SELECTED_PLANT', payload: response.data })
 
     } catch (error) {
-        console.log('ERROR fetchPlants Saga', error);
+        console.log('ERROR selectedPlant Saga', error);
     }
 }; // selectedPlant
 
@@ -51,13 +51,13 @@ function* selectedPlant(action) {
 function* removePlant(action) {
     console.log('--- in removePlant Saga!');
     console.log('---- id to remove action.payload:', action.payload);
-    
+
     const removeId = action.payload
 
     try {
         yield axios.delete(`/api/plant/${removeId}`)
-        yield put({type: 'FETCH_PLANTS'})
-        
+        yield put({ type: 'FETCH_PLANTS' })
+
     } catch (error) {
         console.log('ERROR', error);
         yield put({ type: 'ERROR removePlant SAGA' })
@@ -65,12 +65,31 @@ function* removePlant(action) {
 }; // removePlant
 
 
+// --- UPDATE SELECTED PLANT --- // 
+function* updateSelectedPlant(action) {
+    console.log('--- in removePlant Saga!');
+    console.log('---- id to remove action.payload:', action.payload.id);
+
+    const updateId = action.payload.id
+
+    try {
+        yield axios.put(`/api/plant/${updateId}`, action.payload)
+        yield put({ type: 'FETCH_SELECTED_PLANT' })
+        yield put({ type: 'FETCH_PLANTS' })
+
+    } catch (error) {
+        console.log('ERROR', error);
+        yield put({ type: 'ERROR updateSelectedPlant SAGA' })
+    }
+}; // removePlant
+
 
 function* plantSaga() {
     yield takeLatest('FETCH_PLANTS', fetchPlants)
     yield takeLatest('ADD_PLANT', postPlant)
     yield takeLatest('FETCH_SELECTED_PLANT', selectedPlant)
     yield takeLatest('REMOVE_PLANT', removePlant)
+    yield takeLatest('UPDATE_SELECTED_PLANT', updateSelectedPlant)
 }; // plantSaga
 
 export default plantSaga;
