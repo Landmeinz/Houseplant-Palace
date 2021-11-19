@@ -39,7 +39,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 // JOIN 	"plant"
 // ON 		"photo".plant_id = "plant".id
 // WHERE  	"plant"."user_id" = $1 
-// AND    	"photo"."plant_id" = $2;` ;
+// AND    	"photo"."plant_id" = $2;` ;f
 
 // GET all of the data on the SPECIFIC plant //
 router.get('/:id', rejectUnauthenticated, (req, res) => {

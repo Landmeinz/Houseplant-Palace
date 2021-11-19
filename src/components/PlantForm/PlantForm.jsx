@@ -15,6 +15,8 @@ function PlantForm(props) {
 
   const dispatch = useDispatch();
 
+  const current_date = useSelector((store) => store.current_date);
+
   // Using hooks we're creating local state for a "heading" variable with
   // a default value of 'Functional Component'
   // const store = useSelector((store) => store);
@@ -49,6 +51,7 @@ function PlantForm(props) {
     console.log('-- the newPlant:', newPlant);
 
     dispatch({ type: 'ADD_PLANT', payload: newPlant });
+    dispatch({ type: 'ADD_PHOTO', payload: newPlant })
     setNewPlant(emptyPlant);
   } // handleSubmit
 
@@ -56,11 +59,10 @@ function PlantForm(props) {
   // for image upload? 
   const handleClick = () => {
     console.log('CLICKED on uploadImage');
+  }; // handleClick
 
-  }
 
-
-  // holds all page content
+  // Box that holds all page content
   const sxFormContainer = {
     border: 1,
     m: 2,
@@ -68,7 +70,7 @@ function PlantForm(props) {
 
   }; // sxFormContainer
 
-  // box around the drop pane
+  // Box that holds the drop pane
   const sxUploaderBox = {
     display: 'flex',
     flexDirection: 'column',
@@ -83,14 +85,24 @@ function PlantForm(props) {
     boxShadow: 3,
   }; // sxUploaderBox
 
+  // Box inside the form to hold all inputs
+  const sxEditFormBox = {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: .5,
+    border: 1,
+    mb: 6,
+  }; // sxEditFormBox
+
 
   return (
     <Box sx={sxFormContainer}>
       <h2>PLANT FORM</h2>
 
       <form onSubmit={handleSubmit}>
+        <Box sx={sxEditFormBox}>
 
-        {/* <p>1: Select your image and click on upload</p>
+          {/* <p>1: Select your image and click on upload</p>
 
         <Box sx={sxUploaderBox}>
           <PickerDropPane
@@ -103,107 +115,127 @@ function PlantForm(props) {
           <button>upload</button>
         </Box> */}
 
-        <p>2: Fill out all of the info below</p>
+          <h4>Fill out all of the info below and tap submit</h4>
 
-        {/* NICKNAME */}
-        <input
-          required
-          type="text"
-          value={newPlant.nickname}
-          onChange={(event) => handleNameChange(event, 'nickname')}
-          placeholder="nickname"
-        />
+          {/* NICKNAME */}
+          <label htmlFor="nickname">Give Your Plant A Nickname: </label>
+          <input
+            id="nickname"
+            required
+            type="text"
+            value={newPlant.nickname}
+            onChange={(event) => handleNameChange(event, 'nickname')}
+            placeholder="Planty McPlanterson"
+          />
 
-        {/* AVATAR_URL */}
-        <input
-          required
-          type="text"
-          value={newPlant.avatar_url}
-          onChange={(event) => handleNameChange(event, 'avatar_url')}
-          placeholder="avatar_url"
-        />
+          {/* AVATAR_URL */}
+          <label htmlFor="avatar_url">Include a Photo By Providing a URL: </label>
+          <input
+            id="avatar_url"
+            required
+            type="text"
+            value={newPlant.avatar_url}
+            onChange={(event) => handleNameChange(event, 'avatar_url')}
+            placeholder="uploadedimage."
+          />
 
-        {/* DATE_ADDED */}
-        <input
-          required
-          type="date"
-          value={newPlant.date_added}
-          onChange={(event) => handleNameChange(event, 'date_added')}
-        // placeholder="date_added"
-        />
+          {/* DATE_ADDED */}
+          <label htmlFor="date_added">Date Plant Was Added To Collection: </label>
+          <input
+            id="date_added"
+            required
+            type="date"
+            value={newPlant.date_added}
+            onChange={(event) => handleNameChange(event, 'date_added')}
+          // placeholder="date_added"
+          />
 
-        {/* PLANT_TYPE */}
-        <input
-          required
-          type="text"
-          value={newPlant.plant_type}
-          onChange={(event) => handleNameChange(event, 'plant_type')}
-          placeholder="plant_type"
-        />
+          {/* PLANT_TYPE */}
+          <label htmlFor="plant_type">Type of Plant: </label>
+          <input
+            id="plant_type"
+            required
+            type="text"
+            value={newPlant.plant_type}
+            onChange={(event) => handleNameChange(event, 'plant_type')}
+            placeholder="plant_type"
+          />
 
-        {/* LIGHT_LEVEL */}
-        <select
-          required
-          value={newPlant.light_level}
-          name="light_level"
-          id="light_level"
-          onChange={(event) => handleNameChange(event, 'light_level')}
-        >
-          <option hidden value="null">Light Level</option>
-          <option value="1">Low</option>
-          <option value="2">Medium</option>
-          <option value="3">High</option>
-        </select>
+          {/* LIGHT_LEVEL */}
+          <label for="light_level">Light Level: </label>
+          <select
+            id="light_level"
+            required
+            value={newPlant.light_level}
+            name="light_level"
+            id="light_level"
+            onChange={(event) => handleNameChange(event, 'light_level')}
+          >
+            <option hidden value="null">Select</option>
+            <option value="1">Low</option>
+            <option value="2">Medium</option>
+            <option value="3">High</option>
+          </select>
 
-        {/* WATER_FREQ */}
-        <input
-          required
-          type="number"
-          value={newPlant.water_freq}
-          onChange={(event) => handleNameChange(event, 'water_freq')}
-          placeholder="water_freq"
-        />
+          {/* WATER_FREQ */}
+          <label htmlFor="water_freq">Days Between Watering: </label>
+          <input
+            id="water_freq"
+            required
+            type="number"
+            value={newPlant.water_freq}
+            onChange={(event) => handleNameChange(event, 'water_freq')}
+            placeholder="5"
+          />
 
-        {/* DATE_WATERED */}
-        <input
-          required
-          type="date"
-          value={newPlant.date_watered}
-          onChange={(event) => handleNameChange(event, 'date_watered')}
-        // placeholder="date_watered"
-        />
+          {/* DATE_WATERED */}
+          <label htmlFor="date_watered">Date Last Watered: </label>
+          <input
+            id="date_watered"
+            required
+            type="date"
+            value={newPlant.date_watered}
+            onChange={(event) => handleNameChange(event, 'date_watered')}
+          // placeholder="date_watered"
+          />
 
-        {/* DATE_POTTED */}
-        <input
-          required
-          type="date"
-          value={newPlant.date_potted}
-          onChange={(event) => handleNameChange(event, 'date_potted')}
-        // placeholder="date_potted"
-        />
+          {/* DATE_POTTED */}
+          <label htmlFor="date_potted">Date Potted: </label>
+          <input
+            id="date_potted"
+            required
+            type="date"
+            value={newPlant.date_potted}
+            onChange={(event) => handleNameChange(event, 'date_potted')}
+          // placeholder="date_potted"
+          />
 
-        {/* DATE_FERTILIZED */}
-        <input
-          required
-          type="date"
-          value={newPlant.date_fertilized}
-          onChange={(event) => handleNameChange(event, 'date_fertilized')}
-        // placeholder="date_fertilized"
-        />
+          {/* DATE_FERTILIZED */}
+          <label htmlFor="date_added">Date Fertilized: </label>
+          <input
+            id="date_added"
+            required
+            type="date"
+            value={newPlant.date_fertilized}
+            onChange={(event) => handleNameChange(event, 'date_fertilized')}
+          // placeholder="date_fertilized"
+          />
 
-        {/* NOTES */}
-        <input
-          type="text"
-          value={newPlant.notes}
-          onChange={(event) => handleNameChange(event, 'notes')}
-          placeholder="notes"
-        />
+          {/* NOTES */}
+          <label htmlFor="notes">Plant Notes: </label>
+          <input
+            id="notes"
+            type="text"
+            value={newPlant.notes}
+            onChange={(event) => handleNameChange(event, 'notes')}
+            placeholder="remember to turn plant"
+          />
 
-        <button
-          type="submit"
-          onClick={handleClick}
-        >SUBMIT</button>
+          <button type="submit" onClick={handleClick}>SUBMIT</button>
+
+        </Box>
       </form>
+
     </Box>
   );
 }; // PlantForm

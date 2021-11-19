@@ -20,18 +20,18 @@ function PlantDetails(props) {
     const [editMode, setEditMode] = useState(false);
 
 
-    const emptyPlant = {
-        nickname: '',
-        avatar_url: '',
-        date_added: '',
-        plant_type: '',
-        light_level: '',
-        water_freq: '',
-        date_watered: '',
-        date_potted: '',
-        date_fertilized: '',
-        notes: null
-    }; // emptyPlant
+    // const emptyPlant = {
+    //     nickname: '',
+    //     avatar_url: '',
+    //     date_added: '',
+    //     plant_type: '',
+    //     light_level: '',
+    //     water_freq: '',
+    //     date_watered: '',
+    //     date_potted: '',
+    //     date_fertilized: '',
+    //     notes: null
+    // }; // emptyPlant
 
 
     const existingPlant = {
@@ -94,16 +94,31 @@ function PlantDetails(props) {
         gap: .5,
         border: 1,
         mb: 4,
-    }
+    }; // sxEditFormBox
 
     // --- EDIT info --- // 
     const showInputs = (
 
+
         <form onSubmit={handleSubmit}>
+
+            {/* <p>{selectedPlant[0].nickname}</p> */}
+            {/* {selectedPlant > 0 ? <h2>{selectedPlant[0].nickname}</h2> : <></>} */}
+
             <Box sx={sxEditFormBox}>
-                {selectedPlant.map(plant => (
+                <button type="submit">Submit Edited Plant</button>
+                <label htmlFor="nickname">Update Plant Nickname: </label>
+                <input
+                    id="nickname"
+                    type="text"
+                    value={selectedPlant.nickname}
+                    onChange={(event) => dispatch({type: 'EDIT_PLANT', payload: 'yes'})}
+                // placeholder="Set New Nickname"
+                />
+
+                {/* {selectedPlant.map(plant => (
                     <>
-                        <label for="nickname">Update Plant Nickname: </label>
+                        <label htmlFor="nickname">Update Plant Nickname: </label>
                         <input
                             id="nickname"
                             type="text"
@@ -112,7 +127,7 @@ function PlantDetails(props) {
                         // placeholder="Set New Nickname"
                         />
 
-                        <label for="avatar_url">Update Plant Avatar URL: </label>
+                        <label htmlFor="avatar_url">Update Plant Avatar URL: </label>
                         <input
                             id="avatar_url"
                             type="text"
@@ -121,7 +136,7 @@ function PlantDetails(props) {
                             placeholder="Update Avatar URL"
                         />
 
-                        <label for="date_added">Date Added To Collection: </label>
+                        <label htmlFor="date_added">Date Added To Collection: </label>
                         <input
                             id="date_added"
                             type="date"
@@ -129,7 +144,7 @@ function PlantDetails(props) {
                             onChange={(event) => handleNameChange(event, 'date_added')}
                         />
 
-                        <label for="plant_type">Date Added To Collection: </label>
+                        <label htmlFor="plant_type">Date Added To Collection: </label>
                         <input
                             id="plant_type"
                             type="text"
@@ -138,7 +153,7 @@ function PlantDetails(props) {
                             placeholder="Update Plant Type"
                         />
 
-                        <label for="light_level">Update Light Level: </label>
+                        <label htmlFor="light_level">Update Light Level: </label>
                         <select
                             value={plant.light_level}
                             name="light_level"
@@ -151,7 +166,7 @@ function PlantDetails(props) {
                             <option value="3">High</option>
                         </select>
 
-                        <label for="water_freq">Update Days Between Watering: </label>
+                        <label htmlFor="water_freq">Update Days Between Watering: </label>
                         <input
                             id="water_freq"
                             type="number"
@@ -160,7 +175,7 @@ function PlantDetails(props) {
                             placeholder="Update Number of Days Between Watering"
                         />
 
-                        <label for="date_watered">Update Date Last Watered: </label>
+                        <label htmlFor="date_watered">Update Date Last Watered: </label>
                         <input
                             id="date_watered"
                             type="date"
@@ -168,7 +183,7 @@ function PlantDetails(props) {
                             onChange={(event) => handleNameChange(event, 'date_watered')}
                         />
 
-                        <label for="date_potted">Update Date Potted: </label>
+                        <label htmlFor="date_potted">Update Date Potted: </label>
                         <input
                             id="date_potted"
                             type="date"
@@ -176,7 +191,7 @@ function PlantDetails(props) {
                             onChange={(event) => handleNameChange(event, 'date_potted')}
                         />
 
-                        <label for="date_added">Update Date Fertilized: </label>
+                        <label htmlFor="date_added">Update Date Fertilized: </label>
                         <input
                             id="date_fertilized"
                             type="date"
@@ -184,7 +199,7 @@ function PlantDetails(props) {
                             onChange={(event) => handleNameChange(event, 'date_fertilized')}
                         />
 
-                        <label for="notes">Update Plant Notes: </label>
+                        <label htmlFor="notes">Update Plant Notes: </label>
                         <input
                             id="notes"
                             type="text"
@@ -195,7 +210,7 @@ function PlantDetails(props) {
 
                         <button type="submit">Submit Edited Plant</button>
                     </>
-                ))}
+                ))} */}
             </Box>
         </form >
 
@@ -224,20 +239,26 @@ function PlantDetails(props) {
     console.log('--- these are the selected photos', selectedPhoto);
     console.log('--- this is the current_date', current_date);
 
-
+    // dispatch({ type: 'FETCH_SELECTED_PLANT', payload: selectedPlant[0].id })
     return (
         <div>
 
             <button onClick={() => handleRemove(selectedPlant[0].id)}>Remove Plant From Collection</button>
             <Box sx={sxPlantContainer}>
 
-                {selectedPlant.map(plant => (
+                {!editMode ? <button onClick={() => { setEditMode(!editMode) }}>Edit Info</button> : <button onClick={() => setEditMode(!editMode)}>Hide Info</button>}
+
+                {/* <button onClick={() => handleEdit(plant)}>Edit Info</button> */}
+
+                {editMode ? showInputs : <></>}
+
+                {/* {selectedPlant.map(plant => (
                     <Box sx={sxInfoBox} key={plant.id}>
                         <h2>PLANT DETAILS</h2>
 
                         {!editMode ? <button onClick={() => { setEditMode(!editMode), dispatch({ type: 'FETCH_SELECTED_PLANT', payload: plant.id }) }}>Edit Info</button> : <button onClick={() => setEditMode(!editMode)}>Hide Info</button>}
 
-                        {/* <button onClick={() => handleEdit(plant)}>Edit Info</button> */}
+                        <button onClick={() => handleEdit(plant)}>Edit Info</button>
 
                         {editMode ? showInputs : <></>}
 
@@ -253,7 +274,7 @@ function PlantDetails(props) {
                         <p>Notes: {plant.notes}</p>
                         <p>Date Fertilized: {plant.date_fertilized.split(`T`)[0]}</p>
                     </Box>
-                ))}
+                ))} */}
 
                 {selectedPhoto.map(photo => (
                     <Box sx={sxPhotoBox} key={photo.id}>

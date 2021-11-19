@@ -30,14 +30,8 @@ function Collection(props) {
       case 'plantDetails':
         console.log('CLICKED on the image');
         console.log('this is the current plant from handleClick', plant);
-        dispatch({
-          type: 'FETCH_SELECTED_PLANT',
-          payload: plant.id
-        });
-        dispatch({
-          type: 'FETCH_SELECTED_PHOTO',
-          payload: plant.id
-        })
+        dispatch({ type: 'FETCH_SELECTED_PLANT', payload: plant.id });
+        dispatch({ type: 'FETCH_SELECTED_PHOTO', payload: plant.id });
         history.push('/PlantDetails');
         break;
 

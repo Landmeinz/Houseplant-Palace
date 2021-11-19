@@ -31,6 +31,7 @@ function Dashboard(props) {
         console.log('CLICKED on the image');
         console.log('this is the current plant from handleClick', plant);
         dispatch({ type: 'FETCH_SELECTED_PLANT', payload: plant.id });
+        dispatch({ type: 'FETCH_SELECTED_PHOTO', payload: plant.id });
         history.push('/PlantDetails');
         break;
 
@@ -45,18 +46,12 @@ function Dashboard(props) {
     <div>
       <h2>DASHBOARD</h2>
 
-      {/* display the current date from the server */}
-      {current_date.map(today => (
-        <h3 key={today.current_date}>{today.current_date.split(`T`)[0]}</h3>
-      ))}
-
-      <h2>{current_date.current_date}</h2>
+      {current_date && <h3>{current_date.year}-{current_date.month}-{current_date.day}</h3>}
 
       {plants.map(plant => (
         <div key={plant.id}>
           <h3>{plant.nickname}</h3>
           <img onClick={() => handleClick('plantDetails', plant)} src={plant.avatar_url} width="150" height="150" />
-          {/* <p>current_date : {plant.current_date.split(`T`)[0]}</p> */}
           <p>Water Every {plant.water_freq} Days</p>
           <p>Last Watered: {plant.date_watered.split(`T`)[0]}</p>
           <p>Next Water Day: {plant.next_water.split(`T`)[0]}</p>

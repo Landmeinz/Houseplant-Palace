@@ -61,15 +61,30 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
 });
 
 
+// POST new photo to photo db // 
 
-
-
-
-/**
- * POST route template
- */
-router.post('/', (req, res) => {
+router.post('/', rejectUnauthenticated, (req, res) => {
   // POST route code here
+  console.log('--- in router.POST /api/plant');
+  console.log('is authenticated?', req.isAuthenticated());
+  console.log('router.POST /api/plants req.user', req.user);
+  console.log('--- in router.POST req.body', req.body);
+
+
+  let queryText = `
+    INSERT INTO "photo"
+	    ("user_id", "plant_id", "photo_url", "date_uploaded")
+    VALUES 
+	    ($1, $2, $3, $4);` ;
+
+  const values = [req.user.id, req.body.avatar_url]
+
+  pool.query(queryText, values)
+    .then(result => {
+      res.sendStatus(201);
+    }).catch(error => {
+      res.sendStatus(500);
+    });
 });
 
 module.exports = router;

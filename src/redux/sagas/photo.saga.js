@@ -33,12 +33,27 @@ function* fetchSelectedPhoto(action) {
     }
 }; // fetchSelectedPhoto
 
+// --- ADD NEW PHOTO --- //
+function* postPhoto(action) {
+    console.log('--- in postPhoto Saga!');
+
+    try {
+        yield axios.post('/api/photo', action.payload)
+        yield put({ type: 'FETCH_PHOTOS' })
+
+    } catch (error) {
+        console.log('ERROR', error);
+        yield put({ type: 'ERROR postPhoto SAGA' })
+    }
+}; // postPhoto
+
 
 
 
 function* photoSaga() {
     yield takeLatest('FETCH_PHOTOS', fetchPhotos)
     yield takeLatest('FETCH_SELECTED_PHOTO', fetchSelectedPhoto)
+    yield takeLatest('ADD_PHOTO', postPhoto)
 }
 
 export default photoSaga;
