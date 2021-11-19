@@ -42,7 +42,7 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
     console.log('req.params.id'), req.params.id;
 
     let queryText = `
-        SELECT 	*, CURRENT_DATE, "date_watered" + INTERVAL '1 day' * "water_freq" AS "next_water"
+        SELECT 	*, "date_watered" + INTERVAL '1 day' * "water_freq" AS "next_water"
         FROM   	"plant"
         WHERE  	"plant"."user_id" = $1 
         AND    	"plant"."id" = $2;` ;
@@ -75,7 +75,19 @@ router.post('/', rejectUnauthenticated, (req, res) => {
     VALUES 
 	    ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11);` ;
 
-    const values = [req.user.id, req.body.nickname, req.body.date_added, req.body.plant_type, req.body.light_level, req.body.water_freq, req.body.date_watered, req.body.date_potted, req.body.date_fertilized, req.body.notes]
+    const values = [
+        req.user.id,
+        req.body.nickname,
+        req.body.avatar_url,
+        req.body.date_added,
+        req.body.plant_type,
+        req.body.light_level,
+        req.body.water_freq,
+        req.body.date_watered,
+        req.body.date_potted,
+        req.body.date_fertilized,
+        req.body.notes
+    ]
 
     pool.query(queryText, values)
         .then(result => {
@@ -120,7 +132,7 @@ router.put('/:id', rejectUnauthenticated, (req, res) => {
     console.log('router.DELETE /api/plants/:id req.user', req.user);
     console.log('req.params'), req.params.id;
     console.log('req.body', req.body);
-    
+
 
 
     let queryText = `
@@ -150,7 +162,7 @@ router.put('/:id', rejectUnauthenticated, (req, res) => {
         req.body.date_fertilized,
         req.body.notes,
         req.params.id
-    ]; 
+    ];
 
 
     pool.query(queryText, values)

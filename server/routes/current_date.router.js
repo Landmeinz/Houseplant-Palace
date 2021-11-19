@@ -14,7 +14,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
     console.log('router.GET /api/current_date req.user', req.user);
 
     let queryText = `
-        SELECT CURRENT_DATE, 
+        SELECT CURRENT_DATE, CURRENT_DATE + INTERVAL '1d day' AS "tomorrow",
             DATE_PART('year', NOW()) AS "year",
             DATE_PART('month', NOW()) AS "month",
             DATE_PART('day', NOW()) AS "day" ; ` ;

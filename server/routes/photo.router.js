@@ -73,9 +73,9 @@ router.post('/', rejectUnauthenticated, (req, res) => {
 
   let queryText = `
     INSERT INTO "photo"
-	    ("user_id", "plant_id", "photo_url", "date_uploaded")
+	    ("user_id", "plant_id", "photo_url")
     VALUES 
-	    ($1, $2, $3, $4);` ;
+	    ($1, $2, $3);` ;
 
   const values = [req.user.id, req.body.avatar_url]
 

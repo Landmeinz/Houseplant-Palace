@@ -32,7 +32,7 @@ function PlantForm(props) {
     date_watered: '',
     date_potted: '',
     date_fertilized: '',
-    notes: null
+    notes: ''
   }; // emptyPlant
 
   const [newPlant, setNewPlant] = useState(emptyPlant);
@@ -51,7 +51,7 @@ function PlantForm(props) {
     console.log('-- the newPlant:', newPlant);
 
     dispatch({ type: 'ADD_PLANT', payload: newPlant });
-    dispatch({ type: 'ADD_PHOTO', payload: newPlant.avatar_url })
+    // dispatch({ type: 'ADD_PHOTO', payload: newPlant.avatar_url });
     setNewPlant(emptyPlant);
   } // handleSubmit
 
@@ -162,7 +162,7 @@ function PlantForm(props) {
           />
 
           {/* LIGHT_LEVEL */}
-          <label for="light_level">Light Level: </label>
+          <label htmlFor="light_level">Light Level: </label>
           <select
             id="light_level"
             required

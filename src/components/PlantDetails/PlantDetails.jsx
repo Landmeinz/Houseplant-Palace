@@ -190,103 +190,6 @@ function PlantDetails(props) {
                     onChange={(event) => dispatch({ type: 'EDIT_PLANT', payload: event.target.value, key: 'notes' })}
                     placeholder="Update Plant Notes"
                 />
-
-
-                {/* {selectedPlant.map(plant => (
-                    <>
-                        <label htmlFor="nickname">Update Plant Nickname: </label>
-                        <input
-                            id="nickname"
-                            type="text"
-                            value={plant.nickname}
-                            onChange={(event) => handleNameChange(event, 'nickname')}
-                        // placeholder="Set New Nickname"
-                        />
-
-                        <label htmlFor="avatar_url">Update Plant Avatar URL: </label>
-                        <input
-                            id="avatar_url"
-                            type="text"
-                            value={plant.avatar_url}
-                            onChange={(event) => handleNameChange(event, 'avatar_url')}
-                            placeholder="Update Avatar URL"
-                        />
-
-                        <label htmlFor="date_added">Date Added To Collection: </label>
-                        <input
-                            id="date_added"
-                            type="date"
-                            value={plant.date_added.split(`T`)[0]}
-                            onChange={(event) => handleNameChange(event, 'date_added')}
-                        />
-
-                        <label htmlFor="plant_type">Date Added To Collection: </label>
-                        <input
-                            id="plant_type"
-                            type="text"
-                            value={plant.plant_type}
-                            onChange={(event) => handleNameChange(event, 'plant_type')}
-                            placeholder="Update Plant Type"
-                        />
-
-                        <label htmlFor="light_level">Update Light Level: </label>
-                        <select
-                            value={plant.light_level}
-                            name="light_level"
-                            id="light_level"
-                            onChange={(event) => handleNameChange(event, 'light_level')}
-                        >
-                            <option hidden value="null">Light Level</option>
-                            <option value="1">Low</option>
-                            <option value="2">Medium</option>
-                            <option value="3">High</option>
-                        </select>
-
-                        <label htmlFor="water_freq">Update Days Between Watering: </label>
-                        <input
-                            id="water_freq"
-                            type="number"
-                            value={plant.water_freq}
-                            onChange={(event) => handleNameChange(event, 'water_freq')}
-                            placeholder="Update Number of Days Between Watering"
-                        />
-
-                        <label htmlFor="date_watered">Update Date Last Watered: </label>
-                        <input
-                            id="date_watered"
-                            type="date"
-                            value={plant.date_watered.split(`T`)[0]}
-                            onChange={(event) => handleNameChange(event, 'date_watered')}
-                        />
-
-                        <label htmlFor="date_potted">Update Date Potted: </label>
-                        <input
-                            id="date_potted"
-                            type="date"
-                            value={plant.date_potted.split(`T`)[0]}
-                            onChange={(event) => handleNameChange(event, 'date_potted')}
-                        />
-
-                        <label htmlFor="date_added">Update Date Fertilized: </label>
-                        <input
-                            id="date_fertilized"
-                            type="date"
-                            value={plant.date_fertilized.split(`T`)[0]}
-                            onChange={(event) => handleNameChange(event, 'date_fertilized')}
-                        />
-
-                        <label htmlFor="notes">Update Plant Notes: </label>
-                        <input
-                            id="notes"
-                            type="text"
-                            value={plant.notes}
-                            onChange={(event) => handleNameChange(event, 'notes')}
-                            placeholder="Update Plant Notes"
-                        />
-
-                        <button type="submit">Submit Edited Plant</button>
-                    </>
-                ))} */}
             </Box>
         </form >
 
@@ -319,14 +222,14 @@ function PlantDetails(props) {
     return (
         <div>
 
-            <button onClick={() => handleRemove(selectedPlant[0].id)}>Remove Plant From Collection</button>
+            <button onClick={() => handleRemove(selectedPlant.id)}>Remove Plant From Collection</button>
             <Box sx={sxPlantContainer}>
 
                 {!editMode ? <button onClick={() => { setEditMode(!editMode) }}>Edit Info</button> : <button onClick={() => setEditMode(!editMode)}>Hide Info</button>}
 
-                {/* <button onClick={() => handleEdit(plant)}>Edit Info</button> */}
-
                 {editMode ? showInputs : <></>}
+
+                <button>Add More Photos</button>
 
                 {/* {selectedPlant.map(plant => (
                     <Box sx={sxInfoBox} key={plant.id}>

@@ -42,16 +42,24 @@ function Collection(props) {
   }; // handleClick
 
 
+  const sxInfoBox = {
+    border: 1,
+    mb: 2,
+
+  }; // sxInfoBox
 
   const showContent = (
     <div>
 
       {plants.map(plant => (
         <div key={plant.id}>
-          <h3>{plant.nickname}</h3>
-          <p>{plant.date_added.split(`T`)[0]}</p>
-          <img onClick={() => handleClick('plantDetails', plant)} src={plant.avatar_url} />
+          <Box sx={sxInfoBox}>
+            
+            <h3>{plant.nickname}</h3>
+            <p>{plant.date_added.split(`T`)[0]}</p>
+            <img onClick={() => handleClick('plantDetails', plant)} src={plant.avatar_url} />
 
+          </Box>
         </div>
       ))}
     </div>
