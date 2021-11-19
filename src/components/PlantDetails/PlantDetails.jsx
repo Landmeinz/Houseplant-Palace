@@ -79,6 +79,12 @@ function PlantDetails(props) {
     }; // handleRemove
 
 
+    const handleRemovePhoto = (photoId, plantId) => {
+        console.log('--- CLICKED --- hit handleRemovePhoto');
+        dispatch({ type: 'REMOVE_PHOTO', payload: {photoId, plantId} });
+    }; // handleRemoveImage
+
+
     // const handleEdit = (plant) => {
     //     console.log('--- CLICKED --- hit handleEdit');
     //     console.log('--- the editPlant:', editPlant);
@@ -98,7 +104,6 @@ function PlantDetails(props) {
 
     // --- EDIT info --- // 
     const showInputs = (
-
 
         <form onSubmit={handleSubmit}>
 
@@ -231,7 +236,7 @@ function PlantDetails(props) {
 
     const sxPhotoBox = {
         border: 1,
-        mb: 4,
+        mb: 6,
 
     }; // sxPlantCard
 
@@ -281,6 +286,7 @@ function PlantDetails(props) {
 
                         <img src={photo.photo_url} />
                         <p>Documented: {photo.date_uploaded.split(`T`)[0]}</p>
+                        <button onClick={() => handleRemovePhoto(photo.id, photo.plant_id)}>Remove Image</button>
 
                     </Box>
                 ))}

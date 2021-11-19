@@ -33,6 +33,7 @@ function* fetchSelectedPhoto(action) {
     }
 }; // fetchSelectedPhoto
 
+
 // --- ADD NEW PHOTO --- //
 function* postPhoto(action) {
     console.log('--- in postPhoto Saga!');
@@ -48,12 +49,29 @@ function* postPhoto(action) {
 }; // postPhoto
 
 
+// --- REMOVE SELECTED PHOTO --- // 
+function* removePhoto(action) {
+    console.log('--- in removePhoto Saga!');
+    console.log('---- id to remove action.payload:', action.payload.photoId);
+    
+    const removeId = action.payload.photoId
+    const plantId = action.payload.plantId
+
+    try {
+        yield axios.delete(`/api/photo/${removeId}`)
+        yield put({type: 'FETCH_SELECTED_PHOTO', payload: plantId})
+    } catch (error) {
+        console.log('ERROR', error);
+        yield put({ type: 'ERROR removePhoto SAGA' })
+    }
+}; // removePhoto
 
 
 function* photoSaga() {
     yield takeLatest('FETCH_PHOTOS', fetchPhotos)
     yield takeLatest('FETCH_SELECTED_PHOTO', fetchSelectedPhoto)
     yield takeLatest('ADD_PHOTO', postPhoto)
+    yield takeLatest('REMOVE_PHOTO', removePhoto)
 }
 
 export default photoSaga;

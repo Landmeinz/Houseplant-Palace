@@ -87,4 +87,34 @@ router.post('/', rejectUnauthenticated, (req, res) => {
     });
 });
 
+
+
+// DELETE photo by id from the db // 
+
+router.delete('/:id', rejectUnauthenticated, (req, res) => {
+  // GET route code here
+  console.log('----- in router.DELETE /api/photo/:id');
+  console.log('is authenticated?', req.isAuthenticated());
+  console.log('router.DELETE /api/photo/:id req.user', req.user);
+  console.log('req.params'), req.params.id;
+
+
+  let queryText = `
+      DELETE 	FROM "photo"
+      WHERE 	"id" = $1;` ;
+
+  const values = [req.params.id]
+
+  pool.query(queryText, values)
+      .then(result => {
+          console.log('--- router.delete --- plant/:id --- result.rows', result.rows);
+          res.send(result.rows);
+      }).catch(error => {
+          console.log('ERROR router.DELETE /api/plant/:ID', error);
+          res.sendStatus(500);
+      });
+});
+
+
+
 module.exports = router;
