@@ -51,7 +51,10 @@ function PlantForm(props) {
     console.log('-- the newPlant:', newPlant);
 
     dispatch({ type: 'ADD_PLANT', payload: newPlant });
-    // dispatch({ type: 'ADD_PHOTO', payload: newPlant.avatar_url });
+
+    // we need to get the plant ID to send along with the add photo saga // 
+    // dispatch({ type: 'ADD_PHOTO', payload: newPlant.avatar_url, plantId: plantId });
+
     setNewPlant(emptyPlant);
   } // handleSubmit
 

@@ -51,7 +51,7 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
 
     pool.query(queryText, values)
         .then(result => {
-            console.log('--- router.get --- photo/:id --- result.rows', result.rows);
+            console.log('--- router.get --- plant/:id --- result.rows', result.rows);
             res.send(result.rows);
         }).catch(error => {
             console.log('ERROR router.GET /api/plant', error);
@@ -60,7 +60,37 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
 });
 
 
-// POST a new plant to the plant database // 
+// GET the data from the NEW plant //
+router.get('/new', rejectUnauthenticated, (req, res) => {
+    // GET route code here
+    console.log('--- in router.GET /api/plant/new');
+    console.log('is authenticated?', req.isAuthenticated());
+    console.log('router.GET /api/plants/id req.user', req.user);
+    console.log('req.params.id'), req.params.id;
+
+    let queryText = `
+        SELECT 	    *
+        FROM   	    "plant"
+        WHERE       "user_id" = $1
+        ORDER BY    "id" DESC
+        LIMIT       '1' ;` ;
+
+    const values = [req.user.id]
+
+    pool.query(queryText, values)
+        .then(result => {
+            console.log('--- router.get --- plant/:id --- result.rows', result.rows);
+            res.send(result.rows);
+        }).catch(error => {
+            console.log('ERROR router.GET /api/plant', error);
+            res.sendStatus(500);
+        });
+});
+
+
+
+
+// POST a new plant to the plant database AND upload the avatar_url to the photos db as well // 
 router.post('/', rejectUnauthenticated, (req, res) => {
     // POST route code here
     console.log('--- in router.POST /api/plant');
@@ -68,14 +98,16 @@ router.post('/', rejectUnauthenticated, (req, res) => {
     console.log('router.POST /api/plants req.user', req.user);
     console.log('--- in router.POST req.body', req.body);
 
-
-    let queryText = `
+    // first send all of the plant info to the plant DB
+    let queryTextPlant = `
     INSERT INTO "plant"
 	    ("user_id", "nickname", "avatar_url", "date_added", "plant_type", "light_level", "water_freq", "date_watered", "date_potted", "date_fertilized", "notes") 
     VALUES 
-	    ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11);` ;
+	    ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
+    RETURNING
+        "id";` ;
 
-    const values = [
+    const valuesPlant = [
         req.user.id,
         req.body.nickname,
         req.body.avatar_url,
@@ -89,10 +121,35 @@ router.post('/', rejectUnauthenticated, (req, res) => {
         req.body.notes
     ]
 
-    pool.query(queryText, values)
+    pool.query(queryTextPlant, valuesPlant)
+        // when we get the result back then post the avatar_url to the photos db with the newly created plant id
         .then(result => {
-            res.sendStatus(201);
+            console.log('--- this is the result.rows[0] of the first plant .post', result.rows[0].id);
+            
+            // NEW PLANT ID IS HERE!
+            console.log('New Plant Id:', result.rows[0].id);
+            const newPlantId = result.rows[0].id
+
+            // Now handle the genre reference
+            let queryTextPhoto = `
+            INSERT INTO "photo"
+                ("user_id", "plant_id", "photo_url")
+            VALUES 
+                ($1, $2, $3);` ;
+
+            const valuesPhoto = [req.user.id, newPlantId, req.body.avatar_url];
+
+            pool.query(queryTextPhoto, valuesPhoto)
+                .then(result => {
+                    res.sendStatus(201);
+                // catch for the second photo query
+                }).catch(error => {
+                    res.sendStatus(500);
+                });
+
+        // catch for the first plant query
         }).catch(error => {
+            console.log('ERROR in the plant db on the double post', error);
             res.sendStatus(500);
         });
 });
@@ -133,8 +190,6 @@ router.put('/:id', rejectUnauthenticated, (req, res) => {
     console.log('req.params'), req.params.id;
     console.log('req.body', req.body);
 
-
-
     let queryText = `
         UPDATE 	"plant"
         SET 	"nickname" = $1,
@@ -149,7 +204,6 @@ router.put('/:id', rejectUnauthenticated, (req, res) => {
                 "notes" = $10
         WHERE 	"id" = $11;` ;
 
-
     const values = [
         req.body.nickname,
         req.body.avatar_url,
@@ -163,7 +217,6 @@ router.put('/:id', rejectUnauthenticated, (req, res) => {
         req.body.notes,
         req.params.id
     ];
-
 
     pool.query(queryText, values)
         .then(result => {

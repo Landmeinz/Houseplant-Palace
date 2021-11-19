@@ -84,6 +84,19 @@ function* updateSelectedPlant(action) {
 }; // removePlant
 
 
+// function* fetchNewPlant(action) {
+//     console.log('--- in fetchNewPlant Saga!');
+
+//     try {
+//         const response = yield axios.get('/api/plant/new')
+//         yield put({ type: 'SET_NEW_PLANT', payload: response.data })
+
+//     } catch (error) {
+//         console.log('ERROR fetchPlants Saga', error);
+//     }
+// }; // fetchNewPlant
+
+
 function* plantSaga() {
     yield takeLatest('FETCH_PLANTS', fetchPlants)
     yield takeLatest('ADD_PLANT', postPlant)
