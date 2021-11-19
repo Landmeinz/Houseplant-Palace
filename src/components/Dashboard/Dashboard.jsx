@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
+
 // --- MUI --- // 
 import Box from '@mui/material/Box';
 
@@ -20,27 +21,63 @@ function Dashboard(props) {
   const [heading, setHeading] = useState('Functional Component');
 
   console.log('--- plants from the store in Dashboard,', plants);
-  // console.log('--- the current date:', current_date);
+  console.log('--- the current date:', current_date);
 
 
+  function handleClick(input, plant) {
+
+    switch (input) {
+      case 'plantDetails':
+        console.log('CLICKED on the image');
+        console.log('this is the current plant from handleClick', plant);
+        dispatch({ type: 'FETCH_SELECTED_PLANT', payload: plant.id });
+        dispatch({ type: 'FETCH_SELECTED_PHOTO', payload: plant.id });
+        history.push('/PlantDetails');
+        break;
+
+      default:
+        break;
+    }; // switch
+
+  }; // handleClick
+
+
+  const sxInfoBox = {
+    border: 1,
+    m: 0,
+    mb: 2,
+    overflow: 'scroll',
+
+  }; // sxInfoBox
 
   const showContent = (
     <div>
       <h2>DASHBOARD</h2>
 
-      {/* display the current date from the server */}
-      {current_date.map(today => (
-        <h3 key={today.id}>{today.current_date.split(`T`)[0]}</h3>
-      ))}
+      {current_date && <h3>{current_date.year}-{current_date.month}-{current_date.day}</h3>}
+
 
       {plants.map(plant => (
+
         <div key={plant.id}>
-          <h3>{plant.nickname}</h3>
-          <img onClick={() => history.push('/PlantDetails')} src={plant.avatar_url} width="200" height="200" />
-          {/* <p>current_date : {plant.current_date.split(`T`)[0]}</p> */}
-          <p>Water Every {plant.water_freq} Days</p>
-          <p>Last Watered: {plant.date_watered.split(`T`)[0]}</p>
+          <Box sx={sxInfoBox}>
+            <h3>{plant.nickname}</h3>
+            {current_date.current_date >= plant.next_water ? <button>Mark Watered</button> : <></>}
+            {current_date.tomorrow === plant.next_water ? <button>Mark Watered</button> : <></>}
+
+            {current_date.current_date === plant.next_water ? <h4>Water Me Today!</h4> : <></>}
+            {current_date.current_date > plant.next_water ? <h4>Remember to Water Me!</h4> : <></>}
+            {current_date.tomorrow === plant.next_water ? <h4>Water Me Tomorrow</h4> : <></>}
+            {current_date.tomorrow < plant.next_water ? <h4>Water Soon</h4> : <></>}
+            {/* {current_date.current_date ? (current_date.current_date - plant.next_water) : <></>} */}
+
+            <img onClick={() => handleClick('plantDetails', plant)} src={plant.avatar_url} width="150" height="150" />
+            <p>Water Every {plant.water_freq} Days</p>
+            <p>Last Watered: {plant.date_watered.split(`T`)[0]}</p>
+            <h4>Next Water Day: {plant.next_water.split(`T`)[0]}</h4>
+          </Box>
         </div>
+
       ))}
     </div>
   ); // showContent
@@ -58,6 +95,7 @@ function Dashboard(props) {
   const sxDashboardContainer = {
     border: 1,
     m: 2,
+    mb: 8,
     overflow: 'scroll',
 
   }; // sxDashboardContainer

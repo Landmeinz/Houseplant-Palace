@@ -33,11 +33,88 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 
 
 
-/**
- * POST route template
- */
-router.post('/', (req, res) => {
-  // POST route code here
+// GET all selected photos //
+
+router.get('/:id', rejectUnauthenticated, (req, res) => {
+  // GET route code here
+  console.log('--- in router.GET /api/photo');
+
+  console.log('router.get photo req.user', req.user);
+  console.log('req.params.id'), req.params.id;
+
+  let queryText = `
+    SELECT 	*
+    FROM 	  "photo"
+    WHERE 	"user_id" = $1
+    AND    	"plant_id" = $2;` ;
+
+  let userId = [req.user.id, req.params.id];
+
+  pool.query(queryText, userId)
+    .then(result => {
+      console.log('--- router.GET /api/photo result.rows', result.rows);
+      res.send(result.rows);
+    }).catch(error => {
+      console.log('ERROR router.GET /api/photo', error);
+      res.sendStatus(500);
+    });
 });
+
+
+// POST new photo to photo db // 
+
+router.post('/', rejectUnauthenticated, (req, res) => {
+  // POST route code here
+  console.log('--- in router.POST /api/plant');
+  console.log('is authenticated?', req.isAuthenticated());
+  console.log('router.POST /api/plants req.user', req.user);
+  console.log('--- in router.POST req.body', req.body);
+
+
+  let queryText = `
+    INSERT INTO "photo"
+	    ("user_id", "plant_id", "photo_url")
+    VALUES 
+	    ($1, $2, $3);` ;
+
+  const values = [req.user.id, req.body.avatar_url]
+
+  pool.query(queryText, values)
+    .then(result => {
+      res.sendStatus(201);
+    }).catch(error => {
+      res.sendStatus(500);
+    });
+});
+
+
+
+// DELETE photo by id from the db // 
+
+router.delete('/:id', rejectUnauthenticated, (req, res) => {
+  // GET route code here
+  console.log('----- in router.DELETE /api/photo/:id');
+  console.log('is authenticated?', req.isAuthenticated());
+  console.log('router.DELETE /api/photo/:id req.user', req.user);
+  console.log('req.params'), req.params.id;
+
+
+  let queryText = `
+      DELETE 	FROM "photo"
+      WHERE 	"id" = $1;` ;
+
+  const values = [req.params.id]
+
+  pool.query(queryText, values)
+      .then(result => {
+          console.log('--- router.delete --- plant/:id --- result.rows', result.rows);
+          res.send(result.rows);
+      }).catch(error => {
+          console.log('ERROR router.DELETE /api/plant/:ID', error);
+          res.sendStatus(500);
+      });
+});
+
+
 
 module.exports = router;
