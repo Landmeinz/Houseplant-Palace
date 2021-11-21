@@ -56,8 +56,8 @@ function Collection(props) {
           <Box sx={sxInfoBox}>
             
             <h3>{plant.nickname}</h3>
-            <p>{plant.date_added.split(`T`)[0]}</p>
             <img onClick={() => handleClick('plantDetails', plant)} src={plant.avatar_url} />
+            <h4>{plant.date_added.split(`T`)[0]}</h4>
 
           </Box>
         </div>

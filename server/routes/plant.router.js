@@ -60,35 +60,6 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
 });
 
 
-// GET the data from the NEW plant //
-router.get('/new', rejectUnauthenticated, (req, res) => {
-    // GET route code here
-    console.log('--- in router.GET /api/plant/new');
-    console.log('is authenticated?', req.isAuthenticated());
-    console.log('router.GET /api/plants/id req.user', req.user);
-    console.log('req.params.id'), req.params.id;
-
-    let queryText = `
-        SELECT 	    *
-        FROM   	    "plant"
-        WHERE       "user_id" = $1
-        ORDER BY    "id" DESC
-        LIMIT       '1' ;` ;
-
-    const values = [req.user.id]
-
-    pool.query(queryText, values)
-        .then(result => {
-            console.log('--- router.get --- plant/:id --- result.rows', result.rows);
-            res.send(result.rows);
-        }).catch(error => {
-            console.log('ERROR router.GET /api/plant', error);
-            res.sendStatus(500);
-        });
-});
-
-
-
 
 // POST a new plant to the plant database AND upload the avatar_url to the photos db as well // 
 router.post('/', rejectUnauthenticated, (req, res) => {
@@ -133,17 +104,20 @@ router.post('/', rejectUnauthenticated, (req, res) => {
             // Now handle the genre reference
             let queryTextPhoto = `
             INSERT INTO "photo"
-                ("user_id", "plant_id", "photo_url")
+                ("user_id", "plant_id", "photo_url", "date_uploaded")
             VALUES 
-                ($1, $2, $3);` ;
+                ($1, $2, $3, $4);` ;
 
-            const valuesPhoto = [req.user.id, newPlantId, req.body.avatar_url];
+            const valuesPhoto = [req.user.id, newPlantId, req.body.avatar_url, 'today'];
 
             pool.query(queryTextPhoto, valuesPhoto)
                 .then(result => {
+                    console.log('--- this is the result from the db POST, result');
+                    
                     res.sendStatus(201);
                 // catch for the second photo query
                 }).catch(error => {
+                    console.log('ERROR in the photo db on the double post', error);
                     res.sendStatus(500);
                 });
 
@@ -186,7 +160,7 @@ router.put('/:id', rejectUnauthenticated, (req, res) => {
     // PUT route code here
     console.log('---------- in router.PUT /api/plant/:id');
     console.log('is authenticated?', req.isAuthenticated());
-    console.log('router.DELETE /api/plants/:id req.user', req.user);
+    console.log('router.PUT /api/plants/:id req.user', req.user);
     console.log('req.params'), req.params.id;
     console.log('req.body', req.body);
 
@@ -224,6 +198,33 @@ router.put('/:id', rejectUnauthenticated, (req, res) => {
             res.send(result.rows);
         }).catch(error => {
             console.log('ERROR router.PUT /api/plant/:ID', error);
+            res.sendStatus(500);
+        });
+});
+
+
+// UPDATE WATER DATE FORM DASHBOARD // 
+router.put('/water/:id', rejectUnauthenticated, (req, res) => {
+    // PUT route code here
+    console.log('---------- in router.PUT /api/plant/:id');
+    console.log('is authenticated?', req.isAuthenticated());
+    console.log('router.PUT /api/plants/:id req.user', req.user);
+    console.log('req.params'), req.params.id;
+    console.log('req.body', req.body);
+
+    let queryText = `
+        UPDATE 	"plant"
+        SET 	"date_watered" = $1
+        WHERE 	"id" = $2; ` ;
+
+    const values = ['today', req.params.id];
+
+    pool.query(queryText, values)
+        .then(result => {
+            console.log('--- router.PUT --- plant/:id water update --- result.rows', result.rows);
+            res.send(result.rows);
+        }).catch(error => {
+            console.log('ERROR router.PUT water update /api/plant/:ID', error);
             res.sendStatus(500);
         });
 });
