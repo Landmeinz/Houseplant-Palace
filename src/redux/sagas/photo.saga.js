@@ -41,6 +41,7 @@ function* postPhoto(action) {
     try {
         yield axios.post('/api/photo', action.payload)
         yield put({ type: 'FETCH_PHOTOS' })
+        yield put({ type: 'FETCH_SELECTED_PHOTO', payload: action.payload.plantId})
 
     } catch (error) {
         console.log('ERROR', error);

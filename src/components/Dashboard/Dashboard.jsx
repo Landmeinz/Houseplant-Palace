@@ -7,7 +7,6 @@ import { useHistory } from 'react-router-dom';
 import Box from '@mui/material/Box';
 
 
-
 // Basic functional component structure for React with default state
 // value setup. When making a new component be sure to replace the
 // component name TemplateFunction with the name for the new component.
@@ -18,8 +17,7 @@ function Dashboard(props) {
   const history = useHistory();
   const plants = useSelector((store) => store.plants);
   const current_date = useSelector((store) => store.current_date);
-  const [heading, setHeading] = useState('Functional Component');
-
+  
   console.log('--- plants from the store in Dashboard,', plants);
   console.log('--- the current date:', current_date);
 
@@ -34,6 +32,13 @@ function Dashboard(props) {
         dispatch({ type: 'FETCH_SELECTED_PHOTO', payload: plant.id });
         history.push('/PlantDetails');
         break;
+
+        case 'markWatered':
+          console.log('CLICKED on Mark Watered');
+          console.log('this is the current plant from handleClick', plant);
+          dispatch({ type: 'UPDATE_WATER_DATE', payload: plant });
+          dispatch({ type: 'FETCH_PLANTS' });
+          break;
 
       default:
         break;
@@ -62,14 +67,13 @@ function Dashboard(props) {
         <div key={plant.id}>
           <Box sx={sxInfoBox}>
             <h3>{plant.nickname}</h3>
-            {current_date.current_date >= plant.next_water ? <button>Mark Watered</button> : <></>}
-            {current_date.tomorrow === plant.next_water ? <button>Mark Watered</button> : <></>}
+            {current_date.current_date >= plant.next_water  ? <button onClick={() => handleClick('markWatered', plant)}>Mark Watered</button> : <></>}
+            {current_date.tomorrow === plant.next_water     ? <button onClick={() => handleClick('markWatered', plant)}>Mark Watered</button> : <></>}
 
             {current_date.current_date === plant.next_water ? <h4>Water Me Today!</h4> : <></>}
-            {current_date.current_date > plant.next_water ? <h4>Remember to Water Me!</h4> : <></>}
-            {current_date.tomorrow === plant.next_water ? <h4>Water Me Tomorrow</h4> : <></>}
-            {current_date.tomorrow < plant.next_water ? <h4>Water Soon</h4> : <></>}
-            {/* {current_date.current_date ? (current_date.current_date - plant.next_water) : <></>} */}
+            {current_date.current_date > plant.next_water   ? <h4>Remember to Water Me!</h4> : <></>}
+            {current_date.tomorrow === plant.next_water     ? <h4>Water Me Tomorrow</h4> : <></>}
+            {current_date.tomorrow < plant.next_water       ? <h4>Water Soon</h4> : <></>}
 
             <img onClick={() => handleClick('plantDetails', plant)} src={plant.avatar_url} width="150" height="150" />
             <p>Water Every {plant.water_freq} Days</p>
@@ -91,7 +95,6 @@ function Dashboard(props) {
   ); // showMessage
 
 
-
   const sxDashboardContainer = {
     border: 1,
     m: 2,
@@ -99,6 +102,7 @@ function Dashboard(props) {
     overflow: 'scroll',
 
   }; // sxDashboardContainer
+
 
   return (
     <Box sx={sxDashboardContainer}>

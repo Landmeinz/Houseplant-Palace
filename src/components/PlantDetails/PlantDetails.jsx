@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { DateTime } from "luxon";
 
 // --- MUI --- // 
 import Box from '@mui/material/Box';
@@ -18,47 +19,14 @@ function PlantDetails(props) {
     const current_date = useSelector((store) => store.current_date);
 
     const [editMode, setEditMode] = useState(false);
+    const [addPhotoMode, setAddPhotoMode] = useState(false);
+    const [newPhoto, setNewPhoto] = useState('');
 
+    const dt = DateTime.local(current_date.year, current_date.month, current_date.day);
+    console.log('this is the dt from the server', dt);
 
-    // const emptyPlant = {
-    //     nickname: '',
-    //     avatar_url: '',
-    //     date_added: '',
-    //     plant_type: '',
-    //     light_level: '',
-    //     water_freq: '',
-    //     date_watered: '',
-    //     date_potted: '',
-    //     date_fertilized: '',
-    //     notes: null
-    // }; // emptyPlant
-
-
-    const existingPlant = {
-        nickname: selectedPlant.nickname,
-        // avatar_url: selectedPlant.avatar_url,
-        // date_added: selectedPlant.date_added,
-        // plant_type: selectedPlant.plant_type,
-        // light_level: selectedPlant.light_level,
-        // water_freq: selectedPlant.water_freq,
-        // date_watered: selectedPlant.date_watered,
-        // date_potted: selectedPlant.date_potted,
-        // date_fertilized: selectedPlant.date_fertilized,
-        // notes: selectedPlant.notes
-    }; // existingPlant
-
-    console.log('--- this is the existingPlant --- ', existingPlant);
-
-    const [editPlant, setEditPlant] = useState(existingPlant);
-
-
-
-    const handleNameChange = (event, property) => {
-        setEditPlant({
-            ...editPlant,
-            [property]: event.target.value
-        })
-    } // handleNameChange
+    console.log('this is the dt from the server using fromISO');
+    console.log(DateTime.fromISO(current_date.current_date));
 
 
     const handleSubmit = (event) => {
@@ -83,6 +51,12 @@ function PlantDetails(props) {
     }; // handleRemoveImage
 
 
+    const handleNewPhoto = (plantId) => {
+        console.log('--- CLICKED --- hit handleNewPhoto');
+        dispatch({ type: 'ADD_PHOTO', payload: { plantId, newPhoto} });
+        setNewPhoto('');
+    }; // handleNewPhoto
+
 
     const sxEditFormBox = {
         display: 'flex',
@@ -92,13 +66,10 @@ function PlantDetails(props) {
         mb: 4,
     }; // sxEditFormBox
 
-    // --- EDIT info --- // 
-    const showInputs = (
+    // --- EDIT info display when button is clicked --- // 
+    const showEditInputs = (
 
         <form onSubmit={handleSubmit}>
-
-            {/* <p>{selectedPlant[0].nickname}</p> */}
-            {/* {selectedPlant > 0 ? <h2>{selectedPlant[0].nickname}</h2> : <></>} */}
 
             <Box sx={sxEditFormBox}>
                 <button type="submit">Submit Edited Plant</button>
@@ -116,7 +87,7 @@ function PlantDetails(props) {
                     id="avatar_url"
                     type="text"
                     value={selectedPlant.avatar_url}
-                    onChange={(event) => dispatch({ type: 'EDIT_PLANT', payload: event.target.value, key: 'avatar_url'})}
+                    onChange={(event) => dispatch({ type: 'EDIT_PLANT', payload: event.target.value, key: 'avatar_url' })}
                     placeholder="Update Avatar URL"
                 />
                 <label htmlFor="date_added">Date Added To Collection: </label>
@@ -193,9 +164,27 @@ function PlantDetails(props) {
             </Box>
         </form >
 
-    ); // showInputs
+    ); // showEditInputs
 
 
+    // -- Display the photo url input text on button press -- // 
+    const showPhotoInputs = (
+        <form onSubmit={() => handleNewPhoto(selectedPlant.id)}>
+            <label htmlFor="photo_url">Provide Photo URL: </label>
+            <input
+                id="photo_url"
+                type="text"
+                value={newPhoto}
+                onChange={(event) => setNewPhoto(event.target.value)}
+                placeholder="seedling-solid.svg"
+            />
+            <button type="submit">Add New Plant Photo</button>
+
+        </form>
+    ); // showPhotoInputs
+
+
+    // holds all content of this page // 
     const sxPlantContainer = {
         border: 1,
         m: 2,
@@ -208,6 +197,7 @@ function PlantDetails(props) {
         mb: 4,
     }; // sxInfoBox
 
+    // hold photo, date uploaded, and the remove button // 
     const sxPhotoBox = {
         border: 1,
         mb: 6,
@@ -218,53 +208,34 @@ function PlantDetails(props) {
     console.log('--- these are the selected photos', selectedPhoto);
     console.log('--- this is the current_date', current_date);
 
-    // dispatch({ type: 'FETCH_SELECTED_PLANT', payload: selectedPlant[0].id })
+
     return (
         <div>
 
             <button onClick={() => handleRemove(selectedPlant.id)}>Remove Plant From Collection</button>
             <Box sx={sxPlantContainer}>
 
-                {!editMode ? <button onClick={() => { setEditMode(!editMode) }}>Edit Info</button> : <button onClick={() => setEditMode(!editMode)}>Hide Info</button>}
+                {!editMode ? <button onClick={() => { setEditMode(!editMode) }}>Edit Plant Info</button> : <button onClick={() => setEditMode(!editMode)}>Hide Info</button>}
+                {editMode ? showEditInputs : <></>}
 
-                {editMode ? showInputs : <></>}
+                {!addPhotoMode ? <button onClick={() => { setAddPhotoMode(!addPhotoMode) }}>Add More Photos</button> : <button onClick={() => { setAddPhotoMode(!addPhotoMode) }}>Hide</button> }
+                {addPhotoMode ? showPhotoInputs : <></>}
 
-                <button>Add More Photos</button>
+                {selectedPlant &&
+                    <>
+                        <h3>{selectedPlant.nickname}</h3>
+                        <p>Avatar URL:  {selectedPlant.avatar_url}</p>
+                        <p>Plant Type:  {selectedPlant.plant_type}</p>
+                        <p>Birthday:    {selectedPlant.date_added}</p>
+                        <p>Light Level: {selectedPlant.light_level}</p>
+                        <p>Water Every  {selectedPlant.water_freq} Days</p>
+                        <p>Date Potted: {selectedPlant.date_potted}</p>
+                        <p>Last Water Date: {selectedPlant.date_watered}</p>
+                        <p>Notes:           {selectedPlant.notes}</p>
+                        <p>Date Fertilized: {selectedPlant.date_fertilized}</p>
+                    </>}
 
-                {/* {selectedPlant.map(plant => (
-                    <Box sx={sxInfoBox} key={plant.id}>
-                        <h2>PLANT DETAILS</h2>
 
-                        {!editMode ? <button onClick={() => { setEditMode(!editMode), dispatch({ type: 'FETCH_SELECTED_PLANT', payload: plant.id }) }}>Edit Info</button> : <button onClick={() => setEditMode(!editMode)}>Hide Info</button>}
-
-                        <button onClick={() => handleEdit(plant)}>Edit Info</button>
-
-                        {editMode ? showInputs : <></>}
-
-                        <h3>{plant.nickname}</h3>
-
-                        <p>Avatar URL: {plant.avatar_url}</p>
-                        <p>Plant Type: {plant.plant_type}</p>
-                        <p>Birthday: {plant.date_added.split(`T`)[0]}</p>
-                        <p>Light Level: {plant.light_level}</p>
-                        <p>Water Every {plant.water_freq} Days</p>
-                        <p>Date Potted: {plant.date_potted.split(`T`)[0]}</p>
-                        <p>Last Water Date: {plant.date_watered.split(`T`)[0]}</p>
-                        <p>Notes: {plant.notes}</p>
-                        <p>Date Fertilized: {plant.date_fertilized.split(`T`)[0]}</p>
-                    </Box>
-                ))} */}
-
-                <h3>{selectedPlant.nickname}</h3>
-                <p>Avatar URL:  {selectedPlant.avatar_url}</p>
-                <p>Plant Type:  {selectedPlant.plant_type}</p>
-                <p>Birthday:    {selectedPlant.date_added}</p>
-                <p>Light Level: {selectedPlant.light_level}</p>
-                <p>Water Every  {selectedPlant.water_freq} Days</p>
-                <p>Date Potted: {selectedPlant.date_potted}</p>
-                <p>Last Water Date: {selectedPlant.date_watered}</p>
-                <p>Notes:           {selectedPlant.notes}</p>
-                <p>Date Fertilized: {selectedPlant.date_fertilized}</p>
 
                 {selectedPhoto.map(photo => (
                     <Box sx={sxPhotoBox} key={photo.id}>
