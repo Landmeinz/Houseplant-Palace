@@ -14,6 +14,26 @@ router.get('/', rejectUnauthenticated, (req, res) => {
   res.send(req.user);
 });
 
+
+// router.get('/list', (req, res) => {
+
+//   let queryText = `
+//     SELECT 	  *
+//     FROM 	    "user"
+//     ORDER BY  "access_level" DESC, 
+//               "username" ASC ; ` ;
+
+//     pool.query(queryText)
+//         .then(result => {
+//             console.log('--- result.rows', result.rows);
+//             res.send(result.rows);
+//         }).catch(error => {
+//             console.log('ERROR router.GET /api/user/list', error);
+//             res.sendStatus(500);
+//         });
+//   res.send(req.user);
+// });
+
 // Handles POST request with new user data
 // The only thing different from this and every other post we've seen
 // is that the password gets encrypted before being inserted

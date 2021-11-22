@@ -14,12 +14,14 @@ function PlantDetails(props) {
     // a default value of 'Functional Component'
     const dispatch = useDispatch();
     const history = useHistory();
+
     const selectedPlant = useSelector((store) => store.selectedPlant);
     const selectedPhoto = useSelector((store) => store.selectedPhoto);
     const current_date = useSelector((store) => store.current_date);
 
     const [editMode, setEditMode] = useState(false);
     const [addPhotoMode, setAddPhotoMode] = useState(false);
+
     const [newPhoto, setNewPhoto] = useState('');
 
     const dt = DateTime.local(current_date.year, current_date.month, current_date.day);
@@ -53,9 +55,11 @@ function PlantDetails(props) {
 
     const handleNewPhoto = (plantId) => {
         console.log('--- CLICKED --- hit handleNewPhoto');
-        dispatch({ type: 'ADD_PHOTO', payload: { plantId, newPhoto} });
+        dispatch({ type: 'ADD_PHOTO', payload: { plantId, newPhoto } });
         setNewPhoto('');
+        setAddPhotoMode(false)
     }; // handleNewPhoto
+
 
 
     const sxEditFormBox = {
@@ -94,7 +98,7 @@ function PlantDetails(props) {
                 <input
                     id="date_added"
                     type="date"
-                    value={selectedPlant.date_added}
+                    value={selectedPlant.date_added?.split(`T`)[0]}
                     onChange={(event) => dispatch({ type: 'EDIT_PLANT', payload: event.target.value, key: 'date_added' })}
                 />
 
@@ -133,7 +137,7 @@ function PlantDetails(props) {
                 <input
                     id="date_watered"
                     type="date"
-                    value={selectedPlant.date_watered}
+                    value={selectedPlant.date_watered?.split(`T`)[0]}
                     onChange={(event) => dispatch({ type: 'EDIT_PLANT', payload: event.target.value, key: 'date_watered' })}
                 />
 
@@ -141,7 +145,7 @@ function PlantDetails(props) {
                 <input
                     id="date_potted"
                     type="date"
-                    value={selectedPlant.date_potted}
+                    value={selectedPlant.date_potted?.split(`T`)[0]}
                     onChange={(event) => dispatch({ type: 'EDIT_PLANT', payload: event.target.value, key: 'date_potted' })}
                 />
 
@@ -149,7 +153,7 @@ function PlantDetails(props) {
                 <input
                     id="date_fertilized"
                     type="date"
-                    value={selectedPlant.date_fertilized}
+                    value={selectedPlant.date_fertilized?.split(`T`)[0]}
                     onChange={(event) => dispatch({ type: 'EDIT_PLANT', payload: event.target.value, key: 'date_fertilized' })}
                 />
 
@@ -188,6 +192,7 @@ function PlantDetails(props) {
     const sxPlantContainer = {
         border: 1,
         m: 2,
+        mb: 10,
         overflow: 'scroll',
 
     }; // sxPlantContainer
@@ -200,10 +205,12 @@ function PlantDetails(props) {
     // hold photo, date uploaded, and the remove button // 
     const sxPhotoBox = {
         border: 1,
-        mb: 6,
+        mb: 2,
 
     }; // sxPlantCard
 
+
+    console.log('--- PLANT DETAILS LOGS ---');
     console.log('--- these are the selected plants', selectedPlant);
     console.log('--- these are the selected photos', selectedPhoto);
     console.log('--- this is the current_date', current_date);
@@ -212,29 +219,34 @@ function PlantDetails(props) {
     return (
         <div>
 
-            <button onClick={() => handleRemove(selectedPlant.id)}>Remove Plant From Collection</button>
             <Box sx={sxPlantContainer}>
 
-                {!editMode ? <button onClick={() => { setEditMode(!editMode) }}>Edit Plant Info</button> : <button onClick={() => setEditMode(!editMode)}>Hide Info</button>}
+                {!editMode ?
+                    <button onClick={() => { setEditMode(!editMode) }}>Edit Plant Info</button> :
+                    <button onClick={() => setEditMode(!editMode)}>Hide Info</button>}
                 {editMode ? showEditInputs : <></>}
 
-                {!addPhotoMode ? <button onClick={() => { setAddPhotoMode(!addPhotoMode) }}>Add More Photos</button> : <button onClick={() => { setAddPhotoMode(!addPhotoMode) }}>Hide</button> }
+                {!addPhotoMode ?
+                    <button onClick={() => { setAddPhotoMode(!addPhotoMode) }}>Add More Photos</button> :
+                    <button onClick={() => { setAddPhotoMode(!addPhotoMode) }}>Hide Add Photos</button>}
                 {addPhotoMode ? showPhotoInputs : <></>}
 
-                {selectedPlant &&
-                    <>
-                        <h3>{selectedPlant.nickname}</h3>
-                        <p>Avatar URL:  {selectedPlant.avatar_url}</p>
-                        <p>Plant Type:  {selectedPlant.plant_type}</p>
-                        <p>Birthday:    {selectedPlant.date_added}</p>
-                        <p>Light Level: {selectedPlant.light_level}</p>
-                        <p>Water Every  {selectedPlant.water_freq} Days</p>
-                        <p>Date Potted: {selectedPlant.date_potted}</p>
-                        <p>Last Water Date: {selectedPlant.date_watered}</p>
-                        <p>Notes:           {selectedPlant.notes}</p>
-                        <p>Date Fertilized: {selectedPlant.date_fertilized}</p>
-                    </>}
+                <h3>{selectedPlant.nickname}</h3>
 
+                {/* <p>Avatar URL:  {selectedPlant.avatar_url}</p> */}
+                <p>Plant Type:  {selectedPlant.plant_type}</p>
+                <p>Birthday:    {selectedPlant.date_added?.split(`T`)[0]}</p>
+
+                {/* light level integer converted to a sting description */}
+                {selectedPlant.light_level === 1 ? <p>Light Level: Low</p> : <></>}
+                {selectedPlant.light_level === 2 ? <p>Light Level: Medium</p> : <></>}
+                {selectedPlant.light_level === 3 ? <p>Light Level: High</p> : <></>}
+
+                <p>Water Every  {selectedPlant.water_freq} Days</p>
+                <p>Date Potted: {selectedPlant.date_potted?.split(`T`)[0]}</p>
+                <p>Last Water Date: {selectedPlant.date_watered?.split(`T`)[0]}</p>
+                <p>Date Fertilized: {selectedPlant.date_fertilized?.split(`T`)[0]}</p>
+                <p>Notes:           {selectedPlant.notes}</p>
 
 
                 {selectedPhoto.map(photo => (
@@ -247,8 +259,8 @@ function PlantDetails(props) {
 
                     </Box>
                 ))}
+                <button onClick={() => handleRemove(selectedPlant.id)}>Remove Plant From Collection</button>
             </Box>
-
         </div>
     );
 }

@@ -19,9 +19,10 @@ function LoginForm() {
           password: password,
         },
       });
-      dispatch({type: 'FETCH_PLANTS'});
-      dispatch({type: 'FETCH_PHOTOS'});
       dispatch({type: 'FETCH_USER'})
+      // dispatch({type: 'FETCH_PLANTS'});
+      // dispatch({type: 'FETCH_PHOTOS'});
+
     } else {
       dispatch({ type: 'LOGIN_INPUT_ERROR' });
     }

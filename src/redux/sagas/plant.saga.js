@@ -112,7 +112,7 @@ function* plantSaga() {
     yield takeLatest('FETCH_SELECTED_PLANT', selectedPlant)
     yield takeLatest('REMOVE_PLANT', removePlant)
     yield takeLatest('UPDATE_SELECTED_PLANT', updateSelectedPlant)
-    yield takeLatest('UPDATE_WATER_DATE', updatePlantWaterDate)
+    yield takeLatest('UPDATE_WATER_DATE', updatePlantWaterDate)    
 }; // plantSaga
 
 export default plantSaga;

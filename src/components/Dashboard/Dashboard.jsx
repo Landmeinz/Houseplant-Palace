@@ -5,6 +5,9 @@ import { useHistory } from 'react-router-dom';
 
 // --- MUI --- // 
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 
 // Basic functional component structure for React with default state

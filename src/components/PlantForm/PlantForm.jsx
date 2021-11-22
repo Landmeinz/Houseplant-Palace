@@ -89,13 +89,13 @@ function PlantForm(props) {
   }; // sxUploaderBox
 
   // Box inside the form to hold all inputs
-  const sxEditFormBox = {
+  const sxFormBox = {
     display: 'flex',
     flexDirection: 'column',
     gap: .5,
     border: 1,
-    mb: 6,
-  }; // sxEditFormBox
+    mb: 8,
+  }; // sxFormBox
 
 
   return (
@@ -103,7 +103,7 @@ function PlantForm(props) {
       <h2>PLANT FORM</h2>
 
       <form onSubmit={handleSubmit}>
-        <Box sx={sxEditFormBox}>
+        <Box sx={sxFormBox}>
 
           {/* <p>1: Select your image and click on upload</p>
 

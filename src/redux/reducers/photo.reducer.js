@@ -3,6 +3,9 @@ const photosReducer = (state = [], action) => {
         case 'SET_PHOTOS':
             return action.payload;
 
+        case 'EMPTY_PHOTOS':
+            return [];
+
         default:
             return state;
     }
