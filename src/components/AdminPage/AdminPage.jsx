@@ -7,14 +7,17 @@ import {useSelector} from 'react-redux';
 function AdminPage(props) {
   // Using hooks we're creating local state for a "heading" variable with
   // a default value of 'Functional Component'
-  const store = useSelector((store) => store);
-  const [heading, setHeading] = useState('Functional Component');
+  const userList = useSelector((store) => store.userList);
+  console.log('------- this is the userList inside of the Admin Page', userList);
 
   return (
     <div>
       <h2>ADMIN PAGE</h2>
+      {/* {userList.map(user => (
+        <p>USER: {user.username} ACCESS LEVEL: {user.access_level}</p>
+      ))} */}
     </div>
-  );
-}
+  )
+}; // AdminPage
 
 export default AdminPage;

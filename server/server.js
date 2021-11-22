@@ -30,6 +30,8 @@ app.use('/api/plant', plantRouter);
 app.use('/api/photo', photoRouter);
 app.use('/api/current_date', current_dateRouter);
 
+
+
 // Serve static files
 app.use(express.static('build'));
 

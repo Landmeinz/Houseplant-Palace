@@ -1,3 +1,4 @@
+import { useDispatch, useSelector } from 'react-redux';
 import React, { useEffect } from 'react';
 import {
   HashRouter as Router,
@@ -5,8 +6,6 @@ import {
   Route,
   Switch,
 } from 'react-router-dom';
-
-import { useDispatch, useSelector } from 'react-redux';
 
 import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
@@ -29,17 +28,18 @@ import AdminPage from '../AdminPage/AdminPage.jsx';
 import './App.css';
 
 function App() {
+
   const dispatch = useDispatch();
 
   const user = useSelector(store => store.user);
 
   useEffect(() => {
     dispatch({ type: 'FETCH_USER' });
+    dispatch({ type: 'FETCH_USER_LIST' });
     dispatch({ type: 'FETCH_PLANTS' });
     dispatch({ type: 'FETCH_PHOTOS' });
     dispatch({ type: 'FETCH_CURRENT_DATE' })
   }, [dispatch]);
-
 
 
   return (
@@ -49,7 +49,6 @@ function App() {
         <Switch>
           {/* Visiting localhost:3000 will redirect to localhost:3000/dashboard */}
           <Redirect exact from="/" to="/dashboard" />
-
 
           {/* For protected routes, the view could show one of several things on the same route.
               Visiting localhost:3000/user will show the UserPage if the user is logged in.
@@ -74,7 +73,7 @@ function App() {
             <Collection />
           </ProtectedRoute>
 
-          {/* by tapping on the plant in either the dashboard or the collection page you will be brought here*/}
+          {/* Visiting localhost:3000/PlantDetails by tapping on the plant from either the dashboard or the collection page you will be brought here*/}
           <ProtectedRoute
             // logged in shows PlantDetails when tapped on 
             exact
@@ -100,6 +99,12 @@ function App() {
           >
             <Profile />
           </ProtectedRoute>
+
+
+          {/* {user.access_level >= 5 ? 
+            <Redirect to="/admin"/> : 
+              <LoginPage />} */}
+
 
           {/* Visiting localhost:3000/admin will allow the admin to view their profile */}
           <ProtectedRoute

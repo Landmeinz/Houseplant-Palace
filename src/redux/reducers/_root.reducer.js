@@ -6,6 +6,7 @@ import photos from './photo.reducer';
 import current_date from './current_date.reducer';
 import selectedPlant from './selectedPlant.reducer';
 import selectedPhoto from './selectedPhoto.reducer';
+import userList from './userList.reducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
   current_date,   // getting the current year month and day
   selectedPlant,  // getting and setting the clicked on plant
   selectedPhoto,  // getting and setting the click on plant's photos
+  userList,       // getting all of the usernames registered to the app
 });
 
 export default rootReducer;

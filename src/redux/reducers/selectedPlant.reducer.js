@@ -17,11 +17,3 @@ const selectedPlantReducer = (state = {}, action) => {
 }; // plantsReducer
 
 export default selectedPlantReducer;
-
-
-// const handleNameChange = (event, property) => {
-//     setNewPlant({
-//       ...newPlant,
-//       [property]: event.target.value
-//     })
-//   } // handleNameChange
