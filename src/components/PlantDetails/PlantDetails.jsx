@@ -190,10 +190,14 @@ function PlantDetails(props) {
 
     // holds all content of this page // 
     const sxPlantContainer = {
-        border: 1,
-        m: 2,
-        mb: 10,
-        overflow: 'scroll',
+        // display: 'flex',
+        // justifyContent: 'center',
+        border: '1px solid red',
+        mb: 8,
+        width: '375px',
+        height: '700px',
+        textAlign: 'center',
+        overflow: 'auto',
 
     }; // sxPlantContainer
 

@@ -1,30 +1,40 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import LogOutButton from '../LogOutButton/LogOutButton';
+
 import './Nav.css';
 
 // --- MUI --- // 
 import Box from '@mui/material/Box';
+import BottomNavigation from '@mui/material/BottomNavigation';
+import BottomNavigationAction from '@mui/material/BottomNavigationAction';
+import OpacityIcon from '@mui/icons-material/Opacity';
 
 
 function Nav() {
 
   const user = useSelector((store) => store.user);
 
-
-
   const sxNavContent = {
     border: 1,
     display: 'flex',
     justifyContent: 'center',
-    mx: 'auto',
+    alignItems: 'flex-start',
+    // mx: 'auto',
     position: 'fixed',
-    width: '100%',
+    width: '375',
     height: 60,
-    top: 750,
+    bottom: 0,
 
   }
+
+
+
+  const handleClick = (pageDirection) => {
+    console.log('clicked on a Nav icon');
+  };
+
+
 
   return (
     <div className="nav">
@@ -60,6 +70,30 @@ function Nav() {
             <Link className="navLink" to="/user_profile">
               Profile
             </Link>
+
+            {/* <BottomNavigation sx={{ width: 500 }} >
+              <BottomNavigationAction
+                label="Dashbaord"
+                onClick={() => handleClick('/dashboard')}
+                icon={<OpacityIcon />}
+            
+              />
+              <BottomNavigationAction
+                label="Collection"
+                value="collection"
+                icon={<OpacityIcon />}
+              />
+              <BottomNavigationAction
+                label="Add Plant"
+                value="add_plant"
+                icon={<OpacityIcon />}
+              />
+              <BottomNavigationAction
+                label="User Profile"
+                value="user_profile"
+                icon={<OpacityIcon />}
+              />
+            </BottomNavigation> */}
 
           </>
         )}
