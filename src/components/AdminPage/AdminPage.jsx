@@ -2,13 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 // --- MUI --- // 
+import Box from '@mui/material/Box';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import { useRouteMatch } from 'react-router';
+import Typography from '@mui/material/Typography';
 
 // Basic functional component structure for React with default state
 // value setup. When making a new component be sure to replace the
@@ -27,10 +28,31 @@ function AdminPage(props) {
 
   console.log('------- this is the userList inside of the Admin Page', userList);
 
-  return (
-    <div>
-      <h2>ADMIN PAGE</h2>
+  const sxAdminContainer = {
+    display: 'flex',
+    flexDirection: 'column',
+  }
 
+  const sxAdminH2 = {
+    // border: '1px solid red',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 50,
+    width: 250,
+    fontSize: 20,
+    fontWeight: 500,
+    lineHeight: 1,
+    p: 1,
+    mx: 'auto',
+    
+  }
+
+  return (
+    <Box sx={sxAdminContainer}>
+
+      <Typography sx={sxAdminH2} color="primary"><h2>ADMIN - All Users</h2></Typography>
+      
       <TableContainer>
         <Table
           sx={{ minWidth: 345 }}
@@ -58,7 +80,7 @@ function AdminPage(props) {
           </TableBody>
         </Table>
       </TableContainer>
-    </div>
+    </Box>
   )
 }; // AdminPage
 

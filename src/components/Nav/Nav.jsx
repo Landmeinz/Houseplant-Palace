@@ -6,8 +6,6 @@ import { Link } from 'react-router-dom';
 
 // --- MUI --- // 
 import Box from '@mui/material/Box';
-import BottomNavigation from '@mui/material/BottomNavigation';
-import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import OpacityIcon from '@mui/icons-material/Opacity';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import AppsIcon from '@mui/icons-material/Apps';
@@ -37,20 +35,11 @@ function Nav() {
 
 
 
-  const handleClick = (pageDirection) => {
-    console.log('clicked on a Nav icon');
-  }; // handleClick
-
-
-
   return (
     <div className="nav">
 
-      {/* <Link to="/home">
-        <h2 className="nav-title">P</h2>
-      </Link> */}
-
       <Box sx={sxNavContent}>
+
         {/* If no user is logged in, show these links */}
         {user.id === null &&
           // If there's no user, show login/registration links
@@ -60,50 +49,39 @@ function Nav() {
         }
 
         {/* If a user is logged in, show these links */}
-        {user.id && (
+        {user.id > 0 & user.access_level < 5 ? (
           <>
-            <Link className="navLink" to="/dashboard">
-              <FormatListBulletedIcon fontSize="large"/>
+            <Link to="/dashboard">
+              <FormatListBulletedIcon fontSize="large" />
             </Link>
 
-            <Link className="navLink" to="/collection">
-              <AppsIcon fontSize="large"/>
+            <Link to="/collection">
+              <AppsIcon fontSize="large" />
             </Link>
 
-            <Link className="navLink" to="/add_plant">
-              <AddBoxIcon fontSize="large"/>
+            <Link to="/add_plant">
+              <AddBoxIcon fontSize="large" />
             </Link>
 
-            <Link className="navLink" to="/user_profile">
-              <AccountBoxIcon fontSize="large"/>
+            <Link to="/user_profile">
+              <AccountBoxIcon fontSize="large" />
             </Link>
-
-            {/* <BottomNavigation sx={{ width: 500 }} >
-              <BottomNavigationAction
-                label="Dashbaord"
-                onClick={() => handleClick('/dashboard')}
-                icon={<OpacityIcon />}
-            
-              />
-              <BottomNavigationAction
-                label="Collection"
-                value="collection"
-                icon={<OpacityIcon />}
-              />
-              <BottomNavigationAction
-                label="Add Plant"
-                value="add_plant"
-                icon={<OpacityIcon />}
-              />
-              <BottomNavigationAction
-                label="User Profile"
-                value="user_profile"
-                icon={<OpacityIcon />}
-              />
-            </BottomNavigation> */}
-
           </>
-        )}
+        ) : <></>}
+
+        {/* If no user's access level is greater than 5 then show admin links */}
+        {user.id > 0 & user.access_level >= 5 ? (
+          // If there's no user, show login/registration links
+          <>
+            <Link to="/admin">
+              <FormatListBulletedIcon fontSize="large" />
+            </Link>
+
+            <Link to="/user_profile">
+              <AccountBoxIcon fontSize="large" />
+            </Link>
+          </>
+        ) : <></>}
 
       </Box>
 
