@@ -101,7 +101,7 @@ function Collection(props) {
     border: '1px solid red',
     mb: 8,
     width: '375px',
-    height: '700px',
+    // height: '700px',
     textAlign: 'center',
     overflow: 'auto',
 

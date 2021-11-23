@@ -2,13 +2,17 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import './Nav.css';
+// import './Nav.css';
 
 // --- MUI --- // 
 import Box from '@mui/material/Box';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import OpacityIcon from '@mui/icons-material/Opacity';
+import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
+import AppsIcon from '@mui/icons-material/Apps';
+import AddBoxIcon from '@mui/icons-material/AddBox';
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
 
 
 function Nav() {
@@ -16,23 +20,26 @@ function Nav() {
   const user = useSelector((store) => store.user);
 
   const sxNavContent = {
-    border: 1,
+    border: '1px solid purple',
     display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'flex-start',
+    justifyContent: 'space-around',
+    alignItems: 'center',
     // mx: 'auto',
     position: 'fixed',
-    width: '375',
-    height: 60,
-    bottom: 0,
+    width: 355,
+    height: 55,
+    bottom: 10,
+    // borderRadius: 0,
+    background: 'white',
+    pt: 1,
 
-  }
+  }; // sxNavContent
 
 
 
   const handleClick = (pageDirection) => {
     console.log('clicked on a Nav icon');
-  };
+  }; // handleClick
 
 
 
@@ -56,19 +63,19 @@ function Nav() {
         {user.id && (
           <>
             <Link className="navLink" to="/dashboard">
-              Dashboard
+              <FormatListBulletedIcon fontSize="large"/>
             </Link>
 
             <Link className="navLink" to="/collection">
-              Collection
+              <AppsIcon fontSize="large"/>
             </Link>
 
             <Link className="navLink" to="/add_plant">
-              Add Plant
+              <AddBoxIcon fontSize="large"/>
             </Link>
 
             <Link className="navLink" to="/user_profile">
-              Profile
+              <AccountBoxIcon fontSize="large"/>
             </Link>
 
             {/* <BottomNavigation sx={{ width: 500 }} >

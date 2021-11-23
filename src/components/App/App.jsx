@@ -32,6 +32,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
+
 function App() {
 
   const dispatch = useDispatch();
@@ -47,14 +48,19 @@ function App() {
   }, [dispatch]);
 
 
-  // lets set up a theme for our project
+
+  // let's set up a theme for our project
   const theme = createTheme({
     palette: {
       primary: {
-        main: 'hsla(220, 80%, 30%, .9)',
+        main: 'hsla(220, 80%, 50%, .9)',
+        dark: 'hsla(220, 80%, 30%, .9)',
+        light: 'hsla(220, 80%, 70%, .9)',
       },
       secondary: {
-        main: 'hsla(360, 80%, 70%, .9)',
+        main: 'hsla(360, 80%, 50%, .9)',
+        dark: 'hsla(360, 80%, 30%, .9)',
+        light: 'hsla(360, 80%, 70%, .9)',
       },
     },
   });
@@ -70,17 +76,16 @@ function App() {
   // constrain all content down to mobile sizing
   const sxAppContent = {
     border: '1px solid pink',
-    width: '375px',
-    height: '775px',
-    borderRadius: 4,
-    overflow: 'auto'
+    width: 355,
+    height: 725,
+    // borderRadius: 4,
+    overflow: 'auto',
   }; // sxAppContent
 
   // typography properties
   const sxType = {
     fontFamily: 'default',
   }; // sxType
-
 
   return (
 
@@ -108,7 +113,7 @@ function App() {
                   path="/dashboard"
                 >
                   <Dashboard />
-                  <Nav />
+                  {/* <Nav /> */}
                 </ProtectedRoute>
 
                 {/* Visiting localhost:3000/collection will show the use their collection of plants. */}
@@ -201,7 +206,8 @@ function App() {
 
               </Switch>
 
-              {/* <Nav /> show NAV on ALL views */}
+              {/* show NAV on ALL views */}
+              <Nav />
 
             </Box> {/* Box sx={sxAppContent}> */}
 

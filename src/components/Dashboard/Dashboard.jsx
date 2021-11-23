@@ -57,116 +57,201 @@ function Dashboard(props) {
 
 
 
-  // hold all page content
+  // CONTAINER hold all page content
   const sxDashboardContainer = {
     // border: '1px solid yellow',
     display: 'flex',
     justifyContent: 'center',
     textAlign: 'center',
-    // overflow: 'auto',
-    mb: 10,
+    width: 350,
+    mb: 8,
 
   }; // sxDashboardContainer
 
 
-  // holds image, title, and all other info and buttons
+  // TODAY'S DATE //
+  const sxDateBox = {
+    display: 'flex',
+    justifyContent: 'center',
+    border: '1px solid blue',
+    position: 'sticky',
+    top: -2,
+    background: 'white',
+    width: 355,
+    zIndex: 50,
+    mb: 2,
+    display: 'flex',
+    justifyContent: 'space-between',
+
+  }; // sxDateBox
+
+
+  // DATE font size and properties
+  const sxDateHeader = {
+    fontSize: 22,
+    fontWeight: 500,
+    width: 355,
+    p: 1,
+
+  }; // sxHeader
+
+  // NUMBER of waters today
+  // const sxNumberBox = {
+  //   border: '1px solid red',
+  //   // position: 'fixed',
+  //   right: 15,
+  //   width: 64,
+  //   height: '100%',
+
+  // }; // sxNumberBox
+
+
+
+  // INFO holds image, title, and all other info and buttons
   const sxInfoContainer = {
     border: '2px solid green',
     display: 'flex',
-    flexDirection: 'row',
+    flexDirection: 'column',
     justifyContent: 'center',
-    width: '350px',
     mb: 2,
 
   }; // sxInfoBox
 
-  // to control the image size, border radius, ect.
+
+  // TOP SECTION that holds the image and text info
+  const sxTopSection = {
+    border: '2px solid yellow',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    height: 180,
+    mb: 2,
+
+  }; // sxTopSection
+
+
+  // Box that holds our info;  // 
+  const sxTextInfo = {
+    border: '1px solid red',
+    display: 'flex',
+    flexDirection: 'column',
+    width: 230,
+    // height: '100%',
+  }; // sxButton
+
+
+  // PHOTO to control the image size, border radius, ect.
   const sxPhotoBox = {
     border: '1px solid darkgray',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    height: '100px',
-    width: '100px',
+    height: 100,
+    width: 100,
     borderRadius: '50%',
 
   }; // sxPhotoBox
 
-  // 
-  const sx = {
-    border: 1,
-    // display: 'flex',
-    // justifyContent: 'center',
+
+  // BUTTON CONTAINER
+  const sxButtonBox = {
+    display: 'flex',
+    justifyContent: 'center',
     // alignItems: 'center',
-    // height: 100,
-    // width: 100,
-    // m: 0,
-    // mb: 2,
+    // fontWeight: 500,
+    // lineHeight: 2,
+    // width: 200,
+    // height: '100%',
+  }; // sxButton
 
-  }; // sx
 
+  // BUTTON // 
   const sxButton = {
     display: 'flex',
-    flexDirection: 'column',
+    flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     fontWeight: 500,
     lineHeight: 2,
-    width: 50,
+    width: 200,
     height: '100%',
+    border: '2px solid'
   }; // sxButton
 
 
-  const sxHeader = {
-    fontSize: 30,
-  }
+const sxNickname = {
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  border: '1px solid blue',
+  height: 40,
+  width: 100,
+  fontSize: 20,
+  fontWeight: 500,
+  lineHeight: 1.1,
+  p: 1,
+}
 
-  
+const sxNextWater = {
+    height: 50,
+    
+}
+
+
 
 
   const showContent = (
     <Box >
 
-      <h2>DASHBOARD</h2>
+      {/* <h2>DASHBOARD</h2> */}
 
-      {current_date && <h3>{current_date.year}-{current_date.month}-{current_date.day}</h3>}
+      <Box sx={sxDateBox}>
+        <Typography sx={sxDateHeader} color="primary.main">{current_date &&
+          <>{current_date.year}-{current_date.month}-{current_date.day}</>}
+        </Typography>
+        {/* <Box sx={sxNumberBox}>
+
+        </Box> */}
+      </Box>
+
 
       {plants.map(plant => (
         <Box key={plant.id}>
-          
+
           <Box sx={sxInfoContainer}>
 
-            {/* the following 3 boxes make up the layout for each dashboard item */}
-            <Box >
-              <Typography color="secondary"><h3>{plant.nickname}</h3></Typography>
+            <Box sx={sxTopSection}>
+              {/* the following 3 boxes make up the layout for each dashboard item */}
+              <Box >
+                <Typography sx={sxNickname}color="secondary">{plant.nickname}</Typography>
 
-              <CardMedia sx={sxPhotoBox} component="img" image={plant.avatar_url}
-                onClick={() => handleClick('plantDetails', plant)} />
+                <CardMedia sx={sxPhotoBox} component="img" image={plant.avatar_url}
+                  onClick={() => handleClick('plantDetails', plant)} />
+              </Box>
 
+              <Box sx={sxTextInfo}>
+                {current_date.current_date === plant.next_water ? <h4>Water Today!</h4> : <></>}
+                {current_date.current_date > plant.next_water ? <h4>Remember to Water!</h4> : <></>}
+                {current_date.tomorrow === plant.next_water ? <h4>Water Tomorrow</h4> : <></>}
+                {current_date.tomorrow < plant.next_water ? <h4>Water Soon</h4> : <></>}
+
+                <p>Water Every {plant.water_freq} Days</p>
+                {/* <p>Last Watered: {plant.date_watered.split(`T`)[0]}</p> */}
+                
+                <Typography sx={sxNextWater}color="secondary"><h4>Next Water: {plant.next_water.split(`T`)[0]}</h4></Typography>
+              </Box>
             </Box>
 
-            <Box>
 
-
-              {current_date.current_date === plant.next_water ? <h4>Water Today!</h4> : <></>}
-              {current_date.current_date > plant.next_water ? <h4>Remember to Water!</h4> : <></>}
-              {current_date.tomorrow === plant.next_water ? <h4>Water Tomorrow</h4> : <></>}
-              {current_date.tomorrow < plant.next_water ? <h4>Water Soon</h4> : <></>}
-
-              <p>Water Every {plant.water_freq} Days</p>
-              {/* <p>Last Watered: {plant.date_watered.split(`T`)[0]}</p> */}
-              <h4>Next Water: {plant.next_water.split(`T`)[0]}</h4>
-            </Box>
-
-            <Box >
+            <Box sx={sxButtonBox}>
               {current_date.current_date >= plant.next_water ?
-                <Button sx={sxButton} size="small" variant="outlined"
-                  onClick={() => handleClick('markWatered', plant)} startIcon={<OpacityIcon />}>Water</Button> :
+                <Button sx={sxButton} size="medium" variant="outlined"
+                  onClick={() => handleClick('markWatered', plant)} startIcon={<OpacityIcon />} endIcon={<OpacityIcon />}> Water </Button> :
                 <></>}
 
               {current_date.tomorrow === plant.next_water ?
                 <Button sx={sxButton} size="small" variant="outlined"
-                  onClick={() => handleClick('markWatered', plant)} startIcon={<OpacityIcon />}>Water</Button> :
+                  onClick={() => handleClick('markWatered', plant)} startIcon={<OpacityIcon />} endIcon={<OpacityIcon />}> Water </Button> :
                 <></>}
             </Box>
 
