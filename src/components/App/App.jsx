@@ -41,7 +41,6 @@ function App() {
 
   useEffect(() => {
     dispatch({ type: 'FETCH_USER' });
-    dispatch({ type: 'FETCH_USER_LIST' });
     dispatch({ type: 'FETCH_PLANTS' });
     dispatch({ type: 'FETCH_PHOTOS' });
     dispatch({ type: 'FETCH_CURRENT_DATE' })
@@ -162,10 +161,17 @@ function App() {
                   exact
                   path="/admin"
                 >
-                  <AdminPage />
+                  {user.access_level >= 5 ?
+                    // If the user has the right access level, 
+                    // redirect to the /admin level, otherwise take them to the dashboard
+                    <AdminPage />
+                    :
+                    // Otherwise, show the dashboard page
+                    <Redirect to="/dashboard" />
+                  }
                 </ProtectedRoute>
 
-
+                <Redirect exact from="/" to="/dashboard" />
 
                 {/* // -- LOGIN vs REGISTER -- //  */}
 

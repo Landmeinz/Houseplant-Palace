@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {useSelector} from 'react-redux';
+import { useSelector } from 'react-redux';
 
 // Basic functional component structure for React with default state
 // value setup. When making a new component be sure to replace the
@@ -13,9 +13,18 @@ function AdminPage(props) {
   return (
     <div>
       <h2>ADMIN PAGE</h2>
-      {/* {userList.map(user => (
-        <p>USER: {user.username} ACCESS LEVEL: {user.access_level}</p>
-      ))} */}
+      {userList?.map(user => (
+        <>
+
+          <span>USERNAME</span><span><h4>{user.username}</h4></span>
+
+          {/* <label>USERNAME</label>
+          <h4>{user.username}</h4> */}
+
+          <label>ACCESS LEVEL</label>
+          <h4>{user.access_level}</h4>
+        </>
+      ))}
     </div>
   )
 }; // AdminPage

@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { put, takeLatest } from 'redux-saga/effects';
 
-
 // --- GET all photos --- //
 function* fetchPhotos() {
     console.log('--- in fetchPhotos Saga!');

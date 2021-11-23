@@ -1,8 +1,12 @@
 import { put, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
 
+
 // worker Saga: will be fired on "LOGIN" actions
 function* loginUser(action) {
+
+  // console.log('----- in the loginUser saga!');
+
   try {
     // clear any existing error on the login page
     yield put({ type: 'CLEAR_LOGIN_ERROR' });
@@ -17,9 +21,23 @@ function* loginUser(action) {
     // allow the server session to recognize the user
     yield axios.post('/api/user/login', action.payload, config);
 
-    // after the user has logged in
-    // get the user information from the server
+    // after the user has logged in GET the user information from the server
     yield put({ type: 'FETCH_USER' });
+
+    // get the info from the user
+    const response = yield axios.get('/api/user', config);
+    console.log('--- this is the GET response.data', response.data.access_level);
+
+    const access_level = response.data.access_level;
+
+    if (access_level >= 5) {
+      yield put({ type: 'FETCH_USER_LIST' })
+      yield action.history.push('/admin')
+    } else {
+      yield put({ type: 'FETCH_PLANTS' })
+      yield action.history.push('/dashboard')
+    }
+
   } catch (error) {
     console.log('Error with user login:', error);
     if (error.response.status === 401) {
@@ -53,9 +71,9 @@ function* logoutUser(action) {
     // remove the client-side user object to let
     // the client-side code know the user is logged out
     yield put({ type: 'UNSET_USER' });
-    yield put({ type: 'EMPTY_PLANTS'})
-    yield put({ type: 'EMPTY_PHOTOS'})
-    
+    yield put({ type: 'EMPTY_PLANTS' })
+    yield put({ type: 'EMPTY_PHOTOS' })
+
   } catch (error) {
     console.log('Error with user logout:', error);
   }

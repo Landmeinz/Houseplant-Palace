@@ -69,6 +69,7 @@ function Dashboard(props) {
   }; // sxDashboardContainer
 
 
+
   // TODAY'S DATE //
   const sxDateBox = {
     display: 'flex',
@@ -94,6 +95,8 @@ function Dashboard(props) {
     p: 1,
 
   }; // sxHeader
+
+
 
   // NUMBER of waters today
   // const sxNumberBox = {
@@ -124,20 +127,46 @@ function Dashboard(props) {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    height: 180,
+    height: 160,
     mb: 2,
 
   }; // sxTopSection
 
+  // NICKNAME
+  const sxNickname = {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    border: '1px solid blue',
+    height: 40,
+    width: 100,
+    fontSize: 20,
+    fontWeight: 500,
+    lineHeight: 1,
+    p: 1,
+  }; // sxNickname
 
-  // Box that holds our info;  // 
+
+
+  // Box that holds 'water today', 'water tomorrow', 'water soon'
   const sxTextInfo = {
     border: '1px solid red',
     display: 'flex',
     flexDirection: 'column',
+    justifyContent: 'space-evenly',
     width: 230,
-    // height: '100%',
-  }; // sxButton
+    height: '100%',
+  }; // sxTextInfo
+
+
+  // 'WATER every 9 days' // 
+  const sxWaterFreq = {
+    height: 10,
+    width: 100,
+    fontSize: 12,
+    fontWeight: 500,
+    lineHeight: 1,
+  }; // sxWaterFreq
 
 
   // PHOTO to control the image size, border radius, ect.
@@ -151,6 +180,16 @@ function Dashboard(props) {
     borderRadius: '50%',
 
   }; // sxPhotoBox
+
+
+  // NEXT WATER date '' 
+  const sxNextWater = {
+    height: 50,
+
+  }; // sxNextWater
+
+
+
 
 
   // BUTTON CONTAINER
@@ -179,24 +218,6 @@ function Dashboard(props) {
   }; // sxButton
 
 
-const sxNickname = {
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  border: '1px solid blue',
-  height: 40,
-  width: 100,
-  fontSize: 20,
-  fontWeight: 500,
-  lineHeight: 1.1,
-  p: 1,
-}
-
-const sxNextWater = {
-    height: 50,
-    
-}
-
 
 
 
@@ -223,22 +244,24 @@ const sxNextWater = {
             <Box sx={sxTopSection}>
               {/* the following 3 boxes make up the layout for each dashboard item */}
               <Box >
-                <Typography sx={sxNickname}color="secondary">{plant.nickname}</Typography>
+                <Typography sx={sxNickname} color="secondary"><p>{plant.nickname}</p></Typography>
 
                 <CardMedia sx={sxPhotoBox} component="img" image={plant.avatar_url}
                   onClick={() => handleClick('plantDetails', plant)} />
               </Box>
 
               <Box sx={sxTextInfo}>
-                {current_date.current_date === plant.next_water ? <h4>Water Today!</h4> : <></>}
-                {current_date.current_date > plant.next_water ? <h4>Remember to Water!</h4> : <></>}
-                {current_date.tomorrow === plant.next_water ? <h4>Water Tomorrow</h4> : <></>}
-                {current_date.tomorrow < plant.next_water ? <h4>Water Soon</h4> : <></>}
+                {current_date.current_date === plant.next_water ? <p>Water Today!</p> : <></>}
+                {current_date.current_date > plant.next_water ? <p>Remember to Water!</p> : <></>}
+                {current_date.tomorrow === plant.next_water ? <p>Water Tomorrow</p> : <></>}
+                {current_date.tomorrow < plant.next_water ? <p>Water Soon</p> : <></>}
 
-                <p>Water Every {plant.water_freq} Days</p>
-                {/* <p>Last Watered: {plant.date_watered.split(`T`)[0]}</p> */}
                 
-                <Typography sx={sxNextWater}color="secondary"><h4>Next Water: {plant.next_water.split(`T`)[0]}</h4></Typography>
+                <Typography sx={sxWaterFreq} color="secondary"><p>Water Every {plant.water_freq} Days</p></Typography>
+
+                {/* <p>Last Watered: {plant.date_watered.split(`T`)[0]}</p> */}
+
+                <Typography sx={sxNextWater} color="secondary"><p>Next Water: {plant.next_water.split(`T`)[0]}</p></Typography>
               </Box>
             </Box>
 
