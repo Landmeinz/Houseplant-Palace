@@ -1,8 +1,11 @@
 import axios from 'axios';
 import { put, takeLatest } from 'redux-saga/effects';
+// import { useDispatch } from 'react-redux';
 
 // worker Saga: will be fired on "FETCH_USER" actions
 function* fetchUser() {
+
+
   try {
     const config = {
       headers: { 'Content-Type': 'application/json' },
@@ -19,40 +22,39 @@ function* fetchUser() {
     // with an id and username set the client-side user object to let
     // the client-side code know the user is logged in
     yield put({ type: 'SET_USER', payload: response.data });
-    yield dispatch({type: 'FETCH_PLANTS'});
-    yield dispatch({type: 'FETCH_PHOTOS'});
+    yield put({ type: 'FETCH_PLANTS' });
+    yield put({ type: 'FETCH_PHOTOS' });
   } catch (error) {
     console.log('User get request failed', error);
   }
 }; // fetchUser
 
 
-// fetch all of the users in the app
-function* fetchUserList() {
-  try {
-    const config = {
-      headers: { 'Content-Type': 'application/json' },
-      withCredentials: true,
-    };
 
-    const response = yield axios.get('/api/user/list', config);
+// // fetch all of the users in the app
+// function* fetchUserList() {
+//   try {
+//     const config = {
+//       headers: { 'Content-Type': 'application/json' },
+//       withCredentials: true,
+//     };
 
-    // now that the session has given us a user object
-    // with an id and username set the client-side user object to let
-    // the client-side code know the user is logged in
-    yield put({ type: 'SET_USER_LIST', payload: response.data });
-  } catch (error) {
-    console.log('User get request failed', error);
-  }
-}; // fetchUser
+//     const response = yield axios.get('/api/list', config);
 
-
+//     // now that the session has given us a user object
+//     // with an id and username set the client-side user object to let
+//     // the client-side code know the user is logged in
+//     yield put({ type: 'SET_USER_LIST', payload: response.data });
+//   } catch (error) {
+//     console.log('User get request failed', error);
+//   }
+// }; // fetchUserList
 
 
 
 function* userSaga() {
   yield takeLatest('FETCH_USER', fetchUser);
-  yield takeLatest('FETCH_USER_LIST', fetchUserList)
+  // yield takeLatest('FETCH_USER_LIST', fetchUserList)
 }
 
 export default userSaga;

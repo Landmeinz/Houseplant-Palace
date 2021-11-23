@@ -5,6 +5,7 @@ import userSaga from './user.saga';
 import plantSaga from './plant.saga';
 import photoSaga from './photo.saga';
 import currentDateSaga from './current_date.saga';
+import userListSaga from './userList.saga';
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -21,5 +22,6 @@ export default function* rootSaga() {
     plantSaga(),
     photoSaga(),
     currentDateSaga(),
+    userListSaga(),
   ]);
 }; // rootSaga

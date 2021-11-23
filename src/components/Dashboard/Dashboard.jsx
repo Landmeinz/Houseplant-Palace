@@ -7,6 +7,12 @@ import { useHistory } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 
+import WaterIcon from '@mui/icons-material/Water';
+import OpacityIcon from '@mui/icons-material/Opacity';
+import CardMedia from '@mui/material/CardMedia';
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
+
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 
@@ -20,7 +26,7 @@ function Dashboard(props) {
   const history = useHistory();
   const plants = useSelector((store) => store.plants);
   const current_date = useSelector((store) => store.current_date);
-  
+
   console.log('--- plants from the store in Dashboard,', plants);
   console.log('--- the current date:', current_date);
 
@@ -36,12 +42,12 @@ function Dashboard(props) {
         history.push('/PlantDetails');
         break;
 
-        case 'markWatered':
-          console.log('CLICKED on Mark Watered');
-          console.log('this is the current plant from handleClick', plant);
-          dispatch({ type: 'UPDATE_WATER_DATE', payload: plant });
-          dispatch({ type: 'FETCH_PLANTS' });
-          break;
+      case 'markWatered':
+        console.log('CLICKED on Mark Watered');
+        console.log('this is the current plant from handleClick', plant);
+        dispatch({ type: 'UPDATE_WATER_DATE', payload: plant });
+        dispatch({ type: 'FETCH_PLANTS' });
+        break;
 
       default:
         break;
@@ -50,43 +56,233 @@ function Dashboard(props) {
   }; // handleClick
 
 
-  const sxInfoBox = {
-    border: 1,
-    m: 0,
+
+  // CONTAINER hold all page content
+  const sxDashboardContainer = {
+    // border: '1px solid yellow',
+    display: 'flex',
+    justifyContent: 'center',
+    textAlign: 'center',
+    width: 350,
+    mb: 8,
+
+  }; // sxDashboardContainer
+
+
+
+  // TODAY'S DATE //
+  const sxDateBox = {
+    display: 'flex',
+    justifyContent: 'center',
+    border: '1px solid blue',
+    position: 'sticky',
+    top: -2,
+    background: 'white',
+    width: 355,
+    zIndex: 50,
     mb: 2,
-    overflow: 'scroll',
+    display: 'flex',
+    justifyContent: 'space-between',
+
+  }; // sxDateBox
+
+
+  // DATE font size and properties
+  const sxDateHeader = {
+    fontSize: 22,
+    fontWeight: 500,
+    width: 355,
+    p: 1,
+
+  }; // sxHeader
+
+
+
+  // NUMBER of waters today
+  // const sxNumberBox = {
+  //   border: '1px solid red',
+  //   // position: 'fixed',
+  //   right: 15,
+  //   width: 64,
+  //   height: '100%',
+
+  // }; // sxNumberBox
+
+
+
+  // INFO holds image, title, and all other info and buttons
+  const sxInfoContainer = {
+    border: '2px solid green',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    mb: 2,
 
   }; // sxInfoBox
 
-  const showContent = (
-    <div>
-      <h2>DASHBOARD</h2>
 
-      {current_date && <h3>{current_date.year}-{current_date.month}-{current_date.day}</h3>}
+  // TOP SECTION that holds the image and text info
+  const sxTopSection = {
+    border: '2px solid yellow',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    height: 160,
+    mb: 2,
+
+  }; // sxTopSection
+
+  // NICKNAME
+  const sxNickname = {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    border: '1px solid blue',
+    height: 40,
+    width: 100,
+    fontSize: 20,
+    fontWeight: 500,
+    lineHeight: 1,
+    p: 1,
+  }; // sxNickname
+
+
+
+  // Box that holds 'water today', 'water tomorrow', 'water soon'
+  const sxTextInfo = {
+    border: '1px solid red',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-evenly',
+    width: 230,
+    height: '100%',
+  }; // sxTextInfo
+
+
+  // 'WATER every 9 days' // 
+  const sxWaterFreq = {
+    height: 10,
+    width: 100,
+    fontSize: 12,
+    fontWeight: 500,
+    lineHeight: 1,
+  }; // sxWaterFreq
+
+
+  // PHOTO to control the image size, border radius, ect.
+  const sxPhotoBox = {
+    border: '1px solid darkgray',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 100,
+    width: 100,
+    borderRadius: '50%',
+
+  }; // sxPhotoBox
+
+
+  // NEXT WATER date '' 
+  const sxNextWater = {
+    height: 50,
+
+  }; // sxNextWater
+
+
+
+
+
+  // BUTTON CONTAINER
+  const sxButtonBox = {
+    display: 'flex',
+    justifyContent: 'center',
+    // alignItems: 'center',
+    // fontWeight: 500,
+    // lineHeight: 2,
+    // width: 200,
+    // height: '100%',
+  }; // sxButton
+
+
+  // BUTTON // 
+  const sxButton = {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    fontWeight: 500,
+    lineHeight: 2,
+    width: 200,
+    height: '100%',
+    border: '2px solid'
+  }; // sxButton
+
+
+
+
+
+  const showContent = (
+    <Box >
+
+      {/* <h2>DASHBOARD</h2> */}
+
+      <Box sx={sxDateBox}>
+        <Typography sx={sxDateHeader} color="primary.main">{current_date &&
+          <>{current_date.year}-{current_date.month}-{current_date.day}</>}
+        </Typography>
+        {/* <Box sx={sxNumberBox}>
+
+        </Box> */}
+      </Box>
 
 
       {plants.map(plant => (
+        <Box key={plant.id}>
 
-        <div key={plant.id}>
-          <Box sx={sxInfoBox}>
-            <h3>{plant.nickname}</h3>
-            {current_date.current_date >= plant.next_water  ? <button onClick={() => handleClick('markWatered', plant)}>Mark Watered</button> : <></>}
-            {current_date.tomorrow === plant.next_water     ? <button onClick={() => handleClick('markWatered', plant)}>Mark Watered</button> : <></>}
+          <Box sx={sxInfoContainer}>
 
-            {current_date.current_date === plant.next_water ? <h4>Water Me Today!</h4> : <></>}
-            {current_date.current_date > plant.next_water   ? <h4>Remember to Water Me!</h4> : <></>}
-            {current_date.tomorrow === plant.next_water     ? <h4>Water Me Tomorrow</h4> : <></>}
-            {current_date.tomorrow < plant.next_water       ? <h4>Water Soon</h4> : <></>}
+            <Box sx={sxTopSection}>
+              {/* the following 3 boxes make up the layout for each dashboard item */}
+              <Box >
+                <Typography sx={sxNickname} color="secondary"><p>{plant.nickname}</p></Typography>
 
-            <img onClick={() => handleClick('plantDetails', plant)} src={plant.avatar_url} width="150" height="150" />
-            <p>Water Every {plant.water_freq} Days</p>
-            <p>Last Watered: {plant.date_watered.split(`T`)[0]}</p>
-            <h4>Next Water Day: {plant.next_water.split(`T`)[0]}</h4>
+                <CardMedia sx={sxPhotoBox} component="img" image={plant.avatar_url}
+                  onClick={() => handleClick('plantDetails', plant)} />
+              </Box>
+
+              <Box sx={sxTextInfo}>
+                {current_date.current_date === plant.next_water ? <p>Water Today!</p> : <></>}
+                {current_date.current_date > plant.next_water ? <p>Remember to Water!</p> : <></>}
+                {current_date.tomorrow === plant.next_water ? <p>Water Tomorrow</p> : <></>}
+                {current_date.tomorrow < plant.next_water ? <p>Water Soon</p> : <></>}
+
+                
+                <Typography sx={sxWaterFreq} color="secondary"><p>Water Every {plant.water_freq} Days</p></Typography>
+
+                {/* <p>Last Watered: {plant.date_watered.split(`T`)[0]}</p> */}
+
+                <Typography sx={sxNextWater} color="secondary"><p>Next Water: {plant.next_water.split(`T`)[0]}</p></Typography>
+              </Box>
+            </Box>
+
+
+            <Box sx={sxButtonBox}>
+              {current_date.current_date >= plant.next_water ?
+                <Button sx={sxButton} size="medium" variant="outlined"
+                  onClick={() => handleClick('markWatered', plant)} startIcon={<OpacityIcon />} endIcon={<OpacityIcon />}> Water </Button> :
+                <></>}
+
+              {current_date.tomorrow === plant.next_water ?
+                <Button sx={sxButton} size="small" variant="outlined"
+                  onClick={() => handleClick('markWatered', plant)} startIcon={<OpacityIcon />} endIcon={<OpacityIcon />}> Water </Button> :
+                <></>}
+            </Box>
+
           </Box>
-        </div>
-
-      ))}
-    </div>
+        </Box>
+      ))
+      }
+    </Box >
   ); // showContent
 
 
@@ -97,14 +293,6 @@ function Dashboard(props) {
     </div>
   ); // showMessage
 
-
-  const sxDashboardContainer = {
-    border: 1,
-    m: 2,
-    mb: 8,
-    overflow: 'scroll',
-
-  }; // sxDashboardContainer
 
 
   return (

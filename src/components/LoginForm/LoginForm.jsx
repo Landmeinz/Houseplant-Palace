@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import {useSelector} from 'react-redux';
+import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+
 
 function LoginForm() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const errors = useSelector(store => store.errors);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const login = (event) => {
     event.preventDefault();
@@ -14,12 +17,10 @@ function LoginForm() {
     if (username && password) {
       dispatch({
         type: 'LOGIN',
-        payload: {
-          username: username,
-          password: password,
-        },
+        payload: { username: username, password: password },
+        history
       });
-      dispatch({type: 'FETCH_USER'})
+      dispatch({ type: 'FETCH_USER' })
       // dispatch({type: 'FETCH_PLANTS'});
       // dispatch({type: 'FETCH_PHOTOS'});
 
@@ -32,7 +33,7 @@ function LoginForm() {
     <form className="formPanel" onSubmit={login}>
 
       <h2>Login</h2>
-      
+
       {errors.loginMessage && (
         <h3 className="alert" role="alert">
           {errors.loginMessage}

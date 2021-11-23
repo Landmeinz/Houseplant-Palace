@@ -4,6 +4,9 @@ import { useDispatch, useSelector } from 'react-redux';
 
 // --- MUI --- // 
 import Box from '@mui/material/Box';
+import ImageList from '@mui/material/ImageList';
+import ImageListItem from '@mui/material/ImageListItem';
+import ImageListItemBar from '@mui/material/ImageListItemBar';
 
 // Basic functional component structure for React with default state
 // value setup. When making a new component be sure to replace the
@@ -48,6 +51,23 @@ function Collection(props) {
 
   }; // sxInfoBox
 
+
+{/* <ImageList variant="masonry" cols={3} gap={8}>
+  {itemData.map((item) => (
+    <ImageListItem key={item.img}>
+      <img
+        src={`${item.img}?w=248&fit=crop&auto=format`}
+        srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
+        alt={item.title}
+        loading="lazy"
+      />
+      <ImageListItemBar position="below" title={item.author} />
+    </ImageListItem>
+  ))}
+</ImageList> */}
+
+
+
   const showContent = (
     <div>
 
@@ -76,12 +96,17 @@ function Collection(props) {
 
 
   const sxCollectionContainer = {
-    border: 1,
-    m: 2,
+    display: 'flex',
+    justifyContent: 'center',
+    border: '1px solid red',
     mb: 8,
-    overflow: 'scroll',
+    width: '375px',
+    // height: '700px',
+    textAlign: 'center',
+    overflow: 'auto',
 
   }; // sxCollectionContainer
+
 
   return (
     <Box sx={sxCollectionContainer}>

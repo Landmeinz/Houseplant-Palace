@@ -1,4 +1,5 @@
 const userListReducer = (state = [], action) => {
+  
     switch (action.type) {
 
       case 'SET_USER_LIST':
