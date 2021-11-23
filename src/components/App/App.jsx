@@ -154,7 +154,6 @@ function App() {
 
 
                 {/* HOW DO WE SEND TO ADMIN FROM THE LOGIN? */}
-
                 {/* Visiting localhost:3000/admin will allow the admin to view their profile */}
                 <ProtectedRoute
                   // logged in shows Profile else shows LoginPage
@@ -171,7 +170,7 @@ function App() {
                   }
                 </ProtectedRoute>
 
-                <Redirect exact from="/" to="/dashboard" />
+
 
                 {/* // -- LOGIN vs REGISTER -- //  */}
 
