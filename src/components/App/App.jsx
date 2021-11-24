@@ -57,12 +57,17 @@ function App() {
         light: 'hsla(220, 80%, 70%, 1)',
       },
       secondary: {
-        main: 'hsla(360, 80%, 50%, 1)',
-        dark: 'hsla(360, 80%, 30%, 1)',
-        light: 'hsla(360, 80%, 70%, 1)',
+        main: 'hsla(45, 95%, 50%, 1.0)',
+        dark: 'hsla(45, 80%, 30%, 1)',
+        light: 'hsla(45, 80%, 70%, 1)',
       },
-      accent: {
-        main: 'hsla(60, 80%, 50%, 1)',
+      error: {
+        main: 'hsla(350, 80%, 50%, 1)',
+      },
+      info: {
+        main: 'hsla(0, 5%, 20%, 1)',
+        dark: 'hsla(0, 5%, 20%, 1)',
+        light: 'hsla(0, 5%, 90%, 1)',
       }
     },
   });

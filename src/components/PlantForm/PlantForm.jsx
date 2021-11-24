@@ -77,7 +77,7 @@ function PlantForm(props) {
     // border: '1px solid blue',
     position: 'sticky',
     top: 0,
-    background: 'white',
+    bgcolor: 'secondary.main',
     zIndex: 50,
     mx: 'auto',
     width: 355,
@@ -129,7 +129,7 @@ function PlantForm(props) {
 
 
       <Box sx={sxHeaderBox}>
-        <Typography sx={sxHeader} color="primary"><>ADD TO YOUR COLLECTION</></Typography>
+        <Typography sx={sxHeader} color="info.main"><>ADD TO YOUR COLLECTION</></Typography>
       </Box>
 
       {/* <h2>PLANT FORM</h2> */}

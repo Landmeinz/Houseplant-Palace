@@ -113,7 +113,7 @@ function Collection(props) {
     display: 'flex',
     flexDirection: 'column',
     border: '1px solid red',
-    mb: 8,
+    mb: 10,
     width: '100%',
     // height: '700px',
     // textAlign: 'center',
@@ -127,7 +127,7 @@ function Collection(props) {
     // border: '1px solid blue',
     position: 'sticky',
     top: 0,
-    background: 'white',
+    bgcolor: 'secondary.main',
     zIndex: 50,
     mx: 'auto',
     width: 355,
@@ -151,7 +151,7 @@ function Collection(props) {
     <Box sx={sxCollectionContainer}>
 
       <Box sx={sxHeaderBox}>
-        <Typography sx={sxHeader} color="primary"><>{plants.length} PLANTS IN MY COLLECTION</></Typography>
+        <Typography sx={sxHeader} color="info.main"><>{plants.length} PLANTS IN MY COLLECTION</></Typography>
       </Box>
 
       {photos.length > 0 ? showContent : showMessage}

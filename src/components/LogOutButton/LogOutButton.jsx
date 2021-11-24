@@ -33,13 +33,14 @@ function LogOutButton(props) {
       border: '.25px solid primary',
       mt: '100%',
       boxShadow: 2,
-      bgcolor: 'red',
+      // backgroundColor: 'red',
       color: 'white',
       borderRadius: 3,
+      fontSize: 30,
     }; // sxButton
 
   return (
-    <Button sx={sxButton}
+    <Button sx={sxButton} variant="contained" color="error"
       // This button shows up in multiple locations and is styled differently
       // because it's styled differently depending on where it is used, the className
       // is passed to it from it's parents through React props

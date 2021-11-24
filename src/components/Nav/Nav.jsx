@@ -27,9 +27,9 @@ function Nav() {
     width: 355,
     height: 55,
     bottom: 10,
-    borderRadius: 4,
-    // background: 'white',
-    pt: 2,
+    borderRadius: 1,
+    bgcolor: 'info.main',
+    pt: 1.5,
 
   }; // sxNavContent
 
@@ -52,19 +52,19 @@ function Nav() {
         {user.id > 0 & user.access_level < 5 ? (
           <>
             <Link to="/dashboard">
-              <FormatListBulletedIcon color="primary" fontSize="large" />
+              <FormatListBulletedIcon color="secondary" fontSize="large" />
             </Link>
 
             <Link to="/collection">
-              <AppsIcon color="primary" fontSize="large" />
+              <AppsIcon color="secondary" fontSize="large" />
             </Link>
 
             <Link to="/add_plant">
-              <AddBoxIcon color="primary" fontSize="large" />
+              <AddBoxIcon color="secondary" fontSize="large" />
             </Link>
 
             <Link to="/user_profile">
-              <AccountBoxIcon color="primary" fontSize="large" />
+              <AccountBoxIcon color="secondary" fontSize="large" />
             </Link>
           </>
         ) : <></>}

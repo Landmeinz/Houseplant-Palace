@@ -90,6 +90,7 @@ function Dashboard(props) {
     p: 2,
     textAlign: 'center',
     borderBottom: '2px solid lightgray',
+    bgcolor: 'secondary.main',
 
   }; // sxHeader
 
@@ -114,7 +115,7 @@ function Dashboard(props) {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
-    mb: 4,
+    mb: 2,
     boxShadow: 3,
     pb: 2,
 
@@ -127,8 +128,8 @@ function Dashboard(props) {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    height: 50,
-    fontSize: 20,
+    height: 40,
+    fontSize: 16,
     fontWeight: 500,
     lineHeight: 1,
     // pl: 3,
@@ -257,7 +258,7 @@ function Dashboard(props) {
       {/* <h2>DASHBOARD</h2> */}
 
       <Box sx={sxDateBox}>
-        <Typography sx={sxDateHeader} color="primary.main">{current_date &&
+        <Typography sx={sxDateHeader} color="info.main">{current_date &&
           <>{current_date.year}-{current_date.month}-{current_date.day}</>}
         </Typography>
       </Box>
@@ -270,7 +271,7 @@ function Dashboard(props) {
 
             {/* the following 3 boxes make up the layout for each dashboard item */}
             <Box >
-              <Typography sx={sxNickname} color="primary"><p>{plant.nickname}</p></Typography>
+              <Typography sx={sxNickname} color="info"><p>{plant.nickname}</p></Typography>
             </Box>
 
             {/* WATER TODAY OR TOMORROW OR SOON */}
@@ -283,10 +284,10 @@ function Dashboard(props) {
 
               <Box sx={sxRightSection}>
                 {current_date.current_date === plant.next_water ?
-                  <Typography sx={sxWaterToday} color="secondary">Water Today!</Typography> : <></>}
+                  <Typography sx={sxWaterToday} color="error">Water Today!</Typography> : <></>}
 
                 {current_date.current_date > plant.next_water ?
-                  <Typography sx={sxWaterRemember} color="secondary">Remember To Water Today!</Typography> : <></>}
+                  <Typography sx={sxWaterRemember} color="error">Remember To Water Today!</Typography> : <></>}
 
                 {current_date.tomorrow === plant.next_water ?
                   <Typography sx={sxWaterSoon} color="primary">Water Tomorrow</Typography> : <></>}
@@ -294,9 +295,9 @@ function Dashboard(props) {
                 {current_date.tomorrow < plant.next_water ?
                   <Typography sx={sxWaterSoon} color="primary">Water Soon</Typography> : <></>}
 
-                <Typography sx={sxWaterFreq} color="primary">Water Every {plant.water_freq} Days</Typography>
+                <Typography sx={sxWaterFreq} color="info.dark">Water Every {plant.water_freq} Days</Typography>
 
-                <Typography sx={sxNextWater} color="primary">Next Water: {plant.next_water.split(`T`)[0]}</Typography>
+                <Typography sx={sxNextWater} color="info.dark">Water On {plant.next_water.split(`T`)[0]}</Typography>
               </Box>
 
             </Box>
@@ -304,12 +305,12 @@ function Dashboard(props) {
 
             <Box sx={sxButtonBox}>
               {current_date.current_date >= plant.next_water ?
-                <Button sx={sxButton} size="medium" variant="outlined"
+                <Button sx={sxButton} size="medium" variant="contained" color="primary"
                   onClick={() => handleClick('markWatered', plant)} startIcon={<OpacityIcon />} endIcon={<OpacityIcon />}> Water </Button> :
                 <></>}
 
               {current_date.tomorrow === plant.next_water ?
-                <Button sx={sxButton} size="small" variant="outlined"
+                <Button sx={sxButton} size="small" variant="contained" color="primary"
                   onClick={() => handleClick('markWatered', plant)} startIcon={<OpacityIcon />} endIcon={<OpacityIcon />}> Water </Button> :
                 <></>}
             </Box>

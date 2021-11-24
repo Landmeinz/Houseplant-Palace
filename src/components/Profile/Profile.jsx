@@ -30,7 +30,7 @@ function Profile(props) {
     // border: '1px solid blue',
     position: 'sticky',
     top: 0,
-    background: 'white',
+    bgcolor: 'secondary.main',
     zIndex: 50,
     mx: 'auto',
     width: 355,
@@ -50,6 +50,18 @@ function Profile(props) {
 
   }; // sxHeader
 
+    // Message Text
+    const sxMessage = {
+      fontSize: 22,
+      fontWeight: 500,
+      py: 2,
+      textAlign: 'center',
+      // borderBottom: '2px solid lightgray',
+      width: 355,
+      bgcolor: 'white',
+  
+    }; // sxHeader
+
   
 
   return (
@@ -57,8 +69,8 @@ function Profile(props) {
 
 
       <Box sx={sxHeaderBox}>
-        <Typography sx={sxHeader} color="primary"><>USER PROFILE</></Typography>
-        <Typography sx={sxHeader} color="primary"><>Keep on growing, {user.username}</></Typography>
+        <Typography sx={sxHeader} color="info.main"><>USER PROFILE</></Typography>
+        <Typography sx={sxMessage} color="info.main"><>Keep on growing, {user.username}!</></Typography>
       </Box>
       <LogOutButton className="navLink" />
 
