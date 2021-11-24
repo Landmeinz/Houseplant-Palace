@@ -6,6 +6,8 @@ import { PickerDropPane } from 'filestack-react'; // PickerOverlay, PickerInline
 
 // --- MUI --- // 
 import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
 
 // Basic functional component structure for React with default state
 // value setup. When making a new component be sure to replace the
@@ -67,11 +69,35 @@ function PlantForm(props) {
 
   // Box that holds all page content
   const sxFormContainer = {
-    border: 1,
-    m: 2,
-    overflow: 'scroll',
 
   }; // sxFormContainer
+
+  // HEADER BOX // 
+  const sxHeaderBox = {
+    // border: '1px solid blue',
+    position: 'sticky',
+    top: 0,
+    background: 'white',
+    zIndex: 50,
+    mx: 'auto',
+    width: 355,
+    mb: 2,
+
+  }; // sxDateBox
+
+
+  // Header Text
+  const sxHeader = {
+    fontSize: 22,
+    fontWeight: 500,
+    py: 2,
+    textAlign: 'center',
+    borderBottom: '2px solid lightgray',
+    width: 355,
+
+  }; // sxHeader
+
+
 
   // Box that holds the drop pane
   const sxUploaderBox = {
@@ -100,23 +126,16 @@ function PlantForm(props) {
 
   return (
     <Box sx={sxFormContainer}>
-      <h2>PLANT FORM</h2>
+
+
+      <Box sx={sxHeaderBox}>
+        <Typography sx={sxHeader} color="primary"><>ADD TO YOUR COLLECTION</></Typography>
+      </Box>
+
+      {/* <h2>PLANT FORM</h2> */}
 
       <form onSubmit={handleSubmit}>
         <Box sx={sxFormBox}>
-
-          {/* <p>1: Select your image and click on upload</p>
-
-        <Box sx={sxUploaderBox}>
-          <PickerDropPane
-            mode={'pick'}
-            apikey='A09e78cDRI65bPtSGZMEwz'
-            onSuccess={(response) => console.log(response)}
-            onUploadDone={(response) => console.log(response)}
-          // buttonText={'Pick File'}
-          />
-          <button>upload</button>
-        </Box> */}
 
           <h4>Fill out all of the info below and tap submit</h4>
 
@@ -234,7 +253,7 @@ function PlantForm(props) {
             placeholder="remember to turn plant"
           />
 
-          <button type="submit" onClick={handleClick}>SUBMIT</button>
+          <Button type="submit" onClick={handleClick}>ADD NEW PLANT</Button>
 
         </Box>
       </form>
@@ -244,3 +263,17 @@ function PlantForm(props) {
 }; // PlantForm
 
 export default PlantForm;
+
+
+{/* <p>1: Select your image and click on upload</p>
+
+        <Box sx={sxUploaderBox}>
+          <PickerDropPane
+            mode={'pick'}
+            apikey='A09e78cDRI65bPtSGZMEwz'
+            onSuccess={(response) => console.log(response)}
+            onUploadDone={(response) => console.log(response)}
+          // buttonText={'Pick File'}
+          />
+          <button>upload</button>
+        </Box> */}

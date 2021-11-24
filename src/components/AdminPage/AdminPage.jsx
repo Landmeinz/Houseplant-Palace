@@ -3,10 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 
 // --- MUI --- // 
 import Box from '@mui/material/Box';
+import TableContainer from '@mui/material/TableContainer';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Typography from '@mui/material/Typography';
@@ -55,7 +55,7 @@ function AdminPage(props) {
       
       <TableContainer>
         <Table
-          sx={{ minWidth: 345 }}
+          sx={{ width: 345 }}
           aria-label="simple table"
           size="small"
         >

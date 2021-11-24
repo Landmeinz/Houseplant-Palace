@@ -52,15 +52,18 @@ function App() {
   const theme = createTheme({
     palette: {
       primary: {
-        main: 'hsla(220, 80%, 50%, .9)',
-        dark: 'hsla(220, 80%, 30%, .9)',
-        light: 'hsla(220, 80%, 70%, .9)',
+        main: 'hsla(220, 80%, 50%, 1)',
+        dark: 'hsla(220, 80%, 30%, 1)',
+        light: 'hsla(220, 80%, 70%, 1)',
       },
       secondary: {
-        main: 'hsla(360, 80%, 50%, .9)',
-        dark: 'hsla(360, 80%, 30%, .9)',
-        light: 'hsla(360, 80%, 70%, .9)',
+        main: 'hsla(360, 80%, 50%, 1)',
+        dark: 'hsla(360, 80%, 30%, 1)',
+        light: 'hsla(360, 80%, 70%, 1)',
       },
+      accent: {
+        main: 'hsla(60, 80%, 50%, 1)',
+      }
     },
   });
 
@@ -81,15 +84,11 @@ function App() {
     overflow: 'auto',
   }; // sxAppContent
 
-  // typography properties
-  const sxType = {
-    fontFamily: 'default',
-  }; // sxType
 
   return (
 
     <ThemeProvider theme={theme}>
-      <Typography sx={sxType} mt={2}>
+      <Typography>
         <Router>
 
           <Box sx={sxApp}>
