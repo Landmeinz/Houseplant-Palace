@@ -62,7 +62,7 @@ function Dashboard(props) {
     // border: '1px solid yellow',
     display: 'flex',
     justifyContent: 'center',
-    width: 350,
+    width: '100%',
     mx: 'auto',
     mb: 8,
 
@@ -178,7 +178,7 @@ function Dashboard(props) {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-around',
-    width: 220,
+    width: 225,
     height: 100,
     p: 'none',
     mx: 'auto',

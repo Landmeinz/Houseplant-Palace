@@ -64,10 +64,27 @@ function Collection(props) {
 
   }; // sxPhotoBox
 
+  // NICKNAME
+  const sxNickname = {
+    // border: '1px solid blue',
+    display: 'fixed',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 40,
+    fontSize: 16,
+    fontWeight: 500,
+    lineHeight: 1,
+    // pl: 3,
+    boxShadow: 1,
+    // mb: 2,
+    borderRadius: 2,
+    // backgroundColor: 'red',
+  }; // sxNickname
+
 
   const showContent = (
 
-    <div>
+    <Box>
 
       <ImageList sx={{ maxWidth: 355, height: 'auto' }} cols={2}>
 
@@ -75,8 +92,10 @@ function Collection(props) {
           <Box sx={sxInfoBox}>
             <ImageListItem key={plant.id}>
 
-              <CardMedia sx={sxPhotoBox} component="img" image={plant.avatar_url} 
+              <CardMedia sx={sxPhotoBox} component="img" image={plant.avatar_url}
                 onClick={() => handleClick('plantDetails', plant)} />
+
+              <Typography sx={sxNickname} color="info.main"><>{plant.nickname}</></Typography>
 
               {/* <ImageListItemBar position="below" title={plant.nickname} /> */}
             </ImageListItem>
@@ -85,18 +104,7 @@ function Collection(props) {
 
       </ImageList>
 
-      {/* {plants.map(plant => (
-        <div key={plant.id}>
-          <Box sx={sxInfoBox}>
-
-            <h3>{plant.nickname}</h3>
-            <img onClick={() => handleClick('plantDetails', plant)} src={plant.avatar_url} />
-            <h4>{plant.date_added.split(`T`)[0]}</h4>
-
-          </Box>
-        </div>
-      ))} */}
-    </div>
+    </Box>
   ); // showContent
 
 
@@ -122,8 +130,8 @@ function Collection(props) {
   }; // sxCollectionContainer
 
 
-   // HEADER BOX // 
-   const sxHeaderBox = {
+  // HEADER BOX // 
+  const sxHeaderBox = {
     // border: '1px solid blue',
     position: 'sticky',
     top: 0,
@@ -131,6 +139,7 @@ function Collection(props) {
     zIndex: 50,
     mx: 'auto',
     width: 355,
+    borderRadius: 1,
 
   }; // sxDateBox
 
@@ -143,6 +152,7 @@ function Collection(props) {
     textAlign: 'center',
     borderBottom: '2px solid lightgray',
     width: 355,
+    borderRadius: 1,
 
   }; // sxHeader
 
@@ -154,7 +164,7 @@ function Collection(props) {
         <Typography sx={sxHeader} color="info.main"><>{plants.length} PLANTS IN MY COLLECTION</></Typography>
       </Box>
 
-      {photos.length > 0 ? showContent : showMessage}
+      {photos ? showContent : showMessage}
 
     </Box>
   );
