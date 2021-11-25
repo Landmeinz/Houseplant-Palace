@@ -62,8 +62,8 @@ function Dashboard(props) {
     // border: '1px solid yellow',
     display: 'flex',
     justifyContent: 'center',
-    textAlign: 'center',
-    width: 350,
+    width: '100%',
+    mx: 'auto',
     mb: 8,
 
   }; // sxDashboardContainer
@@ -72,17 +72,13 @@ function Dashboard(props) {
 
   // TODAY'S DATE //
   const sxDateBox = {
-    display: 'flex',
-    justifyContent: 'center',
-    border: '1px solid blue',
+    // border: '1px solid blue',
     position: 'sticky',
-    top: -2,
+    top: 0,
     background: 'white',
-    width: 355,
     zIndex: 50,
     mb: 2,
-    display: 'flex',
-    justifyContent: 'space-between',
+    mx: 'auto',
 
   }; // sxDateBox
 
@@ -91,8 +87,10 @@ function Dashboard(props) {
   const sxDateHeader = {
     fontSize: 22,
     fontWeight: 500,
-    width: 355,
-    p: 1,
+    p: 2,
+    textAlign: 'center',
+    borderBottom: '2px solid lightgray',
+    bgcolor: 'secondary.main',
 
   }; // sxHeader
 
@@ -112,69 +110,61 @@ function Dashboard(props) {
 
   // INFO holds image, title, and all other info and buttons
   const sxInfoContainer = {
-    border: '2px solid green',
+    border: '1px solid lightgray',
+    borderRadius: 2,
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
     mb: 2,
+    boxShadow: 3,
+    pb: 2,
 
   }; // sxInfoBox
 
 
-  // TOP SECTION that holds the image and text info
-  const sxTopSection = {
-    border: '2px solid yellow',
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    height: 160,
-    mb: 2,
-
-  }; // sxTopSection
-
   // NICKNAME
   const sxNickname = {
+    // border: '1px solid blue',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    border: '1px solid blue',
     height: 40,
-    width: 100,
-    fontSize: 20,
+    fontSize: 16,
     fontWeight: 500,
     lineHeight: 1,
-    p: 1,
+    // pl: 3,
+    boxShadow: 1,
+    mb: 2,
+    borderRadius: 2,
+    // backgroundColor: 'red',
   }; // sxNickname
 
 
-
-  // Box that holds 'water today', 'water tomorrow', 'water soon'
+  // Box that holds 'water today', 'water tomorrow', 'water soon', water_freq, & NEXT water date
   const sxTextInfo = {
-    border: '1px solid red',
+    // border: '1px solid red',
     display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-evenly',
-    width: 230,
-    height: '100%',
+    flexDirection: 'row',
+    // justifyContent: 'space-evenly',
+    height: 100,
+    p: 'none',
   }; // sxTextInfo
 
 
-  // 'WATER every 9 days' // 
-  const sxWaterFreq = {
-    height: 10,
-    width: 100,
-    fontSize: 12,
-    fontWeight: 500,
-    lineHeight: 1,
-  }; // sxWaterFreq
-
+  // holds PHOTO
+  const sxLeftSection = {
+    // border: '1px solid yellow',
+    display: 'flex',
+    // flexDirection: 'column',
+    justifyContent: 'center',
+    width: 130,
+    height: 100,
+  }; // sxTextInfo
 
   // PHOTO to control the image size, border radius, ect.
   const sxPhotoBox = {
-    border: '1px solid darkgray',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
+    // border: '1px solid darkgray',
+    boxShadow: 2,
     height: 100,
     width: 100,
     borderRadius: '50%',
@@ -182,12 +172,51 @@ function Dashboard(props) {
   }; // sxPhotoBox
 
 
-  // NEXT WATER date '' 
+  // holds TEXT INFO
+  const sxRightSection = {
+    // border: '1px solid green',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-around',
+    width: 225,
+    height: 100,
+    p: 'none',
+    mx: 'auto',
+  }; // sxTextInfo
+
+  // Water TODAY text 
+  const sxWaterToday = {
+    fontSize: 14,
+    fontWeight: 700,
+  }; // sxWaterToday
+
+  // REMEMBER to water text 
+  const sxWaterRemember = {
+    fontSize: 14,
+    fontWeight: 700,
+  }; // sxWaterRemember
+
+  // Water TOMORROW + Water SOON text 
+  const sxWaterSoon = {
+    fontSize: 14,
+    fontWeight: 500,
+  }; // sxWaterSoon
+
+
+  // 'WATER every 9 days' // 
+  const sxWaterFreq = {
+    fontSize: 14,
+    fontWeight: 500,
+    lineHeight: 1,
+  }; // sxWaterFreq
+
+  // NEXT WATER date
   const sxNextWater = {
-    height: 50,
+    fontSize: 14,
+    fontWeight: 500,
+    lineHeight: 1,
 
   }; // sxNextWater
-
 
 
 
@@ -212,9 +241,11 @@ function Dashboard(props) {
     alignItems: 'center',
     fontWeight: 500,
     lineHeight: 2,
-    width: 200,
-    height: '100%',
-    border: '2px solid'
+    width: '90%',
+    height: 35,
+    border: '.25px solid primary',
+    mt: 2,
+    boxShadow: 2,
   }; // sxButton
 
 
@@ -227,12 +258,9 @@ function Dashboard(props) {
       {/* <h2>DASHBOARD</h2> */}
 
       <Box sx={sxDateBox}>
-        <Typography sx={sxDateHeader} color="primary.main">{current_date &&
+        <Typography sx={sxDateHeader} color="info.main">{current_date &&
           <>{current_date.year}-{current_date.month}-{current_date.day}</>}
         </Typography>
-        {/* <Box sx={sxNumberBox}>
-
-        </Box> */}
       </Box>
 
 
@@ -241,39 +269,48 @@ function Dashboard(props) {
 
           <Box sx={sxInfoContainer}>
 
-            <Box sx={sxTopSection}>
-              {/* the following 3 boxes make up the layout for each dashboard item */}
-              <Box >
-                <Typography sx={sxNickname} color="secondary"><p>{plant.nickname}</p></Typography>
+            {/* the following 3 boxes make up the layout for each dashboard item */}
+            <Box >
+              <Typography sx={sxNickname} color="info"><p>{plant.nickname}</p></Typography>
+            </Box>
 
+            {/* WATER TODAY OR TOMORROW OR SOON */}
+            <Box sx={sxTextInfo}>
+
+              <Box sx={sxLeftSection}>
                 <CardMedia sx={sxPhotoBox} component="img" image={plant.avatar_url}
                   onClick={() => handleClick('plantDetails', plant)} />
               </Box>
 
-              <Box sx={sxTextInfo}>
-                {current_date.current_date === plant.next_water ? <p>Water Today!</p> : <></>}
-                {current_date.current_date > plant.next_water ? <p>Remember to Water!</p> : <></>}
-                {current_date.tomorrow === plant.next_water ? <p>Water Tomorrow</p> : <></>}
-                {current_date.tomorrow < plant.next_water ? <p>Water Soon</p> : <></>}
+              <Box sx={sxRightSection}>
+                {current_date.current_date === plant.next_water ?
+                  <Typography sx={sxWaterToday} color="error">Water Today!</Typography> : <></>}
 
-                
-                <Typography sx={sxWaterFreq} color="secondary"><p>Water Every {plant.water_freq} Days</p></Typography>
+                {current_date.current_date > plant.next_water ?
+                  <Typography sx={sxWaterRemember} color="error">Remember To Water Today!</Typography> : <></>}
 
-                {/* <p>Last Watered: {plant.date_watered.split(`T`)[0]}</p> */}
+                {current_date.tomorrow === plant.next_water ?
+                  <Typography sx={sxWaterSoon} color="primary">Water Tomorrow</Typography> : <></>}
 
-                <Typography sx={sxNextWater} color="secondary"><p>Next Water: {plant.next_water.split(`T`)[0]}</p></Typography>
+                {current_date.tomorrow < plant.next_water ?
+                  <Typography sx={sxWaterSoon} color="primary">Water Soon</Typography> : <></>}
+
+                <Typography sx={sxWaterFreq} color="info.dark">Water Every {plant.water_freq} Days</Typography>
+
+                <Typography sx={sxNextWater} color="info.dark">Water On {plant.next_water.split(`T`)[0]}</Typography>
               </Box>
+
             </Box>
 
 
             <Box sx={sxButtonBox}>
               {current_date.current_date >= plant.next_water ?
-                <Button sx={sxButton} size="medium" variant="outlined"
+                <Button sx={sxButton} size="medium" variant="contained" color="primary"
                   onClick={() => handleClick('markWatered', plant)} startIcon={<OpacityIcon />} endIcon={<OpacityIcon />}> Water </Button> :
                 <></>}
 
               {current_date.tomorrow === plant.next_water ?
-                <Button sx={sxButton} size="small" variant="outlined"
+                <Button sx={sxButton} size="small" variant="contained" color="primary"
                   onClick={() => handleClick('markWatered', plant)} startIcon={<OpacityIcon />} endIcon={<OpacityIcon />}> Water </Button> :
                 <></>}
             </Box>

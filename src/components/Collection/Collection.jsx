@@ -7,6 +7,8 @@ import Box from '@mui/material/Box';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
+import CardMedia from '@mui/material/CardMedia';
+import Typography from '@mui/material/Typography';
 
 // Basic functional component structure for React with default state
 // value setup. When making a new component be sure to replace the
@@ -19,7 +21,7 @@ function Collection(props) {
   const photos = useSelector((store) => store.photos);
   const plants = useSelector((store) => store.plants);
   const current_date = useSelector((store) => store.current_date);
-  const [heading, setHeading] = useState('Functional Component');
+
 
   console.log('these are the photos in Collection:', photos);
   console.log('these are the plants in Collection:', plants);
@@ -46,43 +48,63 @@ function Collection(props) {
 
 
   const sxInfoBox = {
-    border: 1,
-    mb: 2,
+    boxShadow: 1,
+    display: 'flex',
+    justifyContent: 'center',
 
   }; // sxInfoBox
 
 
-{/* <ImageList variant="masonry" cols={3} gap={8}>
-  {itemData.map((item) => (
-    <ImageListItem key={item.img}>
-      <img
-        src={`${item.img}?w=248&fit=crop&auto=format`}
-        srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
-        alt={item.title}
-        loading="lazy"
-      />
-      <ImageListItemBar position="below" title={item.author} />
-    </ImageListItem>
-  ))}
-</ImageList> */}
+  // PHOTO to control the image size, border radius, ect.
+  const sxPhotoBox = {
+    border: '1px solid lightgray',
+    width: 175,
+    height: 225,
+    boxShadow: 1,
 
+  }; // sxPhotoBox
+
+  // NICKNAME
+  const sxNickname = {
+    // border: '1px solid blue',
+    display: 'fixed',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 40,
+    fontSize: 16,
+    fontWeight: 500,
+    lineHeight: 1,
+    // pl: 3,
+    boxShadow: 1,
+    // mb: 2,
+    borderRadius: 2,
+    // backgroundColor: 'red',
+  }; // sxNickname
 
 
   const showContent = (
-    <div>
 
-      {plants.map(plant => (
-        <div key={plant.id}>
+    <Box>
+
+      <ImageList sx={{ maxWidth: 355, height: 'auto' }} cols={2}>
+
+        {plants.map(plant => (
           <Box sx={sxInfoBox}>
-            
-            <h3>{plant.nickname}</h3>
-            <img onClick={() => handleClick('plantDetails', plant)} src={plant.avatar_url} />
-            <h4>{plant.date_added.split(`T`)[0]}</h4>
+            <ImageListItem key={plant.id}>
 
+              <CardMedia sx={sxPhotoBox} component="img" image={plant.avatar_url}
+                onClick={() => handleClick('plantDetails', plant)} />
+
+              <Typography sx={sxNickname} color="info.main"><>{plant.nickname}</></Typography>
+
+              {/* <ImageListItemBar position="below" title={plant.nickname} /> */}
+            </ImageListItem>
           </Box>
-        </div>
-      ))}
-    </div>
+        ))}
+
+      </ImageList>
+
+    </Box>
   ); // showContent
 
 
@@ -97,23 +119,52 @@ function Collection(props) {
 
   const sxCollectionContainer = {
     display: 'flex',
-    justifyContent: 'center',
+    flexDirection: 'column',
     border: '1px solid red',
-    mb: 8,
-    width: '375px',
+    mb: 10,
+    width: '100%',
     // height: '700px',
-    textAlign: 'center',
-    overflow: 'auto',
+    // textAlign: 'center',
+    // overflow: 'auto',
 
   }; // sxCollectionContainer
+
+
+  // HEADER BOX // 
+  const sxHeaderBox = {
+    // border: '1px solid blue',
+    position: 'sticky',
+    top: 0,
+    bgcolor: 'secondary.main',
+    zIndex: 50,
+    mx: 'auto',
+    width: 355,
+    borderRadius: 1,
+
+  }; // sxDateBox
+
+
+  // Header Text
+  const sxHeader = {
+    fontSize: 22,
+    fontWeight: 500,
+    py: 2,
+    textAlign: 'center',
+    borderBottom: '2px solid lightgray',
+    width: 355,
+    borderRadius: 1,
+
+  }; // sxHeader
 
 
   return (
     <Box sx={sxCollectionContainer}>
 
-      <h2>COLLECTION OF PLANTS</h2>
+      <Box sx={sxHeaderBox}>
+        <Typography sx={sxHeader} color="info.main"><>{plants.length} PLANTS IN MY COLLECTION</></Typography>
+      </Box>
 
-      {photos.length > 0 ? showContent : showMessage}
+      {photos ? showContent : showMessage}
 
     </Box>
   );

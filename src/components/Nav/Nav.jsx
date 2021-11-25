@@ -18,7 +18,7 @@ function Nav() {
   const user = useSelector((store) => store.user);
 
   const sxNavContent = {
-    border: '1px solid purple',
+    // border: '1px solid purple',
     display: 'flex',
     justifyContent: 'space-around',
     alignItems: 'center',
@@ -27,9 +27,9 @@ function Nav() {
     width: 355,
     height: 55,
     bottom: 10,
-    // borderRadius: 0,
-    background: 'white',
-    pt: 1,
+    borderRadius: 1,
+    bgcolor: 'info.main',
+    pt: 1.5,
 
   }; // sxNavContent
 
@@ -52,19 +52,19 @@ function Nav() {
         {user.id > 0 & user.access_level < 5 ? (
           <>
             <Link to="/dashboard">
-              <FormatListBulletedIcon fontSize="large" />
+              <FormatListBulletedIcon color="secondary" fontSize="large" />
             </Link>
 
             <Link to="/collection">
-              <AppsIcon fontSize="large" />
+              <AppsIcon color="secondary" fontSize="large" />
             </Link>
 
             <Link to="/add_plant">
-              <AddBoxIcon fontSize="large" />
+              <AddBoxIcon color="secondary" fontSize="large" />
             </Link>
 
             <Link to="/user_profile">
-              <AccountBoxIcon fontSize="large" />
+              <AccountBoxIcon color="secondary" fontSize="large" />
             </Link>
           </>
         ) : <></>}

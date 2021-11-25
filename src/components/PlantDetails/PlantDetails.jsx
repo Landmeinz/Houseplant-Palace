@@ -5,6 +5,13 @@ import { DateTime } from "luxon";
 
 // --- MUI --- // 
 import Box from '@mui/material/Box';
+import ImageList from '@mui/material/ImageList';
+import ImageListItem from '@mui/material/ImageListItem';
+import ImageListItemBar from '@mui/material/ImageListItemBar';
+import CardMedia from '@mui/material/CardMedia';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 
 // Basic functional component structure for React with default state
 // value setup. When making a new component be sure to replace the
@@ -72,7 +79,6 @@ function PlantDetails(props) {
 
     // --- EDIT info display when button is clicked --- // 
     const showEditInputs = (
-
         <form onSubmit={handleSubmit}>
 
             <Box sx={sxEditFormBox}>
@@ -194,10 +200,9 @@ function PlantDetails(props) {
         // justifyContent: 'center',
         border: '1px solid red',
         mb: 8,
-        width: '375px',
-        height: '700px',
+        width: 350,
+        height: 'auto',
         textAlign: 'center',
-        overflow: 'auto',
 
     }; // sxPlantContainer
 
@@ -206,13 +211,81 @@ function PlantDetails(props) {
         mb: 4,
     }; // sxInfoBox
 
+
+
+    const sxPhotCard = {
+        border: '1px solid blue',
+        display: 'row',
+        justifyContent: 'center',
+        // width: 175,
+        // height: 225,
+        // boxShadow: 1,
+
+    }; // sxPhotoBox
+
     // hold photo, date uploaded, and the remove button // 
+    // PHOTO to control the image size, border radius, ect.
     const sxPhotoBox = {
-        border: 1,
-        mb: 2,
+        // border: '1px solid lightgray',
+        width: 350,
+        height: 'auto',
+        boxShadow: 3,
+        mb: 1,
 
-    }; // sxPlantCard
+    }; // sxPhotoBox
 
+
+    // Photo document date Text
+    const sxButtonDocDate = {
+        display: 'flex',
+        alignItems: 'center',
+
+
+    }; // sxButtonDocDate
+
+
+    // Photo document date Text
+    const sxDocDate = {
+        fontSize: 18,
+        fontWeight: 500,
+        py: 2,
+        textAlign: 'center',
+        // borderBottom: '2px solid lightgray',
+        width: 355,
+
+    }; // sxDocDate
+
+
+    // BUTTON // 
+    const sxButton = {
+        display: 'fixed',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        fontSize: 'large',
+        width: 32,
+        height: 32,
+        border: '.25px solid primary',
+        boxShadow: 2,
+    }; // sxButton
+
+    // BUTTON // 
+    const sxRemovePlant = {
+        // display: 'flex',
+        // flexDirection: 'row',
+        // justifyContent: 'center',
+        // alignItems: 'center',
+        // fontWeight: 500,
+        // lineHeight: 2,
+        // width: 32,
+        height: 60,
+        border: '.25px solid primary',
+        boxShadow: 2,
+        mt: 8,
+    }; // sxButton
+
+
+    
 
     console.log('--- PLANT DETAILS LOGS ---');
     console.log('--- these are the selected plants', selectedPlant);
@@ -254,16 +327,20 @@ function PlantDetails(props) {
 
 
                 {selectedPhoto.map(photo => (
-                    <Box sx={sxPhotoBox} key={photo.id}>
+                    <Box sx={sxPhotCard} key={photo.id}>
 
-                        <img src={photo.photo_url} />
-                        <p>Documented: {photo.date_uploaded.split(`T`)[0]}</p>
+                        <CardMedia sx={sxPhotoBox} component="img" image={photo.photo_url} />
 
-                        <button onClick={() => handleRemovePhoto(photo.id, photo.plant_id)}>Remove Image</button>
+                        <Box sx={sxButtonDocDate}>
+                            <Button sx={sxButton} variant="contained" color="error" onClick={() => handleRemovePhoto(photo.id, photo.plant_id)}>
+                                <RemoveCircleIcon sx={{ color: "white" }} fontSize="medium" />
+                            </Button>
+                            <Typography sx={sxDocDate} color="info.main"><>Documented: {photo.date_uploaded.split(`T`)[0]}</></Typography>
+                        </Box>
 
                     </Box>
                 ))}
-                <button onClick={() => handleRemove(selectedPlant.id)}>Remove Plant From Collection</button>
+                <Button sx={sxRemovePlant} variant="contained" color="error" onClick={() => handleRemove(selectedPlant.id)}>Remove Plant From Collection</Button>
             </Box>
         </div>
     );
