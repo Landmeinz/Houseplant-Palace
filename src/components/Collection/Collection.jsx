@@ -95,7 +95,7 @@ function Collection(props) {
               <CardMedia sx={sxPhotoBox} component="img" image={plant.avatar_url}
                 onClick={() => handleClick('plantDetails', plant)} />
 
-              <Typography sx={sxNickname} color="info.main"><>{plant.nickname}</></Typography>
+              <Typography sx={sxNickname} color="info.main"><span>{plant.nickname}</span></Typography>
 
               {/* <ImageListItemBar position="below" title={plant.nickname} /> */}
             </ImageListItem>
@@ -161,7 +161,7 @@ function Collection(props) {
     <Box sx={sxCollectionContainer}>
 
       <Box sx={sxHeaderBox}>
-        <Typography sx={sxHeader} color="info.main"><>{plants.length} PLANTS IN MY COLLECTION</></Typography>
+        <Typography sx={sxHeader} color="info.main"><span>{plants.length} PLANTS IN MY COLLECTION</span></Typography>
       </Box>
 
       {photos ? showContent : showMessage}

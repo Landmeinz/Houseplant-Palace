@@ -28,15 +28,15 @@ function LogOutButton(props) {
       alignItems: 'center',
       fontWeight: 700,
       lineHeight: 2,
-      width: '90%',
-      height: 75,
+      width: '75%',
+      height: 65,
       border: '.25px solid primary',
       mt: '100%',
       boxShadow: 2,
       // backgroundColor: 'red',
       color: 'white',
       borderRadius: 3,
-      fontSize: 30,
+      fontSize: 22,
     }; // sxButton
 
   return (

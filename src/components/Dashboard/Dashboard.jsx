@@ -259,7 +259,7 @@ function Dashboard(props) {
 
       <Box sx={sxDateBox}>
         <Typography sx={sxDateHeader} color="info.main">{current_date &&
-          <>{current_date.year}-{current_date.month}-{current_date.day}</>}
+          <span>{current_date.year}-{current_date.month}-{current_date.day}</span>}
         </Typography>
       </Box>
 
@@ -271,7 +271,7 @@ function Dashboard(props) {
 
             {/* the following 3 boxes make up the layout for each dashboard item */}
             <Box >
-              <Typography sx={sxNickname} color="info"><p>{plant.nickname}</p></Typography>
+              <Typography sx={sxNickname} color="info"><span>{plant.nickname}</span></Typography>
             </Box>
 
             {/* WATER TODAY OR TOMORROW OR SOON */}
@@ -284,20 +284,20 @@ function Dashboard(props) {
 
               <Box sx={sxRightSection}>
                 {current_date.current_date === plant.next_water ?
-                  <Typography sx={sxWaterToday} color="error">Water Today!</Typography> : <></>}
+                  <Typography sx={sxWaterToday} color="error"><span>Water Today!</span></Typography> : <></>}
 
                 {current_date.current_date > plant.next_water ?
-                  <Typography sx={sxWaterRemember} color="error">Remember To Water Today!</Typography> : <></>}
+                  <Typography sx={sxWaterRemember} color="error"><span>Remember To Water Today!</span></Typography> : <></>}
 
                 {current_date.tomorrow === plant.next_water ?
-                  <Typography sx={sxWaterSoon} color="primary">Water Tomorrow</Typography> : <></>}
+                  <Typography sx={sxWaterSoon} color="primary"><span>Water Tomorrow</span></Typography> : <></>}
 
                 {current_date.tomorrow < plant.next_water ?
-                  <Typography sx={sxWaterSoon} color="primary">Water Soon</Typography> : <></>}
+                  <Typography sx={sxWaterSoon} color="primary"><span>Water Soon</span></Typography> : <></>}
 
-                <Typography sx={sxWaterFreq} color="info.dark">Water Every {plant.water_freq} Days</Typography>
+                <Typography sx={sxWaterFreq} color="info.dark"><span>Water Every {plant.water_freq} Days</span></Typography>
 
-                <Typography sx={sxNextWater} color="info.dark">Water On {plant.next_water.split(`T`)[0]}</Typography>
+                <Typography sx={sxNextWater} color="info.dark"><span>Water On {plant.next_water.split(`T`)[0]}</span></Typography>
               </Box>
 
             </Box>
