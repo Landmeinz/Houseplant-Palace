@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import Box from '@mui/material/Box';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
-import ImageListItemBar from '@mui/material/ImageListItemBar';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 
@@ -48,19 +47,18 @@ function Collection(props) {
 
 
   const sxInfoBox = {
-    boxShadow: 1,
+    boxShadow: 2,
     display: 'flex',
     justifyContent: 'center',
+    borderRadius: 1,
 
   }; // sxInfoBox
 
 
   // PHOTO to control the image size, border radius, ect.
   const sxPhotoBox = {
-    border: '1px solid lightgray',
     width: 175,
     height: 225,
-    boxShadow: 1,
 
   }; // sxPhotoBox
 
@@ -73,11 +71,11 @@ function Collection(props) {
     height: 40,
     fontSize: 16,
     fontWeight: 500,
-    lineHeight: 1,
+    lineHeight: 1.1,
     // pl: 3,
-    boxShadow: 1,
     // mb: 2,
-    borderRadius: 2,
+    // borderRadius: 2,
+    textAlign: 'center',
     // backgroundColor: 'red',
   }; // sxNickname
 
@@ -89,13 +87,12 @@ function Collection(props) {
       <ImageList sx={{ maxWidth: 355, height: 'auto' }} cols={2}>
 
         {plants.map(plant => (
-          <Box sx={sxInfoBox}>
+          <Box sx={sxInfoBox} onClick={() => handleClick('plantDetails', plant)}>
             <ImageListItem key={plant.id}>
 
-              <CardMedia sx={sxPhotoBox} component="img" image={plant.avatar_url}
-                onClick={() => handleClick('plantDetails', plant)} />
+              <CardMedia sx={sxPhotoBox} component="img" image={plant.avatar_url}/>
 
-              <Typography sx={sxNickname} color="info.main"><>{plant.nickname}</></Typography>
+              <Typography sx={sxNickname} color="info.main"><span>{plant.nickname}</span></Typography>
 
               {/* <ImageListItemBar position="below" title={plant.nickname} /> */}
             </ImageListItem>
@@ -139,7 +136,6 @@ function Collection(props) {
     zIndex: 50,
     mx: 'auto',
     width: 355,
-    borderRadius: 1,
 
   }; // sxDateBox
 
@@ -150,18 +146,16 @@ function Collection(props) {
     fontWeight: 500,
     py: 2,
     textAlign: 'center',
-    borderBottom: '2px solid lightgray',
     width: 355,
-    borderRadius: 1,
 
   }; // sxHeader
 
 
   return (
-    <Box sx={sxCollectionContainer}>
+    <Box sx={sxCollectionContainer} >
 
       <Box sx={sxHeaderBox}>
-        <Typography sx={sxHeader} color="info.main"><>{plants.length} PLANTS IN MY COLLECTION</></Typography>
+        <Typography sx={sxHeader} color="info.main"><span>{plants.length} PLANTS IN MY COLLECTION</span></Typography>
       </Box>
 
       {photos ? showContent : showMessage}

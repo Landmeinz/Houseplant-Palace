@@ -45,9 +45,7 @@ function Profile(props) {
     fontWeight: 500,
     py: 2,
     textAlign: 'center',
-    borderBottom: '2px solid lightgray',
     width: 355,
-    borderRadius: 1,
 
   }; // sxHeader
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 // --- FILESTACK for image upload --- // 
@@ -8,6 +8,20 @@ import { PickerDropPane } from 'filestack-react'; // PickerOverlay, PickerInline
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
+// import MobileDatePicker from '@mui/lab/MobileDatePicker';
+// import LocalizationProvider from '@mui/lab/LocalizationProvider';
+// import DateAdapter from '@mui/lab/AdapterDateFns';
+
+
+
+
+
+
 
 // Basic functional component structure for React with default state
 // value setup. When making a new component be sure to replace the
@@ -48,8 +62,8 @@ function PlantForm(props) {
 
 
   const handleSubmit = (event) => {
-    console.log('--- CLICKED --- hit handleSubmit Add Plant');
     event.preventDefault();
+    console.log('--- CLICKED --- hit handleSubmit Add Plant');
     console.log('-- the newPlant:', newPlant);
 
     dispatch({ type: 'ADD_PLANT', payload: newPlant });
@@ -62,15 +76,16 @@ function PlantForm(props) {
 
 
   // for image upload? 
-  const handleClick = () => {
-    console.log('CLICKED on uploadImage');
-  }; // handleClick
+  // const handleClick = () => {
+  //   console.log('CLICKED on uploadImage');
+  // }; // handleClick
 
 
   // Box that holds all page content
-  const sxFormContainer = {
-
-  }; // sxFormContainer
+  const sxPageContainer = {
+    // display: 'flex',
+    // justifyContent: 'center',
+  }; // sxPageContainer
 
   // HEADER BOX // 
   const sxHeaderBox = {
@@ -81,6 +96,7 @@ function PlantForm(props) {
     zIndex: 50,
     mx: 'auto',
     width: 355,
+    height: '100%',
     mb: 2,
 
   }; // sxDateBox
@@ -92,169 +108,216 @@ function PlantForm(props) {
     fontWeight: 500,
     py: 2,
     textAlign: 'center',
-    borderBottom: '2px solid lightgray',
     width: 355,
-    borderRadius: 1,
 
   }; // sxHeader
 
 
 
   // Box that holds the drop pane
-  const sxUploaderBox = {
+  // const sxUploaderBox = {
+  //   display: 'flex',
+  //   flexDirection: 'column',
+  //   // justifyContent: 'left',
+  //   // alignItems: 'center',
+  //   gap: 2,
+  //   width: 'auto',
+  //   height: 'auto',
+  //   cursor: 'pointer',
+  //   mx: 'auto',
+  //   p: 'auto',
+  //   boxShadow: 3,
+  // }; // sxUploaderBox
+
+  const sxFormControl = {
     display: 'flex',
-    flexDirection: 'column',
-    // justifyContent: 'left',
-    // alignItems: 'center',
-    gap: 2,
-    width: 'auto',
-    height: 'auto',
-    cursor: 'pointer',
-    mx: 'auto',
-    p: 'auto',
-    boxShadow: 3,
-  }; // sxUploaderBox
+    justifyContent: 'center',
+  }; // sxFormControl
 
   // Box inside the form to hold all inputs
   const sxFormBox = {
     display: 'flex',
+    justifyContent: 'center',
     flexDirection: 'column',
     gap: .5,
-    border: 1,
     mb: 8,
+    mx: 'auto',
+    width: '90%',
   }; // sxFormBox
+
+  const sxInput = {
+    mb: 2,
+  }; // sxInput
+
+
+  const sxInstructionsBox = {
+    mb: 2,
+  }; // sxInstructionsBox
+
+  const sxInstructions = {
+    fontSize: 18,
+    fontWeight: 500,
+    textAlign: 'center',
+    lineHeight: 1.3,
+    // borderBottom: '2px solid lightgray',
+  }; // sxInstructions
+
+  // BUTTON // 
+  const sxButton = {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    fontWeight: 500,
+    lineHeight: 2,
+    width: '90%',
+    height: 35,
+    border: '.25px solid primary',
+    mt: 2,
+    boxShadow: 2,
+    mx: 'auto',
+  }; // sxButton
 
 
   return (
-    <Box sx={sxFormContainer}>
+    <Box sx={sxPageContainer}>
 
 
       <Box sx={sxHeaderBox}>
-        <Typography sx={sxHeader} color="info.main"><>ADD TO YOUR COLLECTION</></Typography>
+        <Typography sx={sxHeader} color="info.main"><span>ADD TO YOUR COLLECTION</span></Typography>
       </Box>
 
       {/* <h2>PLANT FORM</h2> */}
 
-      <form onSubmit={handleSubmit}>
+      <form sx={sxFormControl} onSubmit={handleSubmit} variant="standard">
         <Box sx={sxFormBox}>
 
-          <h4>Fill out all of the info below and tap submit</h4>
+          <Box sx={sxInstructionsBox}>
+            <Typography sx={sxInstructions} color="info.main"><span>Fill out all of the info below and</span></Typography>
+            <Typography sx={sxInstructions} color="info.main"><span>tap Add New Plant</span></Typography>
+          </Box>
+
 
           {/* NICKNAME */}
-          <label htmlFor="nickname">Give Your Plant A Nickname: </label>
-          <input
+          <TextField sx={sxInput}
             id="nickname"
             required
-            type="text"
+            label="Nickname"
             value={newPlant.nickname}
             onChange={(event) => handleNameChange(event, 'nickname')}
             placeholder="Planty McPlanterson"
           />
 
+
           {/* AVATAR_URL */}
-          <label htmlFor="avatar_url">Include a Photo By Providing a URL: </label>
-          <input
+          <TextField sx={sxInput}
             id="avatar_url"
             required
-            type="text"
+            label="Avatar Photo URL"
             value={newPlant.avatar_url}
             onChange={(event) => handleNameChange(event, 'avatar_url')}
-            placeholder="uploadedimage"
+            placeholder="yourPhotoUrlGoesHere.jpg"
           />
 
-          {/* DATE_ADDED */}
-          <label htmlFor="date_added">Date Plant Was Added To Collection: </label>
-          <input
+
+          {/* DATE ADDED */}
+          <TextField sx={sxInput}
+            type="date"
             id="date_added"
             required
-            type="date"
+            label="Date Added To Collection"
             value={newPlant.date_added}
             onChange={(event) => handleNameChange(event, 'date_added')}
-          // placeholder="date_added"
+            InputLabelProps={{ shrink: true }}
           />
+
 
           {/* PLANT_TYPE */}
-          <label htmlFor="plant_type">Type of Plant: </label>
-          <input
+          <TextField sx={sxInput}
             id="plant_type"
             required
-            type="text"
+            label="Plant Type"
             value={newPlant.plant_type}
             onChange={(event) => handleNameChange(event, 'plant_type')}
-            placeholder="plant_type"
+            placeholder="Golden Pothos"
           />
 
+
           {/* LIGHT_LEVEL */}
-          <label htmlFor="light_level">Light Level: </label>
-          <select
-            id="light_level"
-            required
-            value={newPlant.light_level}
-            name="light_level"
-            id="light_level"
-            onChange={(event) => handleNameChange(event, 'light_level')}
-          >
-            <option hidden value="null">Select</option>
-            <option value="1">Low</option>
-            <option value="2">Medium</option>
-            <option value="3">High</option>
-          </select>
+          <FormControl required>
+            <InputLabel id="light_level_label" >Light Levels</InputLabel>
+            <Select sx={sxInput} variant="outlined"
+              labelId="light_level_label"
+              label="Light Levels"
+              id="light_level"
+              name="light_level"
+              value={newPlant.light_level}
+              onChange={(event) => handleNameChange(event, 'light_level')}
+            >
+              <MenuItem value={1}>Low</MenuItem>
+              <MenuItem value={2}>Medium</MenuItem>
+              <MenuItem value={3}>High</MenuItem>
+            </Select>
+          </FormControl>
+
 
           {/* WATER_FREQ */}
-          <label htmlFor="water_freq">Days Between Watering: </label>
-          <input
+          <TextField sx={sxInput}
             id="water_freq"
             required
             type="number"
             value={newPlant.water_freq}
             onChange={(event) => handleNameChange(event, 'water_freq')}
-            placeholder="5"
+            label="Number of Days Between Watering"
           />
 
           {/* DATE_WATERED */}
-          <label htmlFor="date_watered">Date Last Watered: </label>
-          <input
+          <TextField sx={sxInput}
             id="date_watered"
             required
             type="date"
+            label="Date Last Watered"
             value={newPlant.date_watered}
             onChange={(event) => handleNameChange(event, 'date_watered')}
-          // placeholder="date_watered"
+            InputLabelProps={{ shrink: true }}
           />
 
+
           {/* DATE_POTTED */}
-          <label htmlFor="date_potted">Date Potted: </label>
-          <input
+          <TextField sx={sxInput}
             id="date_potted"
             required
             type="date"
+            label="Date Potted"
             value={newPlant.date_potted}
             onChange={(event) => handleNameChange(event, 'date_potted')}
-          // placeholder="date_potted"
+            InputLabelProps={{ shrink: true }}
           />
 
           {/* DATE_FERTILIZED */}
-          <label htmlFor="date_added">Date Fertilized: </label>
-          <input
+          <TextField sx={sxInput}
             id="date_added"
             required
             type="date"
+            label="Date Fertilized"
             value={newPlant.date_fertilized}
             onChange={(event) => handleNameChange(event, 'date_fertilized')}
-          // placeholder="date_fertilized"
+            InputLabelProps={{ shrink: true }}
           />
 
           {/* NOTES */}
-          <label htmlFor="notes">Plant Notes: </label>
-          <input
+          <TextField sx={sxInput}
             id="notes"
             type="text"
+            label="Include Any Plant Notes"
             value={newPlant.notes}
             onChange={(event) => handleNameChange(event, 'notes')}
-            placeholder="remember to turn plant"
+            placeholder="Don't over water!"
+            multiline
+            maxRows={3}
           />
 
-          <Button type="submit" onClick={handleClick}>ADD NEW PLANT</Button>
+          <Button type="submit" sx={sxButton} size="large" variant="contained" color="primary">ADD NEW PLANT</Button>
 
         </Box>
       </form>
