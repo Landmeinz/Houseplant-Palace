@@ -185,7 +185,7 @@ function PlantForm(props) {
 
 
       <Box sx={sxHeaderBox}>
-        <Typography sx={sxHeader} color="info.main"><span>ADD TO YOUR COLLECTION</span></Typography>
+        <Typography sx={sxHeader} color="info.main"><span>Add To Your Collection</span></Typography>
       </Box>
 
       {/* <h2>PLANT FORM</h2> */}
@@ -209,6 +209,16 @@ function PlantForm(props) {
             placeholder="Planty McPlanterson"
           />
 
+          {/* PLANT_TYPE */}
+          <TextField sx={sxInput}
+            id="plant_type"
+            required
+            label="Plant Type"
+            value={newPlant.plant_type}
+            onChange={(event) => handleNameChange(event, 'plant_type')}
+            placeholder="Golden Pothos"
+          />
+
 
           {/* AVATAR_URL */}
           <TextField sx={sxInput}
@@ -217,7 +227,7 @@ function PlantForm(props) {
             label="Avatar Photo URL"
             value={newPlant.avatar_url}
             onChange={(event) => handleNameChange(event, 'avatar_url')}
-            placeholder="yourPhotoUrlGoesHere.jpg"
+            placeholder="yourPhotoURLGoesHere.jpg"
           />
 
 
@@ -230,17 +240,6 @@ function PlantForm(props) {
             value={newPlant.date_added}
             onChange={(event) => handleNameChange(event, 'date_added')}
             InputLabelProps={{ shrink: true }}
-          />
-
-
-          {/* PLANT_TYPE */}
-          <TextField sx={sxInput}
-            id="plant_type"
-            required
-            label="Plant Type"
-            value={newPlant.plant_type}
-            onChange={(event) => handleNameChange(event, 'plant_type')}
-            placeholder="Golden Pothos"
           />
 
 

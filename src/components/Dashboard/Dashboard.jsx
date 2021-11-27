@@ -85,6 +85,7 @@ function Dashboard(props) {
 
   // DATE font size and properties
   const sxDateHeader = {
+    // border: '1px solid blue',
     fontSize: 22,
     fontWeight: 500,
     p: 2,
@@ -128,13 +129,14 @@ function Dashboard(props) {
     justifyContent: 'center',
     alignItems: 'center',
     height: 40,
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: 500,
     lineHeight: 1,
     // pl: 3,
     boxShadow: 1,
     mb: 2,
     borderRadius: 2,
+    bgcolor: 'info.main',
     // backgroundColor: 'red',
   }; // sxNickname
 
@@ -162,7 +164,7 @@ function Dashboard(props) {
 
   // PHOTO to control the image size, border radius, ect.
   const sxPhotoBox = {
-    // border: '1px solid darkgray',
+    // border: '1px solid black',
     boxShadow: 2,
     height: 100,
     width: 100,
@@ -240,7 +242,7 @@ function Dashboard(props) {
     alignItems: 'center',
     fontWeight: 500,
     lineHeight: 2,
-    width: '90%',
+    width: '65%',
     height: 35,
     border: '.25px solid primary',
     mt: 2,
@@ -270,7 +272,7 @@ function Dashboard(props) {
 
             {/* the following 3 boxes make up the layout for each dashboard item */}
             <Box >
-              <Typography sx={sxNickname} color="info"><span>{plant.nickname}</span></Typography>
+              <Typography sx={sxNickname} color="secondary.main"><span>{plant.nickname}</span></Typography>
             </Box>
 
             {/* WATER TODAY OR TOMORROW OR SOON */}

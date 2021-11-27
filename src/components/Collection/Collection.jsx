@@ -127,6 +127,7 @@ function Collection(props) {
   }; // sxCollectionContainer
 
 
+
   // HEADER BOX // 
   const sxHeaderBox = {
     // border: '1px solid blue',
@@ -134,8 +135,8 @@ function Collection(props) {
     top: 0,
     bgcolor: 'secondary.main',
     zIndex: 50,
+    mb: 2,
     mx: 'auto',
-    width: 355,
 
   }; // sxDateBox
 
@@ -155,7 +156,7 @@ function Collection(props) {
     <Box sx={sxCollectionContainer} >
 
       <Box sx={sxHeaderBox}>
-        <Typography sx={sxHeader} color="info.main"><span>{plants.length} PLANTS IN MY COLLECTION</span></Typography>
+        <Typography sx={sxHeader} color="info.main"><span>{plants.length} Plants In My Collection</span></Typography>
       </Box>
 
       {photos ? showContent : showMessage}
