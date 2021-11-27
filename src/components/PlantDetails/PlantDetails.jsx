@@ -81,7 +81,7 @@ function PlantDetails(props) {
         flexDirection: 'column',
         gap: .5,
         mb: 2,
-        mt: 4,
+        mt: 2,
         mx: 'auto',
         width: '90%',
     }; // sxEditFormBox
@@ -238,6 +238,14 @@ function PlantDetails(props) {
 
     ); // showEditInputs
 
+    const sxPhotoFormBox = {
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        width: '90%',
+        mx: 'auto',
+        mt: 2,
+    }; // sxPhotoFormBox
 
     // BUTTON // 
     const sxAddPhoto = {
@@ -250,7 +258,6 @@ function PlantDetails(props) {
         width: '80%',
         height: 60,
         border: '.25px solid primary',
-
         mb: 4,
         boxShadow: 2,
         mx: 'auto',
@@ -261,15 +268,17 @@ function PlantDetails(props) {
     // -- Display the photo url input text on button press -- // 
     const showPhotoInputs = (
         <form onSubmit={() => handleNewPhoto(selectedPlant.id)}>
-            <TextField sx={sxInput}
-                id="photo_url"
-                required
-                label="Provide Photo URL"
-                value={newPhoto}
-                onChange={(event) => setNewPhoto(event.target.value)}
-                placeholder="yourPhotoURLGoesHere.jpg"
-            />
-            <Button type="submit" sx={sxAddPhoto} size="large" variant="contained" color="secondary">Add New Plant Photo</Button>
+            <Box sx={sxPhotoFormBox}>
+                <TextField sx={sxInput}
+                    id="photo_url"
+                    required
+                    label="Provide Photo URL"
+                    value={newPhoto}
+                    onChange={(event) => setNewPhoto(event.target.value)}
+                    placeholder="yourPhotoURLGoesHere.jpg"
+                />
+                <Button type="submit" sx={sxAddPhoto} size="large" variant="contained" color="secondary">Add New Plant Photo</Button>
+            </Box>
         </form>
     ); // showPhotoInputs
 
@@ -333,8 +342,9 @@ function PlantDetails(props) {
 
     // holds all content of this page // 
     const sxPlantContainer = {
-        // display: 'flex',
-        // justifyContent: 'center',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
         // border: '1px solid red',
         mb: 8,
         width: 350,
@@ -350,7 +360,7 @@ function PlantDetails(props) {
 
 
     const sxPhotCard = {
-        // border: '1px solid blue',
+        border: '1px solid blue',
         display: 'row',
         justifyContent: 'center',
         mb: 3,
@@ -429,11 +439,12 @@ function PlantDetails(props) {
         // alignItems: 'center',
         fontWeight: 700,
         // lineHeight: 2,
-        // width: 32,
+        width: '85%',
         fontSize: 15,
         height: 60,
         boxShadow: 2,
-        mt: 8,
+        mt: 6,
+        mx: 'auto',
         color: 'white',
     }; // sxRemovePlant
 
@@ -479,6 +490,16 @@ function PlantDetails(props) {
     }; // sxValue
 
 
+    const sxKeyValueTextLast = {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        m: 1,
+        mb: 4, 
+    }; // sxKeyValueText
+
+    
+
 
 
 
@@ -499,7 +520,7 @@ function PlantDetails(props) {
                 <Box sx={sxEditPhotoBox}>
                     {!editMode ?
                         <Button sx={sxButton} variant="outlined" onClick={() => { setEditMode(!editMode) }}>Edit Info</Button> :
-                        <Button sx={sxButton} variant="outlined" onClick={() => setEditMode(!editMode)}>Hide Info</Button>}
+                        <Button sx={sxButton} variant="outlined" onClick={() => setEditMode(!editMode)}>Hide Edit</Button>}
                 </Box>
 
 
@@ -575,7 +596,7 @@ function PlantDetails(props) {
                 </Box>
 
                 {/* NOTES */}
-                <Box sx={sxKeyValueText}>
+                <Box sx={sxKeyValueTextLast}>
                     <Typography sx={sxKey} color="info.main"> <span>Plant Notes:</span> </Typography>
                     <Typography sx={sxValue} color="info.main"> <span>{selectedPlant.notes}</span> </Typography>
                 </Box>
