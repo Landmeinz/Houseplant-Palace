@@ -163,7 +163,7 @@ function PlantForm(props) {
   }; // sxInstructions
 
   // BUTTON // 
-  const sxButton = {
+  const sxAddPlant = {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
@@ -171,12 +171,13 @@ function PlantForm(props) {
     fontWeight: 500,
     lineHeight: 2,
     width: '90%',
-    height: 35,
+    height: 60,
     border: '.25px solid primary',
     mt: 2,
     boxShadow: 2,
     mx: 'auto',
-  }; // sxButton
+    color: 'info.main',
+  }; // sxAddPlant
 
 
   return (
@@ -317,7 +318,7 @@ function PlantForm(props) {
             maxRows={3}
           />
 
-          <Button type="submit" sx={sxButton} size="large" variant="contained" color="primary">ADD NEW PLANT</Button>
+          <Button type="submit" sx={sxAddPlant} size="large" variant="contained" color="secondary">ADD NEW PLANT</Button>
 
         </Box>
       </form>

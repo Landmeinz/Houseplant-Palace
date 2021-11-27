@@ -206,7 +206,7 @@ function PlantDetails(props) {
         zIndex: 50,
         mx: 'auto',
         width: 355,
-        mb: 2, 
+        mb: 2,
 
     }; // sxDateBox
 
@@ -232,7 +232,7 @@ function PlantDetails(props) {
     const sxPlantContainer = {
         // display: 'flex',
         // justifyContent: 'center',
-        border: '1px solid red',
+        // border: '1px solid red',
         mb: 8,
         width: 350,
         height: 'auto',
@@ -248,9 +248,10 @@ function PlantDetails(props) {
 
 
     const sxPhotCard = {
-        border: '1px solid blue',
+        // border: '1px solid blue',
         display: 'row',
         justifyContent: 'center',
+        mb: 3,
         // width: 175,
         // height: 225,
         // boxShadow: 1,
@@ -264,28 +265,41 @@ function PlantDetails(props) {
         width: 350,
         height: 'auto',
         boxShadow: 3,
-        mb: 1,
+        mb: .25,
 
     }; // sxPhotoBox
 
 
     // Photo document date Text
     const sxButtonDocDate = {
+        // border: '1px solid green',
         display: 'flex',
         alignItems: 'center',
+        justifyContent: 'space-around',
+        width: '100%',
 
 
     }; // sxButtonDocDate
 
+    const sxRemoveIcon = {
+        // border: '1px solid red',
+        width: 35,
+        height: 35,
+        borderRadius: '50%',
+        boxShadow: 2,
+        p: .25,
+
+    }; // sxRemoveIcon
+
 
     // Photo document date Text
     const sxDocDate = {
+        display: 'flex',
         fontSize: 18,
         fontWeight: 500,
         py: 2,
         textAlign: 'center',
-        // borderBottom: '2px solid lightgray',
-        width: 355,
+        // border: '2px solid lightgray',
 
     }; // sxDocDate
 
@@ -311,13 +325,14 @@ function PlantDetails(props) {
         // flexDirection: 'row',
         // justifyContent: 'center',
         // alignItems: 'center',
-        // fontWeight: 500,
+        fontWeight: 700,
         // lineHeight: 2,
         // width: 32,
+        fontSize: 15,
         height: 60,
-        border: '.25px solid primary',
         boxShadow: 2,
         mt: 8,
+        color: 'white',
     }; // sxRemovePlant
 
 
@@ -330,7 +345,7 @@ function PlantDetails(props) {
         fontSize: 24,
         fontWeight: 700,
         lineHeight: 1.1,
-        m: 3,
+        mb: 2,
         textAlign: 'center',
         // backgroundColor: 'red',
     }; // sxNickname
@@ -470,14 +485,14 @@ function PlantDetails(props) {
                         <CardMedia sx={sxPhotoBox} component="img" image={photo.photo_url} />
 
                         <Box sx={sxButtonDocDate}>
-                            <Button sx={sxButton} variant="contained" color="error" onClick={() => handleRemovePhoto(photo.id, photo.plant_id)}>
-                                <RemoveCircleIcon sx={{ color: "white" }} fontSize="medium" />
-                            </Button>
-                            <Typography sx={sxDocDate} color="info.main"><>Documented: {photo.date_uploaded.split(`T`)[0]}</></Typography>
+                            <RemoveCircleIcon sx={sxRemoveIcon} color="error" fontSize="large"
+                                onClick={() => handleRemovePhoto(photo.id, photo.plant_id)} />
+                            <Typography sx={sxDocDate} color="info.main"><>Uploaded: {photo.date_uploaded.split(`T`)[0]}</></Typography>
                         </Box>
 
                     </Box>
                 ))}
+
                 <Button sx={sxRemovePlant} variant="contained" color="error" onClick={() => handleRemove(selectedPlant.id)}>Remove Plant From Collection</Button>
             </Box>
         </div>
