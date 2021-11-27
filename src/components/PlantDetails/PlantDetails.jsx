@@ -194,6 +194,40 @@ function PlantDetails(props) {
     ); // showPhotoInputs
 
 
+
+    // HEADER BOX // 
+    const sxHeaderBox = {
+        // border: '1px solid blue',
+        display: 'flex',
+        justifyContent: 'space-around',
+        position: 'sticky',
+        top: 0,
+        bgcolor: 'secondary.main',
+        zIndex: 50,
+        mx: 'auto',
+        width: 355,
+        mb: 2, 
+
+    }; // sxDateBox
+
+    // Header Text
+    const sxHeader = {
+        fontSize: 22,
+        fontWeight: 500,
+        py: 2,
+        textAlign: 'center',
+        width: 355,
+    }; // sxHeader
+
+    // holds edit button and add photo button
+    const sxEditPhotoBox = {
+        // display: 'flex',
+        // flexDirection: 'row',
+    }; // sxEditPhotoBox
+
+
+
+
     // holds all content of this page // 
     const sxPlantContainer = {
         // display: 'flex',
@@ -263,10 +297,12 @@ function PlantDetails(props) {
         justifyContent: 'center',
         alignItems: 'center',
         fontSize: 'large',
-        width: 32,
-        height: 32,
-        border: '.25px solid primary',
+        height: 42,
+        border: '.25px solid info.main',
+        // bgcolor: 'info.main',
+        color: 'info.main',
         boxShadow: 2,
+        m: 1,
     }; // sxButton
 
     // BUTTON // 
@@ -282,10 +318,54 @@ function PlantDetails(props) {
         border: '.25px solid primary',
         boxShadow: 2,
         mt: 8,
-    }; // sxButton
+    }; // sxRemovePlant
 
 
-    
+    // NICKNAME
+    const sxNickname = {
+        // border: '1px solid blue',
+        display: 'fixed',
+        justifyContent: 'center',
+        alignItems: 'center',
+        fontSize: 24,
+        fontWeight: 700,
+        lineHeight: 1.1,
+        m: 3,
+        textAlign: 'center',
+        // backgroundColor: 'red',
+    }; // sxNickname
+
+
+    const sxKeyValueText = {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        m: 1,
+    }; // sxKeyValueText
+
+    const sxKey = {
+        // display: 'fixed',
+        // justifyContent: 'center',
+        // alignItems: 'center',
+        fontSize: 16,
+        fontWeight: 400,
+        textAlign: 'right',
+        width: '50%',
+    }; // sxKey
+
+    const sxValue = {
+        fontSize: 16,
+        fontWeight: 500,
+        textAlign: 'left',
+        pl: 1.5,
+        width: '50%',
+    }; // sxValue
+
+
+
+
+
+
 
     console.log('--- PLANT DETAILS LOGS ---');
     console.log('--- these are the selected plants', selectedPlant);
@@ -293,39 +373,97 @@ function PlantDetails(props) {
     console.log('--- this is the current_date', current_date);
 
 
+
+
+
     return (
         <div>
+            <Box sx={sxHeaderBox}>
+                <Box sx={sxEditPhotoBox}>
+                    {!editMode ?
+                        <Button sx={sxButton} variant="outlined" onClick={() => { setEditMode(!editMode) }}>Edit Info</Button> :
+                        <Button sx={sxButton} variant="outlined" onClick={() => setEditMode(!editMode)}>Hide Info</Button>}
+                </Box>
+
+
+                <Box sx={sxEditPhotoBox}>
+                    {!addPhotoMode ?
+                        <Button sx={sxButton} variant="outlined" onClick={() => { setAddPhotoMode(!addPhotoMode) }}>Add Photos</Button> :
+                        <Button sx={sxButton} variant="outlined" onClick={() => { setAddPhotoMode(!addPhotoMode) }}>Hide Photos</Button>}
+                </Box>
+
+            </Box>
 
             <Box sx={sxPlantContainer}>
 
-                {!editMode ?
-                    <button onClick={() => { setEditMode(!editMode) }}>Edit Plant Info</button> :
-                    <button onClick={() => setEditMode(!editMode)}>Hide Info</button>}
                 {editMode ? showEditInputs : <></>}
 
-                {!addPhotoMode ?
-                    <button onClick={() => { setAddPhotoMode(!addPhotoMode) }}>Add More Photos</button> :
-                    <button onClick={() => { setAddPhotoMode(!addPhotoMode) }}>Hide Add Photos</button>}
                 {addPhotoMode ? showPhotoInputs : <></>}
 
-                <h3>{selectedPlant.nickname}</h3>
 
-                {/* <p>Avatar URL:  {selectedPlant.avatar_url}</p> */}
-                <p>Plant Type:  {selectedPlant.plant_type}</p>
-                <p>Birthday:    {selectedPlant.date_added?.split(`T`)[0]}</p>
+                {/* NICKNAME */}
+                <Typography sx={sxNickname} color="info.main"> <span>{selectedPlant.nickname}</span> </Typography>
+
+                {/* PLANT TYPE */}
+                <Box sx={sxKeyValueText}>
+                    <Typography sx={sxKey} color="info.main"> <span>Plant Type:</span> </Typography>
+                    <Typography sx={sxValue} color="info.main"> <span> {selectedPlant.plant_type}</span> </Typography>
+                </Box>
+
+                {/* ADDED TO COLLECTION */}
+                <Box sx={sxKeyValueText}>
+                    <Typography sx={sxKey} color="info.main"> <span>Added To Collection:</span> </Typography>
+                    <Typography sx={sxValue} color="info.main"> <span> {selectedPlant.date_added?.split(`T`)[0]}</span> </Typography>
+                </Box>
 
                 {/* light level integer converted to a sting description */}
-                {selectedPlant.light_level === 1 ? <p>Light Level: Low</p> : <></>}
-                {selectedPlant.light_level === 2 ? <p>Light Level: Medium</p> : <></>}
-                {selectedPlant.light_level === 3 ? <p>Light Level: High</p> : <></>}
+                {selectedPlant.light_level === 1 ?
+                    <Box sx={sxKeyValueText}>
+                        <Typography sx={sxKey} color="info.main"> <span>Light Level:</span> </Typography>
+                        <Typography sx={sxValue} color="info.main"> <span>Low</span> </Typography>
+                    </Box> : <></>}
+                {selectedPlant.light_level === 2 ?
+                    <Box sx={sxKeyValueText}>
+                        <Typography sx={sxKey} color="info.main"> <span>Light Level:</span> </Typography>
+                        <Typography sx={sxValue} color="info.main"> <span>Medium</span> </Typography>
+                    </Box> : <></>}
+                {selectedPlant.light_level === 3 ?
+                    <Box sx={sxKeyValueText}>
+                        <Typography sx={sxKey} color="info.main"> <span>Light Level:</span> </Typography>
+                        <Typography sx={sxValue} color="info.main"> <span>High</span> </Typography>
+                    </Box> : <></>}
 
-                <p>Water Every  {selectedPlant.water_freq} Days</p>
-                <p>Date Potted: {selectedPlant.date_potted?.split(`T`)[0]}</p>
-                <p>Last Water Date: {selectedPlant.date_watered?.split(`T`)[0]}</p>
-                <p>Date Fertilized: {selectedPlant.date_fertilized?.split(`T`)[0]}</p>
-                <p>Notes:           {selectedPlant.notes}</p>
+                {/* WATER EVERY # DAYS */}
+                <Box sx={sxKeyValueText}>
+                    <Typography sx={sxKey} color="info.main"> <span>Water Every</span> </Typography>
+                    <Typography sx={sxValue} color="info.main"> <span>{selectedPlant.water_freq} Days</span> </Typography>
+                </Box>
 
+                {/* DATE POTTED */}
+                <Box sx={sxKeyValueText}>
+                    <Typography sx={sxKey} color="info.main"> <span>Date Potted:</span> </Typography>
+                    <Typography sx={sxValue} color="info.main"> <span>{selectedPlant.date_potted?.split(`T`)[0]}</span> </Typography>
+                </Box>
 
+                {/* LAST WATER DATE */}
+                <Box sx={sxKeyValueText}>
+                    <Typography sx={sxKey} color="info.main"> <span>Last Water:</span> </Typography>
+                    <Typography sx={sxValue} color="info.main"> <span>{selectedPlant.date_watered?.split(`T`)[0]}</span> </Typography>
+                </Box>
+
+                {/* DATE FERTILIZED */}
+                <Box sx={sxKeyValueText}>
+                    <Typography sx={sxKey} color="info.main"> <span>Date Fertilized:</span> </Typography>
+                    <Typography sx={sxValue} color="info.main"> <span>{selectedPlant.date_fertilized?.split(`T`)[0]}</span> </Typography>
+                </Box>
+
+                {/* NOTES */}
+                <Box sx={sxKeyValueText}>
+                    <Typography sx={sxKey} color="info.main"> <span>Plant Notes:</span> </Typography>
+                    <Typography sx={sxValue} color="info.main"> <span>{selectedPlant.notes}</span> </Typography>
+                </Box>
+
+                {/* PHOTOS */}
                 {selectedPhoto.map(photo => (
                     <Box sx={sxPhotCard} key={photo.id}>
 

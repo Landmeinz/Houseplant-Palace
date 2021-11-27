@@ -108,9 +108,7 @@ function PlantForm(props) {
     fontWeight: 500,
     py: 2,
     textAlign: 'center',
-    borderBottom: '2px solid lightgray',
     width: 355,
-    borderRadius: 1,
 
   }; // sxHeader
 
@@ -142,7 +140,6 @@ function PlantForm(props) {
     justifyContent: 'center',
     flexDirection: 'column',
     gap: .5,
-    border: '1px solid red',
     mb: 8,
     mx: 'auto',
     width: '90%',

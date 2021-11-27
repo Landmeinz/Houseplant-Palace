@@ -89,7 +89,6 @@ function Dashboard(props) {
     fontWeight: 500,
     p: 2,
     textAlign: 'center',
-    borderBottom: '2px solid lightgray',
     bgcolor: 'secondary.main',
 
   }; // sxHeader
