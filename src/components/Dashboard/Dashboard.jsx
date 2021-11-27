@@ -73,27 +73,65 @@ function Dashboard(props) {
   // TODAY'S DATE //
   const sxDateBox = {
     // border: '1px solid blue',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
     position: 'sticky',
     top: 0,
     background: 'white',
     zIndex: 50,
     mb: 2,
     mx: 'auto',
+    width: 350,
 
   }; // sxDateBox
 
-
   // DATE font size and properties
   const sxDateHeader = {
+    // border: '1px solid blue',
     fontSize: 22,
     fontWeight: 500,
     p: 2,
     textAlign: 'center',
     bgcolor: 'secondary.main',
+    width: 323,
 
   }; // sxHeader
 
+  const sxNotificationNum = {
+    border: 1,
+    borderColor: 'primary.main',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 32,
+    height: 32,
+    borderRadius: '50%',
+    position: 'fixed',
+    top: 25,
+    right: 35,
+    bgcolor: 'secondary.main',
+    color: 'primary.main',
+    fontWeight: 700,
+    fontSize: 17,
 
+    // right: 10,
+  }; // sxNotificationNum
+
+
+  const sxNotificationIcon = {
+    position: 'fixed',
+    top: 16,
+    right: 26,
+    color: 'primary.main',
+    bgcolor: 'secondary.main',
+    height: 20,
+    width: 20,
+    borderRadius: '50%',
+    // bgcolor: 'primary.main',
+    // bgcolor: 'white',
+
+  }; // sxNotificationIcon
 
   // NUMBER of waters today
   // const sxNumberBox = {
@@ -114,6 +152,7 @@ function Dashboard(props) {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
+    width: 350,
     mb: 2,
     boxShadow: 3,
     pb: 2,
@@ -128,13 +167,14 @@ function Dashboard(props) {
     justifyContent: 'center',
     alignItems: 'center',
     height: 40,
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: 500,
     lineHeight: 1,
     // pl: 3,
     boxShadow: 1,
     mb: 2,
     borderRadius: 2,
+    bgcolor: 'info.main',
     // backgroundColor: 'red',
   }; // sxNickname
 
@@ -162,7 +202,7 @@ function Dashboard(props) {
 
   // PHOTO to control the image size, border radius, ect.
   const sxPhotoBox = {
-    // border: '1px solid darkgray',
+    // border: '1px solid black',
     boxShadow: 2,
     height: 100,
     width: 100,
@@ -240,7 +280,7 @@ function Dashboard(props) {
     alignItems: 'center',
     fontWeight: 500,
     lineHeight: 2,
-    width: '90%',
+    width: '65%',
     height: 35,
     border: '.25px solid primary',
     mt: 2,
@@ -248,8 +288,7 @@ function Dashboard(props) {
   }; // sxButton
 
 
-
-
+  let notificationCount = 1;
 
   const showContent = (
     <Box >
@@ -257,9 +296,17 @@ function Dashboard(props) {
       {/* <h2>DASHBOARD</h2> */}
 
       <Box sx={sxDateBox}>
-        <Typography sx={sxDateHeader} color="info.main">{current_date &&
-          <span>{current_date.year}-{current_date.month}-{current_date.day}</span>}
-        </Typography>
+        <Typography sx={sxDateHeader} color="info.main"> <span>{current_date.current_date?.split('T')[0]}</span> </Typography>
+
+        {plants.map((plant, i) => (
+          <Box key={i}>
+            {current_date.current_date >= plant.next_water ?
+              <Typography sx={sxNotificationNum}> <span>{notificationCount++}</span> </Typography> : <></>}
+          </Box>
+        ))}
+        <OpacityIcon sx={sxNotificationIcon} fontSize="medium" />
+
+        {/* <Typography sx={sxNotificationNum} color="primary.main"> <span>{plants.length}</span> </Typography> */}
       </Box>
 
 
@@ -270,7 +317,7 @@ function Dashboard(props) {
 
             {/* the following 3 boxes make up the layout for each dashboard item */}
             <Box >
-              <Typography sx={sxNickname} color="info"><span>{plant.nickname}</span></Typography>
+              <Typography sx={sxNickname} color="secondary.main"><span>{plant.nickname}</span></Typography>
             </Box>
 
             {/* WATER TODAY OR TOMORROW OR SOON */}
@@ -283,20 +330,20 @@ function Dashboard(props) {
 
               <Box sx={sxRightSection}>
                 {current_date.current_date === plant.next_water ?
-                  <Typography sx={sxWaterToday} color="error"><span>Water Today!</span></Typography> : <></>}
+                  <Typography sx={sxWaterToday} color="primary.main"><span>Water Today!</span></Typography> : <></>}
 
                 {current_date.current_date > plant.next_water ?
-                  <Typography sx={sxWaterRemember} color="error"><span>Remember To Water Today!</span></Typography> : <></>}
+                  <Typography sx={sxWaterRemember} color="error.main"><span>Remember To Water Today!</span></Typography> : <></>}
 
                 {current_date.tomorrow === plant.next_water ?
-                  <Typography sx={sxWaterSoon} color="primary"><span>Water Tomorrow</span></Typography> : <></>}
+                  <Typography sx={sxWaterSoon} color="primary.main"><span>Water Tomorrow</span></Typography> : <></>}
 
                 {current_date.tomorrow < plant.next_water ?
-                  <Typography sx={sxWaterSoon} color="primary"><span>Water Soon</span></Typography> : <></>}
+                  <Typography sx={sxWaterSoon} color="info.main"><span>Water Soon</span></Typography> : <></>}
 
-                <Typography sx={sxWaterFreq} color="info.dark"><span>Water Every {plant.water_freq} Days</span></Typography>
+                <Typography sx={sxWaterFreq} color="info.main"><span>Water Every {plant.water_freq} Days</span></Typography>
 
-                <Typography sx={sxNextWater} color="info.dark"><span>Water On {plant.next_water.split(`T`)[0]}</span></Typography>
+                <Typography sx={sxNextWater} color="info.main"><span>Water On {plant.next_water.split(`T`)[0]}</span></Typography>
               </Box>
 
             </Box>

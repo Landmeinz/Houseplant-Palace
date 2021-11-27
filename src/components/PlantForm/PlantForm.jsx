@@ -163,7 +163,7 @@ function PlantForm(props) {
   }; // sxInstructions
 
   // BUTTON // 
-  const sxButton = {
+  const sxAddPlant = {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
@@ -171,12 +171,13 @@ function PlantForm(props) {
     fontWeight: 500,
     lineHeight: 2,
     width: '90%',
-    height: 35,
+    height: 60,
     border: '.25px solid primary',
     mt: 2,
     boxShadow: 2,
     mx: 'auto',
-  }; // sxButton
+    color: 'info.main',
+  }; // sxAddPlant
 
 
   return (
@@ -184,7 +185,7 @@ function PlantForm(props) {
 
 
       <Box sx={sxHeaderBox}>
-        <Typography sx={sxHeader} color="info.main"><span>ADD TO YOUR COLLECTION</span></Typography>
+        <Typography sx={sxHeader} color="info.main"><span>Add To Your Collection</span></Typography>
       </Box>
 
       {/* <h2>PLANT FORM</h2> */}
@@ -208,6 +209,16 @@ function PlantForm(props) {
             placeholder="Planty McPlanterson"
           />
 
+          {/* PLANT_TYPE */}
+          <TextField sx={sxInput}
+            id="plant_type"
+            required
+            label="Plant Type"
+            value={newPlant.plant_type}
+            onChange={(event) => handleNameChange(event, 'plant_type')}
+            placeholder="Golden Pothos"
+          />
+
 
           {/* AVATAR_URL */}
           <TextField sx={sxInput}
@@ -216,7 +227,7 @@ function PlantForm(props) {
             label="Avatar Photo URL"
             value={newPlant.avatar_url}
             onChange={(event) => handleNameChange(event, 'avatar_url')}
-            placeholder="yourPhotoUrlGoesHere.jpg"
+            placeholder="yourPhotoURLGoesHere.jpg"
           />
 
 
@@ -229,17 +240,6 @@ function PlantForm(props) {
             value={newPlant.date_added}
             onChange={(event) => handleNameChange(event, 'date_added')}
             InputLabelProps={{ shrink: true }}
-          />
-
-
-          {/* PLANT_TYPE */}
-          <TextField sx={sxInput}
-            id="plant_type"
-            required
-            label="Plant Type"
-            value={newPlant.plant_type}
-            onChange={(event) => handleNameChange(event, 'plant_type')}
-            placeholder="Golden Pothos"
           />
 
 
@@ -317,7 +317,7 @@ function PlantForm(props) {
             maxRows={3}
           />
 
-          <Button type="submit" sx={sxButton} size="large" variant="contained" color="primary">ADD NEW PLANT</Button>
+          <Button type="submit" sx={sxAddPlant} size="large" variant="contained" color="secondary">ADD NEW PLANT</Button>
 
         </Box>
       </form>

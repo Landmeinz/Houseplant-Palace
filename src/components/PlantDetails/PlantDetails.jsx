@@ -12,6 +12,11 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
+import TextField from '@mui/material/TextField';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
 
 // Basic functional component structure for React with default state
 // value setup. When making a new component be sure to replace the
@@ -70,145 +75,253 @@ function PlantDetails(props) {
 
 
     const sxEditFormBox = {
+        // border: '1px solid red',
         display: 'flex',
+        justifyContent: 'center',
         flexDirection: 'column',
         gap: .5,
-        border: 1,
-        mb: 4,
+        mb: 2,
+        mt: 2,
+        mx: 'auto',
+        width: '90%',
     }; // sxEditFormBox
+
+    const sxInput = {
+        mb: 2,
+    }; // sxInput
+
+    // BUTTON // 
+    const sxEditFormButton = {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        fontWeight: 500,
+        lineHeight: 2,
+        width: '80%',
+        height: 60,
+        border: '.25px solid primary',
+        mb: 2,
+        boxShadow: 2,
+        mx: 'auto',
+        color: 'info.main',
+    }; // sxAddPlant
+
+
 
     // --- EDIT info display when button is clicked --- // 
     const showEditInputs = (
         <form onSubmit={handleSubmit}>
 
             <Box sx={sxEditFormBox}>
-                <button type="submit">Submit Edited Plant</button>
-                <label htmlFor="nickname">Update Plant Nickname: </label>
-                <input
+
+                {/* NICKNAME */}
+                <TextField sx={sxInput}
+                    required
                     id="nickname"
                     type="text"
+                    label="Nickname"
                     value={selectedPlant.nickname}
                     onChange={(event) => dispatch({ type: 'EDIT_PLANT', payload: event.target.value, key: 'nickname' })}
-                    placeholder="Set New Nickname"
+                    placeholder="Planty McPlanterson"
                 />
 
-                <label htmlFor="avatar_url">Update Plant Avatar URL: </label>
-                <input
-                    id="avatar_url"
+                {/* PLANT_TYPE */}
+                <TextField sx={sxInput}
+                    required
                     type="text"
-                    value={selectedPlant.avatar_url}
-                    onChange={(event) => dispatch({ type: 'EDIT_PLANT', payload: event.target.value, key: 'avatar_url' })}
-                    placeholder="Update Avatar URL"
-                />
-                <label htmlFor="date_added">Date Added To Collection: </label>
-                <input
-                    id="date_added"
-                    type="date"
-                    value={selectedPlant.date_added?.split(`T`)[0]}
-                    onChange={(event) => dispatch({ type: 'EDIT_PLANT', payload: event.target.value, key: 'date_added' })}
-                />
-
-                <label htmlFor="plant_type">Update Plant Type: </label>
-                <input
                     id="plant_type"
-                    type="text"
+                    label="Plant Type"
                     value={selectedPlant.plant_type}
                     onChange={(event) => dispatch({ type: 'EDIT_PLANT', payload: event.target.value, key: 'plant_type' })}
                     placeholder="Update Plant Type"
                 />
 
-                <label htmlFor="light_level">Update Light Level: </label>
-                <select
-                    value={selectedPlant.light_level}
-                    name="light_level"
-                    id="light_level"
-                    onChange={(event) => dispatch({ type: 'EDIT_PLANT', payload: event.target.value, key: 'light_level' })}
-                >
-                    <option hidden value="null">Light Level</option>
-                    <option value="1">Low</option>
-                    <option value="2">Medium</option>
-                    <option value="3">High</option>
-                </select>
+                {/* AVATAR_URL */}
+                <TextField sx={sxInput}
+                    required
+                    id="avatar_url"
+                    type="text"
+                    label="Avatar Photo URL"
+                    value={selectedPlant.avatar_url}
+                    onChange={(event) => dispatch({ type: 'EDIT_PLANT', payload: event.target.value, key: 'avatar_url' })}
+                    placeholder="yourAvatarURLGoesHere.jpg"
+                />
 
-                <label htmlFor="water_freq">Update Days Between Watering: </label>
-                <input
+                {/* DATE ADDED */}
+                <TextField sx={sxInput}
+                    required
+                    type="date"
+                    id="date_added"
+                    label="Date Added To Collection"
+                    value={selectedPlant.date_added?.split(`T`)[0]}
+                    onChange={(event) => dispatch({ type: 'EDIT_PLANT', payload: event.target.value, key: 'date_added' })}
+                    InputLabelProps={{ shrink: true }}
+                />
+
+                {/* LIGHT_LEVEL */}
+                <FormControl required>
+                    <InputLabel id="light_level_label" >Light Level</InputLabel>
+                    <Select sx={sxInput} variant="outlined"
+                        labelId="light_level_label"
+                        label="Light Level"
+                        id="light_level"
+                        name="light_level"
+                        value={selectedPlant.light_level}
+                        onChange={(event) => dispatch({ type: 'EDIT_PLANT', payload: event.target.value, key: 'light_level' })}
+                    >
+                        <MenuItem value={1}>Low</MenuItem>
+                        <MenuItem value={2}>Medium</MenuItem>
+                        <MenuItem value={3}>High</MenuItem>
+                    </Select>
+                </FormControl>
+
+                {/* WATER_FREQ */}
+                <TextField sx={sxInput}
+                    required
                     id="water_freq"
                     type="number"
                     value={selectedPlant.water_freq}
                     onChange={(event) => dispatch({ type: 'EDIT_PLANT', payload: event.target.value, key: 'water_freq' })}
-                    placeholder="Update Number of Days Between Watering"
+                    label="Number of Days Between Watering"
                 />
 
-                <label htmlFor="date_watered">Update Date Last Watered: </label>
-                <input
+                {/* DATE_WATERED */}
+                <TextField sx={sxInput}
+                    required
                     id="date_watered"
                     type="date"
+                    label="Date Last Watered"
                     value={selectedPlant.date_watered?.split(`T`)[0]}
                     onChange={(event) => dispatch({ type: 'EDIT_PLANT', payload: event.target.value, key: 'date_watered' })}
+                    InputLabelProps={{ shrink: true }}
                 />
 
-                <label htmlFor="date_potted">Update Date Potted: </label>
-                <input
+                {/* DATE_POTTED */}
+                <TextField sx={sxInput}
+                    required
                     id="date_potted"
                     type="date"
+                    label="Date Potted"
                     value={selectedPlant.date_potted?.split(`T`)[0]}
                     onChange={(event) => dispatch({ type: 'EDIT_PLANT', payload: event.target.value, key: 'date_potted' })}
+                    InputLabelProps={{ shrink: true }}
                 />
 
-                <label htmlFor="date_added">Update Date Fertilized: </label>
-                <input
-                    id="date_fertilized"
+                {/* DATE_FERTILIZED */}
+                <TextField sx={sxInput}
+                    required
+                    id="date_added"
                     type="date"
+                    label="Date Fertilized"
                     value={selectedPlant.date_fertilized?.split(`T`)[0]}
                     onChange={(event) => dispatch({ type: 'EDIT_PLANT', payload: event.target.value, key: 'date_fertilized' })}
+                    InputLabelProps={{ shrink: true }}
                 />
 
-                <label htmlFor="notes">Update Plant Notes: </label>
-                <input
+                {/* NOTES */}
+                <TextField sx={sxInput}
                     id="notes"
                     type="text"
+                    label="Include Any Plant Notes"
                     value={selectedPlant.notes}
                     onChange={(event) => dispatch({ type: 'EDIT_PLANT', payload: event.target.value, key: 'notes' })}
-                    placeholder="Update Plant Notes"
+                    placeholder="Don't over water!"
+                    multiline
+                    maxRows={3}
                 />
+
+                <Button sx={sxEditFormButton} type="submit" size="large" variant="contained" color="secondary">Edit This Plant</Button>
+
             </Box>
-        </form >
+        </form>
 
     ); // showEditInputs
+
+    const sxPhotoFormBox = {
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        width: '90%',
+        mx: 'auto',
+        mt: 2,
+    }; // sxPhotoFormBox
+
+    // BUTTON // 
+    const sxAddPhoto = {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        fontWeight: 500,
+        lineHeight: 2,
+        width: '80%',
+        height: 60,
+        border: '.25px solid primary',
+        mb: 4,
+        boxShadow: 2,
+        mx: 'auto',
+        color: 'info.main',
+    }; // sxAddPlant
 
 
     // -- Display the photo url input text on button press -- // 
     const showPhotoInputs = (
         <form onSubmit={() => handleNewPhoto(selectedPlant.id)}>
-            <label htmlFor="photo_url">Provide Photo URL: </label>
-            <input
-                id="photo_url"
-                type="text"
-                value={newPhoto}
-                onChange={(event) => setNewPhoto(event.target.value)}
-                placeholder="seedling-solid.svg"
-            />
-            <button type="submit">Add New Plant Photo</button>
-
+            <Box sx={sxPhotoFormBox}>
+                <TextField sx={sxInput}
+                    id="photo_url"
+                    required
+                    label="Provide Photo URL"
+                    value={newPhoto}
+                    onChange={(event) => setNewPhoto(event.target.value)}
+                    placeholder="yourPhotoURLGoesHere.jpg"
+                />
+                <Button type="submit" sx={sxAddPhoto} size="large" variant="contained" color="secondary">Add New Plant Photo</Button>
+            </Box>
         </form>
     ); // showPhotoInputs
 
+
+    // TODAY'S DATE //
+    const sxDateBox = {
+        // border: '1px solid blue',
+        position: 'sticky',
+        top: 0,
+        background: 'white',
+        zIndex: 50,
+        mb: 2,
+        mx: 'auto',
+
+    }; // sxDateBox
+
+
+    //   // DATE font size and properties
+    //   const sxDateHeader = {
+    //     // border: '1px solid blue',
+    //     fontSize: 22,
+    //     fontWeight: 500,
+    //     p: 2,
+    //     textAlign: 'center',
+    //     bgcolor: 'secondary.main',
+
+    //   }; // sxHeader
 
 
     // HEADER BOX // 
     const sxHeaderBox = {
         // border: '1px solid blue',
         display: 'flex',
-        justifyContent: 'space-around',
         position: 'sticky',
+        justifyContent: 'space-around',
+        alightItems: 'center',
         top: 0,
         bgcolor: 'secondary.main',
         zIndex: 50,
         mx: 'auto',
-        width: 355,
-        mb: 2, 
+        mb: 2,
 
-    }; // sxDateBox
+    }; // sxHeaderBox
 
     // Header Text
     const sxHeader = {
@@ -221,8 +334,7 @@ function PlantDetails(props) {
 
     // holds edit button and add photo button
     const sxEditPhotoBox = {
-        // display: 'flex',
-        // flexDirection: 'row',
+        height: 65,
     }; // sxEditPhotoBox
 
 
@@ -230,13 +342,13 @@ function PlantDetails(props) {
 
     // holds all content of this page // 
     const sxPlantContainer = {
-        // display: 'flex',
-        // justifyContent: 'center',
-        border: '1px solid red',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        // border: '1px solid red',
         mb: 8,
         width: 350,
         height: 'auto',
-        textAlign: 'center',
 
     }; // sxPlantContainer
 
@@ -248,9 +360,10 @@ function PlantDetails(props) {
 
 
     const sxPhotCard = {
-        border: '1px solid blue',
+        // border: '1px solid blue',
         display: 'row',
         justifyContent: 'center',
+        mb: 3,
         // width: 175,
         // height: 225,
         // boxShadow: 1,
@@ -264,28 +377,41 @@ function PlantDetails(props) {
         width: 350,
         height: 'auto',
         boxShadow: 3,
-        mb: 1,
+        mb: .25,
 
     }; // sxPhotoBox
 
 
     // Photo document date Text
     const sxButtonDocDate = {
+        // border: '1px solid green',
         display: 'flex',
         alignItems: 'center',
+        justifyContent: 'space-around',
+        width: '100%',
 
 
     }; // sxButtonDocDate
 
+    const sxRemoveIcon = {
+        // border: '1px solid red',
+        width: 35,
+        height: 35,
+        borderRadius: '50%',
+        boxShadow: 2,
+        p: .25,
+
+    }; // sxRemoveIcon
+
 
     // Photo document date Text
     const sxDocDate = {
+        display: 'flex',
         fontSize: 18,
         fontWeight: 500,
         py: 2,
         textAlign: 'center',
-        // borderBottom: '2px solid lightgray',
-        width: 355,
+        // border: '2px solid lightgray',
 
     }; // sxDocDate
 
@@ -296,7 +422,7 @@ function PlantDetails(props) {
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        fontSize: 'large',
+        fontSize: 'medium',
         height: 42,
         border: '.25px solid info.main',
         // bgcolor: 'info.main',
@@ -311,13 +437,15 @@ function PlantDetails(props) {
         // flexDirection: 'row',
         // justifyContent: 'center',
         // alignItems: 'center',
-        // fontWeight: 500,
+        fontWeight: 700,
         // lineHeight: 2,
-        // width: 32,
+        width: '85%',
+        fontSize: 15,
         height: 60,
-        border: '.25px solid primary',
         boxShadow: 2,
-        mt: 8,
+        mt: 6,
+        mx: 'auto',
+        color: 'white',
     }; // sxRemovePlant
 
 
@@ -330,7 +458,7 @@ function PlantDetails(props) {
         fontSize: 24,
         fontWeight: 700,
         lineHeight: 1.1,
-        m: 3,
+        mb: 1.5,
         textAlign: 'center',
         // backgroundColor: 'red',
     }; // sxNickname
@@ -340,7 +468,7 @@ function PlantDetails(props) {
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'center',
-        m: 1,
+        m: .18,
     }; // sxKeyValueText
 
     const sxKey = {
@@ -360,6 +488,16 @@ function PlantDetails(props) {
         pl: 1.5,
         width: '50%',
     }; // sxValue
+
+
+    const sxKeyValueTextLast = {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        // m: 1,
+        mb: 4,
+    }; // sxKeyValueText
+
 
 
 
@@ -382,7 +520,7 @@ function PlantDetails(props) {
                 <Box sx={sxEditPhotoBox}>
                     {!editMode ?
                         <Button sx={sxButton} variant="outlined" onClick={() => { setEditMode(!editMode) }}>Edit Info</Button> :
-                        <Button sx={sxButton} variant="outlined" onClick={() => setEditMode(!editMode)}>Hide Info</Button>}
+                        <Button sx={sxButton} variant="outlined" onClick={() => setEditMode(!editMode)}>Hide Edit</Button>}
                 </Box>
 
 
@@ -433,16 +571,11 @@ function PlantDetails(props) {
                         <Typography sx={sxValue} color="info.main"> <span>High</span> </Typography>
                     </Box> : <></>}
 
+
                 {/* WATER EVERY # DAYS */}
                 <Box sx={sxKeyValueText}>
                     <Typography sx={sxKey} color="info.main"> <span>Water Every</span> </Typography>
                     <Typography sx={sxValue} color="info.main"> <span>{selectedPlant.water_freq} Days</span> </Typography>
-                </Box>
-
-                {/* DATE POTTED */}
-                <Box sx={sxKeyValueText}>
-                    <Typography sx={sxKey} color="info.main"> <span>Date Potted:</span> </Typography>
-                    <Typography sx={sxValue} color="info.main"> <span>{selectedPlant.date_potted?.split(`T`)[0]}</span> </Typography>
                 </Box>
 
                 {/* LAST WATER DATE */}
@@ -451,6 +584,19 @@ function PlantDetails(props) {
                     <Typography sx={sxValue} color="info.main"> <span>{selectedPlant.date_watered?.split(`T`)[0]}</span> </Typography>
                 </Box>
 
+                {/*  NEXT WATER DATE */}
+                <Box sx={sxKeyValueText}>
+                    <Typography sx={sxKey} color="info.main"> <span>Next Water:</span> </Typography>
+                    <Typography sx={sxValue} color="primary.main"> <span> {selectedPlant.next_water?.split(`T`)[0]}</span> </Typography>
+                </Box>
+
+                {/* DATE POTTED */}
+                <Box sx={sxKeyValueText}>
+                    <Typography sx={sxKey} color="info.main"> <span>Date Potted:</span> </Typography>
+                    <Typography sx={sxValue} color="info.main"> <span>{selectedPlant.date_potted?.split(`T`)[0]}</span> </Typography>
+                </Box>
+
+
                 {/* DATE FERTILIZED */}
                 <Box sx={sxKeyValueText}>
                     <Typography sx={sxKey} color="info.main"> <span>Date Fertilized:</span> </Typography>
@@ -458,7 +604,7 @@ function PlantDetails(props) {
                 </Box>
 
                 {/* NOTES */}
-                <Box sx={sxKeyValueText}>
+                <Box sx={sxKeyValueTextLast}>
                     <Typography sx={sxKey} color="info.main"> <span>Plant Notes:</span> </Typography>
                     <Typography sx={sxValue} color="info.main"> <span>{selectedPlant.notes}</span> </Typography>
                 </Box>
@@ -470,14 +616,14 @@ function PlantDetails(props) {
                         <CardMedia sx={sxPhotoBox} component="img" image={photo.photo_url} />
 
                         <Box sx={sxButtonDocDate}>
-                            <Button sx={sxButton} variant="contained" color="error" onClick={() => handleRemovePhoto(photo.id, photo.plant_id)}>
-                                <RemoveCircleIcon sx={{ color: "white" }} fontSize="medium" />
-                            </Button>
-                            <Typography sx={sxDocDate} color="info.main"><>Documented: {photo.date_uploaded.split(`T`)[0]}</></Typography>
+                            <RemoveCircleIcon sx={sxRemoveIcon} color="error" fontSize="large"
+                                onClick={() => handleRemovePhoto(photo.id, photo.plant_id)} />
+                            <Typography sx={sxDocDate} color="info.main"><>Uploaded: {photo.date_uploaded.split(`T`)[0]}</></Typography>
                         </Box>
 
                     </Box>
                 ))}
+
                 <Button sx={sxRemovePlant} variant="contained" color="error" onClick={() => handleRemove(selectedPlant.id)}>Remove Plant From Collection</Button>
             </Box>
         </div>

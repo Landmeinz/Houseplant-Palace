@@ -46,19 +46,29 @@ function Collection(props) {
   }; // handleClick
 
 
+  const sxShowContent = {
+    // border: '1px solid green',
+    display: 'flex',
+    justifyContent: 'center',
+    width: '100%',
+  }; // sxShowContent
+
+
   const sxInfoBox = {
-    boxShadow: 2,
+    border: '1px solid lightgray',
+    boxShadow: 1,
     display: 'flex',
     justifyContent: 'center',
     borderRadius: 1,
+    width: 166,
 
   }; // sxInfoBox
 
 
   // PHOTO to control the image size, border radius, ect.
   const sxPhotoBox = {
-    width: 175,
-    height: 225,
+    width: 166,
+    height: 220,
 
   }; // sxPhotoBox
 
@@ -82,7 +92,7 @@ function Collection(props) {
 
   const showContent = (
 
-    <Box>
+    <Box sx={sxShowContent}>
 
       <ImageList sx={{ maxWidth: 355, height: 'auto' }} cols={2}>
 
@@ -117,14 +127,16 @@ function Collection(props) {
   const sxCollectionContainer = {
     display: 'flex',
     flexDirection: 'column',
-    border: '1px solid red',
+    // border: '1px solid red',
     mb: 10,
-    width: '100%',
+    width: 348,
+    justifyContent: 'center',
     // height: '700px',
     // textAlign: 'center',
     // overflow: 'auto',
 
   }; // sxCollectionContainer
+
 
 
   // HEADER BOX // 
@@ -134,8 +146,8 @@ function Collection(props) {
     top: 0,
     bgcolor: 'secondary.main',
     zIndex: 50,
+    mb: 2,
     mx: 'auto',
-    width: 355,
 
   }; // sxDateBox
 
@@ -155,7 +167,7 @@ function Collection(props) {
     <Box sx={sxCollectionContainer} >
 
       <Box sx={sxHeaderBox}>
-        <Typography sx={sxHeader} color="info.main"><span>{plants.length} PLANTS IN MY COLLECTION</span></Typography>
+        <Typography sx={sxHeader} color="info.main"><span>{plants.length} Plants In My Collection</span></Typography>
       </Box>
 
       {photos ? showContent : showMessage}
