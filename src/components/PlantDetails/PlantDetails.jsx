@@ -360,7 +360,7 @@ function PlantDetails(props) {
 
 
     const sxPhotCard = {
-        border: '1px solid blue',
+        // border: '1px solid blue',
         display: 'row',
         justifyContent: 'center',
         mb: 3,
@@ -458,7 +458,7 @@ function PlantDetails(props) {
         fontSize: 24,
         fontWeight: 700,
         lineHeight: 1.1,
-        mb: 2,
+        mb: 1.5,
         textAlign: 'center',
         // backgroundColor: 'red',
     }; // sxNickname
@@ -468,7 +468,7 @@ function PlantDetails(props) {
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'center',
-        m: 1,
+        m: .18,
     }; // sxKeyValueText
 
     const sxKey = {
@@ -494,11 +494,11 @@ function PlantDetails(props) {
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'center',
-        m: 1,
-        mb: 4, 
+        // m: 1,
+        mb: 4,
     }; // sxKeyValueText
 
-    
+
 
 
 
@@ -571,10 +571,23 @@ function PlantDetails(props) {
                         <Typography sx={sxValue} color="info.main"> <span>High</span> </Typography>
                     </Box> : <></>}
 
+
                 {/* WATER EVERY # DAYS */}
                 <Box sx={sxKeyValueText}>
                     <Typography sx={sxKey} color="info.main"> <span>Water Every</span> </Typography>
                     <Typography sx={sxValue} color="info.main"> <span>{selectedPlant.water_freq} Days</span> </Typography>
+                </Box>
+
+                {/* LAST WATER DATE */}
+                <Box sx={sxKeyValueText}>
+                    <Typography sx={sxKey} color="info.main"> <span>Last Water:</span> </Typography>
+                    <Typography sx={sxValue} color="info.main"> <span>{selectedPlant.date_watered?.split(`T`)[0]}</span> </Typography>
+                </Box>
+
+                {/*  NEXT WATER DATE */}
+                <Box sx={sxKeyValueText}>
+                    <Typography sx={sxKey} color="info.main"> <span>Next Water:</span> </Typography>
+                    <Typography sx={sxValue} color="primary.main"> <span> {selectedPlant.next_water?.split(`T`)[0]}</span> </Typography>
                 </Box>
 
                 {/* DATE POTTED */}
@@ -583,11 +596,6 @@ function PlantDetails(props) {
                     <Typography sx={sxValue} color="info.main"> <span>{selectedPlant.date_potted?.split(`T`)[0]}</span> </Typography>
                 </Box>
 
-                {/* LAST WATER DATE */}
-                <Box sx={sxKeyValueText}>
-                    <Typography sx={sxKey} color="info.main"> <span>Last Water:</span> </Typography>
-                    <Typography sx={sxValue} color="info.main"> <span>{selectedPlant.date_watered?.split(`T`)[0]}</span> </Typography>
-                </Box>
 
                 {/* DATE FERTILIZED */}
                 <Box sx={sxKeyValueText}>

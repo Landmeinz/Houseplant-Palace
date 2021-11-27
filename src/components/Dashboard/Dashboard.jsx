@@ -73,15 +73,18 @@ function Dashboard(props) {
   // TODAY'S DATE //
   const sxDateBox = {
     // border: '1px solid blue',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
     position: 'sticky',
     top: 0,
     background: 'white',
     zIndex: 50,
     mb: 2,
     mx: 'auto',
+    width: '100%',
 
   }; // sxDateBox
-
 
   // DATE font size and properties
   const sxDateHeader = {
@@ -91,8 +94,27 @@ function Dashboard(props) {
     p: 2,
     textAlign: 'center',
     bgcolor: 'secondary.main',
+    width: 350,
 
   }; // sxHeader
+
+  const sxNotificationNum = {
+    // border: '1px solid red',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 32,
+    height: 32,
+    borderRadius: '50%',
+    position: 'fixed',
+    top: 25,
+    right: 35,
+    bgcolor: 'primary.main',
+    color: 'white',
+    fontWeight: 700,
+
+    // right: 10,
+  }; // sxNotificationNum
 
 
 
@@ -251,7 +273,7 @@ function Dashboard(props) {
 
 
 
-
+  let count = 1;
 
   const showContent = (
     <Box >
@@ -259,9 +281,15 @@ function Dashboard(props) {
       {/* <h2>DASHBOARD</h2> */}
 
       <Box sx={sxDateBox}>
-        <Typography sx={sxDateHeader} color="info.main">{current_date &&
-          <span>{current_date.year}-{current_date.month}-{current_date.day}</span>}
-        </Typography>
+        <Typography sx={sxDateHeader} color="info.main"> <span>{current_date.current_date?.split('T')[0]}</span> </Typography>
+
+        {plants.map((plant, i) => (
+          <Box key={i}>
+            {current_date.current_date >= plant.next_water ? <Typography sx={sxNotificationNum} color="primary.main"> <span>{count++}</span> </Typography> : <></>}
+          </Box>
+        ))}
+
+        {/* <Typography sx={sxNotificationNum} color="primary.main"> <span>{plants.length}</span> </Typography> */}
       </Box>
 
 
@@ -285,20 +313,20 @@ function Dashboard(props) {
 
               <Box sx={sxRightSection}>
                 {current_date.current_date === plant.next_water ?
-                  <Typography sx={sxWaterToday} color="error"><span>Water Today!</span></Typography> : <></>}
+                  <Typography sx={sxWaterToday} color="primary.main"><span>Water Today!</span></Typography> : <></>}
 
                 {current_date.current_date > plant.next_water ?
-                  <Typography sx={sxWaterRemember} color="error"><span>Remember To Water Today!</span></Typography> : <></>}
+                  <Typography sx={sxWaterRemember} color="error.main"><span>Remember To Water Today!</span></Typography> : <></>}
 
                 {current_date.tomorrow === plant.next_water ?
-                  <Typography sx={sxWaterSoon} color="primary"><span>Water Tomorrow</span></Typography> : <></>}
+                  <Typography sx={sxWaterSoon} color="primary.main"><span>Water Tomorrow</span></Typography> : <></>}
 
                 {current_date.tomorrow < plant.next_water ?
-                  <Typography sx={sxWaterSoon} color="primary"><span>Water Soon</span></Typography> : <></>}
+                  <Typography sx={sxWaterSoon} color="info.main"><span>Water Soon</span></Typography> : <></>}
 
-                <Typography sx={sxWaterFreq} color="info.dark"><span>Water Every {plant.water_freq} Days</span></Typography>
+                <Typography sx={sxWaterFreq} color="info.main"><span>Water Every {plant.water_freq} Days</span></Typography>
 
-                <Typography sx={sxNextWater} color="info.dark"><span>Water On {plant.next_water.split(`T`)[0]}</span></Typography>
+                <Typography sx={sxNextWater} color="info.main"><span>Water On {plant.next_water.split(`T`)[0]}</span></Typography>
               </Box>
 
             </Box>
