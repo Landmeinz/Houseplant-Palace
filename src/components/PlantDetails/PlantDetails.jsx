@@ -231,7 +231,7 @@ function PlantDetails(props) {
                     maxRows={3}
                 />
 
-                <Button sx={sxEditFormButton} size="large" variant="contained" color="secondary">Edit This Plant</Button>
+                <Button sx={sxEditFormButton} type="submit" size="large" variant="contained" color="secondary">Edit This Plant</Button>
 
             </Box>
         </form>

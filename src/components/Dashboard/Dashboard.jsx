@@ -82,7 +82,7 @@ function Dashboard(props) {
     zIndex: 50,
     mb: 2,
     mx: 'auto',
-    width: '100%',
+    width: 350,
 
   }; // sxDateBox
 
@@ -94,12 +94,13 @@ function Dashboard(props) {
     p: 2,
     textAlign: 'center',
     bgcolor: 'secondary.main',
-    width: 350,
+    width: 323,
 
   }; // sxHeader
 
   const sxNotificationNum = {
-    // border: '1px solid red',
+    border: 1,
+    borderColor: 'primary.main',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -109,14 +110,28 @@ function Dashboard(props) {
     position: 'fixed',
     top: 25,
     right: 35,
-    bgcolor: 'primary.main',
-    color: 'white',
+    bgcolor: 'secondary.main',
+    color: 'primary.main',
     fontWeight: 700,
+    fontSize: 17,
 
     // right: 10,
   }; // sxNotificationNum
 
 
+  const sxNotificationIcon = {
+    position: 'fixed',
+    top: 16,
+    right: 26,
+    color: 'primary.main',
+    bgcolor: 'secondary.main',
+    height: 20,
+    width: 20,
+    borderRadius: '50%',
+    // bgcolor: 'primary.main',
+    // bgcolor: 'white',
+
+  }; // sxNotificationIcon
 
   // NUMBER of waters today
   // const sxNumberBox = {
@@ -137,6 +152,7 @@ function Dashboard(props) {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
+    width: 350,
     mb: 2,
     boxShadow: 3,
     pb: 2,
@@ -272,8 +288,7 @@ function Dashboard(props) {
   }; // sxButton
 
 
-
-  let count = 1;
+  let notificationCount = 1;
 
   const showContent = (
     <Box >
@@ -285,9 +300,11 @@ function Dashboard(props) {
 
         {plants.map((plant, i) => (
           <Box key={i}>
-            {current_date.current_date >= plant.next_water ? <Typography sx={sxNotificationNum} color="primary.main"> <span>{count++}</span> </Typography> : <></>}
+            {current_date.current_date >= plant.next_water ?
+              <Typography sx={sxNotificationNum}> <span>{notificationCount++}</span> </Typography> : <></>}
           </Box>
         ))}
+        <OpacityIcon sx={sxNotificationIcon} fontSize="medium" />
 
         {/* <Typography sx={sxNotificationNum} color="primary.main"> <span>{plants.length}</span> </Typography> */}
       </Box>
