@@ -51,6 +51,19 @@ function PlantForm(props) {
     notes: ''
   }; // emptyPlant
 
+  const dummyPlant = {
+    nickname: 'Philly Coke Bottle',
+    avatar_url: 'plant-photos/philly-water-2.jpg',
+    date_added: '2021-11-25',
+    plant_type: 'philodendron',
+    light_level: 2,
+    water_freq: 12,
+    date_watered: '2021-11-25',
+    date_potted: '2021-11-25',
+    date_fertilized: '2021-11-25',
+    notes: 'Change water twice a month'
+  }; // fillPlant
+
   const [newPlant, setNewPlant] = useState(emptyPlant);
 
   const handleNameChange = (event, property) => {
@@ -59,6 +72,28 @@ function PlantForm(props) {
       [property]: event.target.value
     })
   } // handleNameChange
+
+
+  const handleDummyPlant = (event) => {
+    console.log('handleDummyPlant CLICK');
+
+    setNewPlant({
+      ...newPlant,
+      nickname: 'Philly Coke Bottle',
+      avatar_url: 'plant-photos/philly-water-2.jpg',
+      date_added: '2021-11-25',
+      plant_type: 'philodendron',
+      light_level: 2,
+      water_freq: 12,
+      date_watered: '2021-11-25',
+      date_potted: '2021-11-25',
+      date_fertilized: '2021-11-25',
+      notes: 'Change water twice a month'
+    })
+
+  }; // handleDummyPlant
+
+
 
 
   const handleSubmit = (event) => {
@@ -73,6 +108,7 @@ function PlantForm(props) {
 
     setNewPlant(emptyPlant);
   } // handleSubmit
+
 
 
   // for image upload? 
@@ -194,7 +230,9 @@ function PlantForm(props) {
         <Box sx={sxFormBox}>
 
           <Box sx={sxInstructionsBox}>
-            <Typography sx={sxInstructions} color="info.main"><span>Fill out all of the info below and</span></Typography>
+            <Typography sx={sxInstructions} color="info.main" onClick={(event) => handleDummyPlant(event)}>
+              <span>Fill out all of the info below and</span></Typography>
+
             <Typography sx={sxInstructions} color="info.main"><span>tap Add New Plant</span></Typography>
           </Box>
 
