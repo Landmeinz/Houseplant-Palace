@@ -304,7 +304,9 @@ function Dashboard(props) {
               <Typography sx={sxNotificationNum}> <span>{notificationCount++}</span> </Typography> : <></>}
           </Box>
         ))}
-        <OpacityIcon sx={sxNotificationIcon} fontSize="medium" />
+
+          <OpacityIcon sx={sxNotificationIcon} fontSize="medium" />
+
 
         {/* <Typography sx={sxNotificationNum} color="primary.main"> <span>{plants.length}</span> </Typography> */}
       </Box>
