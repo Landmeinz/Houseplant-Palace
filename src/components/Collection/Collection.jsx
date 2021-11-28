@@ -97,8 +97,8 @@ function Collection(props) {
       <ImageList sx={{ maxWidth: 355, height: 'auto' }} cols={2}>
 
         {plants.map(plant => (
-          <Box sx={sxInfoBox} onClick={() => handleClick('plantDetails', plant)}>
-            <ImageListItem key={plant.id}>
+          <Box key={plant.id} sx={sxInfoBox} onClick={() => handleClick('plantDetails', plant)}>
+            <ImageListItem >
 
               <CardMedia sx={sxPhotoBox} component="img" image={plant.avatar_url}/>
 

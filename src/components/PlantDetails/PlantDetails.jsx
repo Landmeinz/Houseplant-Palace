@@ -334,6 +334,8 @@ function PlantDetails(props) {
 
     // holds edit button and add photo button
     const sxEditPhotoBox = {
+        display: 'flex',
+        alignItems: 'center',
         height: 65,
     }; // sxEditPhotoBox
 

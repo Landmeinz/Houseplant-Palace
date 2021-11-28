@@ -288,6 +288,9 @@ function Dashboard(props) {
   }; // sxButton
 
 
+
+
+
   let notificationCount = 1;
 
   const showContent = (
@@ -305,10 +308,7 @@ function Dashboard(props) {
           </Box>
         ))}
 
-          <OpacityIcon sx={sxNotificationIcon} fontSize="medium" />
-
-
-        {/* <Typography sx={sxNotificationNum} color="primary.main"> <span>{plants.length}</span> </Typography> */}
+        <OpacityIcon sx={sxNotificationIcon} fontSize="medium" />
       </Box>
 
 
@@ -371,11 +371,28 @@ function Dashboard(props) {
   ); // showContent
 
 
+  const sxStartMessage = {
+    display: 'flex',
+    alignItems: 'center',
+    // border: '1px solid blue',
+    height: '81vh',
+    fontSize: 22,
+    fontWeight: 500,
+    lineHeight: 1.4,
+    // pl: 3,
+    // mb: 2,
+    // borderRadius: 2,
+    textAlign: 'center',
+    // backgroundColor: 'red',
+
+  }; // sxStartMessage
+
   const showMessage = (
-    <div>
-      <p>showMessage</p>
-      <p>tap on the + icon and start using the app by adding a new plant</p>
-    </div>
+    <Box>
+      <Typography sx={sxStartMessage} color="info.main">
+        <span>Tap on the + icon and start using the app by adding a new plant</span>
+      </Typography>
+    </Box>
   ); // showMessage
 
 

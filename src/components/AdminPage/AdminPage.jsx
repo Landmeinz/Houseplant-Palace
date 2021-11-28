@@ -51,7 +51,7 @@ function AdminPage(props) {
   return (
     <Box sx={sxAdminContainer}>
 
-      <Typography sx={sxAdminH2} color="primary"><h2>ADMIN - All Users</h2></Typography>
+      <Typography sx={sxAdminH2} color="info.main"><h2>ADMIN - All Users</h2></Typography>
       
       <TableContainer>
         <Table
