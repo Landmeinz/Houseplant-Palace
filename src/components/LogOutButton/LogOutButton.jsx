@@ -31,7 +31,6 @@ function LogOutButton(props) {
       width: '75%',
       height: 65,
       border: '.25px solid primary',
-      mt: '100%',
       boxShadow: 2,
       // backgroundColor: 'red',
       color: 'white',
