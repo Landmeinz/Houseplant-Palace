@@ -39,7 +39,7 @@ function* postPhoto(action) {
 
     try {
         yield axios.post('/api/photo', action.payload)
-        yield put({ type: 'FETCH_PHOTOS' })
+        // yield put({ type: 'FETCH_PHOTOS' })
         yield put({ type: 'FETCH_SELECTED_PHOTO', payload: action.payload.plantId})
 
     } catch (error) {
@@ -68,7 +68,7 @@ function* removePhoto(action) {
 
 
 function* photoSaga() {
-    yield takeLatest('FETCH_PHOTOS', fetchPhotos)
+    // yield takeLatest('FETCH_PHOTOS', fetchPhotos)
     yield takeLatest('FETCH_SELECTED_PHOTO', fetchSelectedPhoto)
     yield takeLatest('ADD_PHOTO', postPhoto)
     yield takeLatest('REMOVE_PHOTO', removePhoto)

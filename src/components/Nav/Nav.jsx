@@ -74,11 +74,11 @@ function Nav() {
           // If there's no user, show login/registration links
           <>
             <Link to="/admin">
-              <FormatListBulletedIcon fontSize="large" />
+              <FormatListBulletedIcon color="secondary" fontSize="large" />
             </Link>
 
             <Link to="/user_profile">
-              <AccountBoxIcon fontSize="large" />
+              <AccountBoxIcon color="secondary" fontSize="large" />
             </Link>
           </>
         ) : <></>}

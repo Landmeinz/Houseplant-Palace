@@ -15,10 +15,10 @@ router.get('/', rejectUnauthenticated, (req, res) => {
     console.log('router.GET /api/plants req.user', req.user);
 
     let queryText = `
-      SELECT    *, CURRENT_DATE, "date_watered" + INTERVAL '1 day' * "water_freq" AS "next_water"
-      FROM      "plant"
-      WHERE     "user_id" = $1 
-      ORDER BY  "next_water" ASC ; ` ;
+        SELECT    *, CURRENT_DATE, "date_watered" + INTERVAL '1 day' * "water_freq" AS "next_water"
+        FROM      "plant"
+        WHERE     "user_id" = $1 
+        ORDER BY  "next_water" ASC, "plant"."nickname"; ` ;
 
     const values = [req.user.id]
 

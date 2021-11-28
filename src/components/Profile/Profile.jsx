@@ -59,7 +59,7 @@ function Profile(props) {
       width: 355,
       bgcolor: 'white',
   
-    }; // sxHeader
+    }; // sxMessage
 
   
 
@@ -68,8 +68,8 @@ function Profile(props) {
 
 
       <Box sx={sxHeaderBox}>
-        <Typography sx={sxHeader} color="info.main"><>USER PROFILE</></Typography>
-        <Typography sx={sxMessage} color="info.main"><>Keep on growing, {user.username}!</></Typography>
+        <Typography sx={sxHeader} color="info.main"><span>USER PROFILE</span></Typography>
+        <Typography sx={sxMessage} color="info.main"><span>Keep on growing, {user.username}!</span></Typography>
       </Box>
       <LogOutButton className="navLink" />
 
