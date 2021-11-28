@@ -62,7 +62,7 @@ function RegisterPage() {
 
       <Typography sx={sxHeader} color="info.main"><span>Houseplant Palace</span></Typography>
 
-      <CardMedia sx={sxPhotoBox} component="img" image="place-of-worship-solid.svg" />
+      <CardMedia sx={sxPhotoBox} component="img" image="HP_logo.png" />
 
       <RegisterForm />
 
