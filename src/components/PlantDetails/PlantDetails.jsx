@@ -349,14 +349,9 @@ function PlantDetails(props) {
         mb: 8,
         width: 350,
         height: 'auto',
+        mx: 'auto',
 
     }; // sxPlantContainer
-
-    const sxInfoBox = {
-        border: 1,
-        mb: 4,
-    }; // sxInfoBox
-
 
 
     const sxPhotCard = {
@@ -364,9 +359,12 @@ function PlantDetails(props) {
         display: 'row',
         justifyContent: 'center',
         mb: 3,
+        mx: 'auto',
+        bgcolor: 'info.main',
+        borderRadius: 1,
         // width: 175,
         // height: 225,
-        // boxShadow: 1,
+        boxShadow: 1,
 
     }; // sxPhotoBox
 
@@ -375,9 +373,10 @@ function PlantDetails(props) {
     const sxPhotoBox = {
         // border: '1px solid lightgray',
         width: 350,
-        height: 'auto',
+        height: 500,
         boxShadow: 3,
         mb: .25,
+        borderRadius: 1,
 
     }; // sxPhotoBox
 
@@ -394,9 +393,9 @@ function PlantDetails(props) {
     }; // sxButtonDocDate
 
     const sxRemoveIcon = {
-        // border: '1px solid red',
-        width: 35,
-        height: 35,
+        // border: '1px solid blue',
+        width: 25,
+        height: 25,
         borderRadius: '50%',
         boxShadow: 2,
         p: .25,
@@ -618,7 +617,7 @@ function PlantDetails(props) {
                         <Box sx={sxButtonDocDate}>
                             <RemoveCircleIcon sx={sxRemoveIcon} color="error" fontSize="large"
                                 onClick={() => handleRemovePhoto(photo.id, photo.plant_id)} />
-                            <Typography sx={sxDocDate} color="info.main"><>Uploaded: {photo.date_uploaded.split(`T`)[0]}</></Typography>
+                            <Typography sx={sxDocDate} color="secondary.main"><>Uploaded: {photo.date_uploaded.split(`T`)[0]}</></Typography>
                         </Box>
 
                     </Box>
