@@ -42,9 +42,13 @@ function App() {
   useEffect(() => {
     dispatch({ type: 'FETCH_USER' });
     dispatch({ type: 'FETCH_PLANTS' });
-    dispatch({ type: 'FETCH_PHOTOS' });
+    // dispatch({ type: 'FETCH_PHOTOS' });
     dispatch({ type: 'FETCH_CURRENT_DATE' })
   }, [dispatch]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, []);
 
 
 

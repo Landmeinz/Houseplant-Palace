@@ -8,28 +8,28 @@ const router = express.Router();
 
 // GET all photos //
 
-router.get('/', rejectUnauthenticated, (req, res) => {
-  // GET route code here
-  console.log('--- in router.GET /api/photo');
+// router.get('/', rejectUnauthenticated, (req, res) => {
+//   // GET route code here
+//   console.log('--- in router.GET /api/photo');
 
-  console.log('router.get photo req.user', req.user);
+//   console.log('router.get photo req.user', req.user);
 
-  let queryText = `
-    SELECT 	*
-    FROM 	"photo"
-    WHERE 	"user_id" = $1;` ;
+//   let queryText = `
+//     SELECT 	*
+//     FROM 	"photo"
+//     WHERE 	"user_id" = $1;` ;
 
-  let userId = [req.user.id];
+//   let userId = [req.user.id];
 
-  pool.query(queryText, userId)
-    .then(result => {
-      console.log('--- router.GET /api/photo result.rows', result.rows);
-      res.send(result.rows);
-    }).catch(error => {
-      console.log('ERROR router.GET /api/photo', error);
-      res.sendStatus(500);
-    });
-});
+//   pool.query(queryText, userId)
+//     .then(result => {
+//       console.log('--- router.GET /api/photo result.rows', result.rows);
+//       res.send(result.rows);
+//     }).catch(error => {
+//       console.log('ERROR router.GET /api/photo', error);
+//       res.sendStatus(500);
+//     });
+// });
 
 
 
