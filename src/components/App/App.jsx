@@ -82,7 +82,7 @@ function App() {
 
   // constrain all content down to mobile sizing
   const sxAppContent = {
-    border: '1px solid pink',
+    // border: '1px solid pink',
     width: 355,
     height: 725,
     // borderRadius: 4,

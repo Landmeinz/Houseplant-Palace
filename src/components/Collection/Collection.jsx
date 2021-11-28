@@ -146,7 +146,7 @@ function Collection(props) {
     top: 0,
     bgcolor: 'secondary.main',
     zIndex: 50,
-    mb: 2,
+    // mb: 2,
     mx: 'auto',
 
   }; // sxDateBox
