@@ -99,13 +99,13 @@ function Dashboard(props) {
   }; // sxHeader
 
   const sxNotificationNum = {
-    border: 1,
+    border: 2,
     borderColor: 'primary.main',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    width: 32,
-    height: 32,
+    width: 30,
+    height: 30,
     borderRadius: '50%',
     position: 'fixed',
     top: 25,

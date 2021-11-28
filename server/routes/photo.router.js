@@ -46,7 +46,8 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
     SELECT 	*
     FROM 	  "photo"
     WHERE 	"user_id" = $1
-    AND    	"plant_id" = $2;` ;
+    AND    	"plant_id" = $2
+    ORDER BY 	"photo".date_uploaded DESC ; ` ;
 
   let userId = [req.user.id, req.params.id];
 

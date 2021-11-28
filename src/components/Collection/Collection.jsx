@@ -60,14 +60,14 @@ function Collection(props) {
     display: 'flex',
     justifyContent: 'center',
     borderRadius: 1,
-    width: 166,
+    width: 170,
 
   }; // sxInfoBox
 
 
   // PHOTO to control the image size, border radius, ect.
   const sxPhotoBox = {
-    width: 166,
+    width: 170,
     height: 220,
 
   }; // sxPhotoBox
