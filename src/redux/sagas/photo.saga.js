@@ -20,11 +20,11 @@ function* fetchPhotos() {
 // --- SELECTED PHOTOS --- // 
 function* fetchSelectedPhoto(action) {
     console.log('-- hit fetchSelectedPhoto; action.payload', action.payload);
-    
+
     try {
         const response = yield axios.get(`/api/photo/${action.payload}`)
         console.log('--- fetchPhotos saga response.data', response.data);
-        
+
         yield put({ type: 'SET_SELECTED_PHOTO', payload: response.data })
 
     } catch (err) {
@@ -40,7 +40,7 @@ function* postPhoto(action) {
     try {
         yield axios.post('/api/photo', action.payload)
         // yield put({ type: 'FETCH_PHOTOS' })
-        yield put({ type: 'FETCH_SELECTED_PHOTO', payload: action.payload.plantId})
+        yield put({ type: 'FETCH_SELECTED_PHOTO', payload: action.payload.plantId })
 
     } catch (error) {
         console.log('ERROR', error);
@@ -53,13 +53,13 @@ function* postPhoto(action) {
 function* removePhoto(action) {
     console.log('--- in removePhoto Saga!');
     console.log('---- id to remove action.payload:', action.payload.photoId);
-    
+
     const removeId = action.payload.photoId
     const plantId = action.payload.plantId
 
     try {
         yield axios.delete(`/api/photo/${removeId}`)
-        yield put({type: 'FETCH_SELECTED_PHOTO', payload: plantId})
+        yield put({ type: 'FETCH_SELECTED_PHOTO', payload: plantId })
     } catch (error) {
         console.log('ERROR', error);
         yield put({ type: 'ERROR removePhoto SAGA' })
@@ -67,11 +67,28 @@ function* removePhoto(action) {
 }; // removePhoto
 
 
+// --- REMOVE ALL PHOTOS BY PLANT ID --- // 
+function* removePhotoByPlantId(action) {
+    console.log('--- in removePhotoByPlantId Saga!');
+    console.log('---- id to remove action.payload:', action.payload);
+
+    const plantId = action.payload;
+    try {
+        yield axios.delete(`/api/photo/plantPhoto/${plantId}`)
+        yield put({ type: 'FETCH_PLANTS' })
+    } catch (error) {
+        console.log('ERROR', error);
+        yield put({ type: 'ERROR removePhotoByPlantId SAGA' })
+    }
+}; // removePhotoByPlantId
+
+
 function* photoSaga() {
     // yield takeLatest('FETCH_PHOTOS', fetchPhotos)
     yield takeLatest('FETCH_SELECTED_PHOTO', fetchSelectedPhoto)
     yield takeLatest('ADD_PHOTO', postPhoto)
     yield takeLatest('REMOVE_PHOTO', removePhoto)
+    yield takeLatest('REMOVE_PHOTOS_BY_PLANT_ID', removePhotoByPlantId)
 }
 
 export default photoSaga;
