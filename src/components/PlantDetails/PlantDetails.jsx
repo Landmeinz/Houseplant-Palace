@@ -55,6 +55,7 @@ function PlantDetails(props) {
     const handleRemove = (plantId) => {
         console.log('--- CLICKED --- hit handleRemove');
         dispatch({ type: 'REMOVE_PLANT', payload: plantId });
+        dispatch({ type: 'REMOVE_PHOTOS_BY_PLANT_ID', payload: plantId })
         history.push('/collection')
     }; // handleRemove
 

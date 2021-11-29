@@ -51,6 +51,8 @@ function Collection(props) {
     display: 'flex',
     justifyContent: 'center',
     width: '100%',
+    mx: 'auto',
+    p: .5,
   }; // sxShowContent
 
 
@@ -100,7 +102,7 @@ function Collection(props) {
           <Box key={plant.id} sx={sxInfoBox} onClick={() => handleClick('plantDetails', plant)}>
             <ImageListItem >
 
-              <CardMedia sx={sxPhotoBox} component="img" image={plant.avatar_url}/>
+              <CardMedia sx={sxPhotoBox} component="img" image={plant.avatar_url} />
 
               <Typography sx={sxNickname} color="info.main"><span>{plant.nickname}</span></Typography>
 
@@ -115,11 +117,28 @@ function Collection(props) {
   ); // showContent
 
 
+  const sxStartMessage = {
+    display: 'flex',
+    alignItems: 'center',
+    // border: '1px solid blue',
+    height: '81vh',
+    fontSize: 22,
+    fontWeight: 500,
+    lineHeight: 1.4,
+    // pl: 3,
+    // mb: 2,
+    // borderRadius: 2,
+    textAlign: 'center',
+    // backgroundColor: 'red',
+
+  }; // sxStartMessage
+
   const showMessage = (
-    <div>
-      <p>showMessage</p>
-      <p>tap on the + icon and start using the app by adding a new plant</p>
-    </div>
+    <Box>
+      <Typography sx={sxStartMessage} color="info.main">
+        <span>Tap on the + icon and start using the app by adding a new plant</span>
+      </Typography>
+    </Box>
   ); // showMessage
 
 
