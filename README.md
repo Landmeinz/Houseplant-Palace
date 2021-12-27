@@ -1,5 +1,5 @@
 # Project Name
-- Houseplant Palace
+### Houseplant Palace
 - Duration: Solo Project Challenge 2.5 Weeks
 
 ## Project Screenshots
@@ -34,8 +34,8 @@
 
 ## Acknowledgement
 
-### Thanks to Prime Digital Academy who equipped and helped me to make this application a reality.
-### Shout out to my instructors Dane Smith and Liz Kerber
+#### Thanks to Prime Digital Academy who equipped and helped me to make this application a reality.
+#### Shout out to my instructors Dane Smith and Liz Kerber
 
 ## Installation for Local Machines
 
