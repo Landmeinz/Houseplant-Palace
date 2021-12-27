@@ -45,6 +45,7 @@ function LoginPage() {
     borderRadius: '50%',
     mx: 'auto',
     mt: 2,
+    p: 1,
 
   }; // sxPhotoBox
 

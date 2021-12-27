@@ -72,6 +72,7 @@ function Profile(props) {
     mx: 'auto',
     mt: 10,
     mb: 1,
+    p: 1,
 
   }; // sxPhotoBox
 

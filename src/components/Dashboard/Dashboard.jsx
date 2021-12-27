@@ -107,8 +107,8 @@ function Dashboard(props) {
     width: 30,
     height: 30,
     borderRadius: '50%',
-    position: 'fixed',
-    top: 25,
+    position: 'absolute',
+    top: 20,
     right: 35,
     bgcolor: 'secondary.main',
     color: 'primary.main',
@@ -120,8 +120,8 @@ function Dashboard(props) {
 
 
   const sxNotificationIcon = {
-    position: 'fixed',
-    top: 16,
+    position: 'absolute',
+    top: 12,
     right: 26,
     color: 'primary.main',
     bgcolor: 'secondary.main',
@@ -295,8 +295,6 @@ function Dashboard(props) {
 
   const showContent = (
     <Box >
-
-      {/* <h2>DASHBOARD</h2> */}
 
       <Box sx={sxDateBox}>
         <Typography sx={sxDateHeader} color="info.main"> <span>{current_date.current_date?.split('T')[0]}</span> </Typography>

@@ -79,16 +79,16 @@ function PlantForm(props) {
 
     setNewPlant({
       ...newPlant,
-      nickname: 'Philly Coke Bottle',
-      avatar_url: 'plant-photos/philly-water-2.jpg',
-      date_added: '2021-11-25',
-      plant_type: 'Philodendron',
-      light_level: '2',
-      water_freq: '12',
-      date_watered: '2021-11-25',
-      date_potted: '2021-11-25',
-      date_fertilized: '2021-11-25',
-      notes: 'Change water twice a month'
+      nickname: 'Aloe Turk',
+      avatar_url: 'plant-photos/aloe-2.jpg',
+      date_added: '2021-11-27',
+      plant_type: 'Aloe Vera',
+      light_level: '3',
+      water_freq: '11',
+      date_watered: '2021-11-27',
+      date_potted: '2021-11-27',
+      date_fertilized: '2021-11-27',
+      notes: ''
     })
 
   }; // handleDummyPlant
