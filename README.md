@@ -2,9 +2,11 @@
 ![HP All Pages](https://user-images.githubusercontent.com/85810386/147121509-92853b4a-8e62-41d6-9b8c-9ed5ca42f602.jpg)
 
 # Project Hosted on Heroku
+### To get started click on the link below and allow 20-30 seconds for the app to spin up
+- https://polar-temple-90290.herokuapp.com/#/dashboard
 - username: guest_user
 - password: guest_user
-- https://polar-temple-90290.herokuapp.com/#/dashboard
+
 
 
 # EDA Project
