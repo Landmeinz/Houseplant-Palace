@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 // --- MUI --- // 
 import Box from '@mui/material/Box';
@@ -60,26 +61,35 @@ const sxFormBox = {
 function RegisterForm() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [passwordConfirm, setPasswordConfirm] = useState('');
   const errors = useSelector((store) => store.errors);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const registerUser = (event) => {
     event.preventDefault();
 
-    dispatch({
-      type: 'REGISTER',
-      payload: {
-        username: username,
-        password: password,
-      },
-    });
-    dispatch({ type: 'FETCH_PLANTS' });
-    dispatch({ type: 'FETCH_PHOTOS' });
-    window.location.reload(false);
+    if(password === passwordConfirm) {
+      dispatch({
+        type: 'REGISTER',
+        payload: {
+          username: username,
+          password: password,
+        },
+      });
+      dispatch({ type: 'FETCH_PLANTS' });
+      dispatch({ type: 'FETCH_PHOTOS' });
+      // window.location.reload(false);
+      alert('Be sure to remember your password. Password recovery is not currently available')
+      history.push('/dashboard')
+    } else {
+      alert('Make sure your passwords match')
+    }
+    
   }; // end registerUser
 
   return (
-    <form className="formPanel" onSubmit={registerUser}>
+    <form onSubmit={registerUser}>
 
       {/* <h2>Register User</h2> */}
 
@@ -114,10 +124,19 @@ function RegisterForm() {
             value={password}
             onChange={(event) => setPassword(event.target.value)}
           />
+          {/* PASSWORD CONFIRM */}
+          <TextField sx={sxInput}
+            id="confirm-password"
+            type="password"
+            required
+            label="Confirm Password"
+            value={passwordConfirm}
+            onChange={(event) => setPasswordConfirm(event.target.value)}
+          />
         </Box>
 
         <Box>
-          <Button type="submit" sx={sxRegister} size="large" variant="contained" color="secondary">Register</Button>
+          <Button type="submit" sx={sxRegister} size="large" variant="contained" color="secondary">Register & Login</Button>
         </Box>
 
       </Box>

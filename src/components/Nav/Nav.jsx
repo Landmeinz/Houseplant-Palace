@@ -38,19 +38,17 @@ function Nav() {
   return (
     <div className="nav">
 
-      <Box sx={sxNavContent}>
-
-        {/* If no user is logged in, show these links */}
-        {user.id === null &&
-          // If there's no user, show login/registration links
-          <Link className="navLink" to="/login">
-            Login / Register
-          </Link>
-        }
+      {/* If no user is logged in, show these links */}
+      {user.id === null &&
+        // If there's no user, show login/registration links
+        <Link className="navLink" to="/login">
+          Login / Register
+        </Link>
+      }
 
         {/* If a user is logged in, show these links */}
         {user.id > 0 & user.access_level < 5 ? (
-          <>
+          <Box sx={sxNavContent}>
             <Link to="/dashboard">
               <FormatListBulletedIcon color="secondary" fontSize="large" />
             </Link>
@@ -66,13 +64,13 @@ function Nav() {
             <Link to="/user_profile">
               <AccountBoxIcon color="secondary" fontSize="large" />
             </Link>
-          </>
+          </Box>
         ) : <></>}
 
         {/* If no user's access level is greater than 5 then show admin links */}
         {user.id > 0 & user.access_level >= 5 ? (
           // If there's no user, show login/registration links
-          <>
+          <Box sx={sxNavContent}>
             <Link to="/admin">
               <FormatListBulletedIcon color="secondary" fontSize="large" />
             </Link>
@@ -80,10 +78,8 @@ function Nav() {
             <Link to="/user_profile">
               <AccountBoxIcon color="secondary" fontSize="large" />
             </Link>
-          </>
+          </Box>
         ) : <></>}
-
-      </Box>
 
     </div>
   );

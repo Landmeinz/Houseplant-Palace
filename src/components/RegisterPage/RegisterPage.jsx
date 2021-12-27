@@ -35,8 +35,8 @@ const sxHeader = {
 const sxPhotoBox = {
   // border: '1px solid black',
   boxShadow: 2,
-  height: 220,
-  width: 220,
+  height: 180,
+  width: 180,
   borderRadius: '50%',
   mx: 'auto',
   mt: 2,

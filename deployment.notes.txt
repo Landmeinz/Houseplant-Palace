@@ -1,4 +1,5 @@
 
+--- GET YOUR SHIT SETUP FIRST --- 
 
 0.0) set up pool to accept heroku config
 
@@ -8,10 +9,8 @@
 
 0.3) run: heroku login or heroku login -i
 
-0.4) 
 
-
-these are notes for deployment
+--- NOW WE ARE LOGGED-IN TO HEROKU RUN STEP 1
 
 1) run: create heroku > you'll get a unique url key
 

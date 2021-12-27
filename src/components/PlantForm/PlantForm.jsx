@@ -51,18 +51,18 @@ function PlantForm(props) {
     notes: ''
   }; // emptyPlant
 
-  const dummyPlant = {
-    nickname: 'Philly Coke Bottle',
-    avatar_url: 'plant-photos/philly-water-2.jpg',
-    date_added: '2021-11-25',
-    plant_type: 'philodendron',
-    light_level: 2,
-    water_freq: 12,
-    date_watered: '2021-11-25',
-    date_potted: '2021-11-25',
-    date_fertilized: '2021-11-25',
-    notes: 'Change water twice a month'
-  }; // fillPlant
+  // const dummyPlant = {
+  //   nickname: 'Philly Coke Bottle',
+  //   avatar_url: 'plant-photos/philly-water-2.jpg',
+  //   date_added: '2021-11-25',
+  //   plant_type: 'philodendron',
+  //   light_level: 2,
+  //   water_freq: 12,
+  //   date_watered: '2021-11-25',
+  //   date_potted: '2021-11-25',
+  //   date_fertilized: '2021-11-25',
+  //   notes: 'Change water twice a month'
+  // }; // fillPlant
 
   const [newPlant, setNewPlant] = useState(emptyPlant);
 
@@ -74,24 +74,24 @@ function PlantForm(props) {
   } // handleNameChange
 
 
-  const handleDummyPlant = (event) => {
-    console.log('handleDummyPlant CLICK');
+  // const handleDummyPlant = (event) => {
+  //   console.log('handleDummyPlant CLICK');
 
-    setNewPlant({
-      ...newPlant,
-      nickname: 'Aloe Turk',
-      avatar_url: 'plant-photos/aloe-2.jpg',
-      date_added: '2021-11-27',
-      plant_type: 'Aloe Vera',
-      light_level: '3',
-      water_freq: '11',
-      date_watered: '2021-11-27',
-      date_potted: '2021-11-27',
-      date_fertilized: '2021-11-27',
-      notes: ''
-    })
+  //   setNewPlant({
+  //     ...newPlant,
+  //     nickname: 'Aloe Turk',
+  //     avatar_url: 'plant-photos/aloe-2.jpg',
+  //     date_added: '2021-11-27',
+  //     plant_type: 'Aloe Vera',
+  //     light_level: '3',
+  //     water_freq: '11',
+  //     date_watered: '2021-11-27',
+  //     date_potted: '2021-11-27',
+  //     date_fertilized: '2021-11-27',
+  //     notes: ''
+  //   })
 
-  }; // handleDummyPlant
+  // }; // handleDummyPlant
 
 
 
@@ -230,7 +230,7 @@ function PlantForm(props) {
         <Box sx={sxFormBox}>
 
           <Box sx={sxInstructionsBox}>
-            <Typography sx={sxInstructions} color="info.main" onClick={(event) => handleDummyPlant(event)}>
+            <Typography sx={sxInstructions} color="info.main">
               <span>Fill out all of the info below and</span></Typography>
 
             <Typography sx={sxInstructions} color="info.main"><span>tap Add New Plant</span></Typography>
@@ -242,6 +242,7 @@ function PlantForm(props) {
             id="nickname"
             required
             label="Nickname"
+            autoComplete='off'
             value={newPlant.nickname}
             onChange={(event) => handleNameChange(event, 'nickname')}
             placeholder="Planty McPlanterson"
@@ -252,6 +253,7 @@ function PlantForm(props) {
             id="plant_type"
             required
             label="Plant Type"
+            autoComplete='off'
             value={newPlant.plant_type}
             onChange={(event) => handleNameChange(event, 'plant_type')}
             placeholder="Golden Pothos"
@@ -263,6 +265,7 @@ function PlantForm(props) {
             id="avatar_url"
             required
             label="Avatar Photo URL"
+            autoComplete='off'
             value={newPlant.avatar_url}
             onChange={(event) => handleNameChange(event, 'avatar_url')}
             placeholder="yourPhotoURLGoesHere.jpg"
@@ -275,6 +278,7 @@ function PlantForm(props) {
             id="date_added"
             required
             label="Date Added To Collection"
+            autoComplete='off'
             value={newPlant.date_added}
             onChange={(event) => handleNameChange(event, 'date_added')}
             InputLabelProps={{ shrink: true }}
@@ -304,9 +308,10 @@ function PlantForm(props) {
             id="water_freq"
             required
             type="number"
+            label="Number of Days Between Watering"
+            autoComplete='off'
             value={newPlant.water_freq}
             onChange={(event) => handleNameChange(event, 'water_freq')}
-            label="Number of Days Between Watering"
           />
 
           {/* DATE_WATERED */}
@@ -315,6 +320,7 @@ function PlantForm(props) {
             required
             type="date"
             label="Date Last Watered"
+            autoComplete='off'
             value={newPlant.date_watered}
             onChange={(event) => handleNameChange(event, 'date_watered')}
             InputLabelProps={{ shrink: true }}
@@ -327,6 +333,7 @@ function PlantForm(props) {
             required
             type="date"
             label="Date Potted"
+            autoComplete='off'
             value={newPlant.date_potted}
             onChange={(event) => handleNameChange(event, 'date_potted')}
             InputLabelProps={{ shrink: true }}
@@ -338,6 +345,7 @@ function PlantForm(props) {
             required
             type="date"
             label="Date Fertilized"
+            autoComplete='off'
             value={newPlant.date_fertilized}
             onChange={(event) => handleNameChange(event, 'date_fertilized')}
             InputLabelProps={{ shrink: true }}
@@ -348,6 +356,7 @@ function PlantForm(props) {
             id="notes"
             type="text"
             label="Include Any Plant Notes"
+            autoComplete='off'
             value={newPlant.notes}
             onChange={(event) => handleNameChange(event, 'notes')}
             placeholder="Don't over water!"
