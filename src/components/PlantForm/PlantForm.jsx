@@ -79,7 +79,7 @@ function PlantForm(props) {
 
     setNewPlant({
       ...newPlant,
-      nickname: 'Aloe Mini 2',
+      nickname: 'Aloe Turk',
       avatar_url: 'plant-photos/aloe-2.jpg',
       date_added: '2021-11-27',
       plant_type: 'Aloe Vera',
