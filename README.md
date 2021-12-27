@@ -2,12 +2,16 @@
 ![HP All Pages](https://user-images.githubusercontent.com/85810386/147121509-92853b4a-8e62-41d6-9b8c-9ed5ca42f602.jpg)
 
 # A Live Preview of Houseplant Palace Hosted on Heroku:
-### Click on the link below and allow 20-30 seconds for app to wake up
+### 1: Click on the link below and allow 20-30 seconds for app to wake up
 - https://polar-temple-90290.herokuapp.com/#/dashboard
 
-### 2) Sign in as guest_user
+### 2: Sign in as guest_user
 - username: guest_user
 - password: guest_user
+
+### 3: Poke Around App
+- go ahead an take a look around, make some edits, add a new plant,
+- if you like the app go ahead and register as a new user and get started today!
 
 
 
