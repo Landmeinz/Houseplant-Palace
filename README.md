@@ -1,12 +1,11 @@
-# Project Name
-### Houseplant Palace
+# Houseplant Palace
 - Duration: Solo Project Challenge 2.5 Weeks
-
-## Project Screenshots
-![HP All Pages](https://user-images.githubusercontent.com/85810386/147121509-92853b4a-8e62-41d6-9b8c-9ed5ca42f602.jpg)
 
 ## Description
 ### An app where a plant lover can track their plant's growth progress with photos stored in a single place.
+
+## Project Screenshots
+![HP All Pages](https://user-images.githubusercontent.com/85810386/147121509-92853b4a-8e62-41d6-9b8c-9ed5ca42f602.jpg)
 
 ## A Live Preview of Houseplant Palace Hosted on Heroku:
 ### 1: Click on the link below and allow 20-30 seconds for app to wake up
