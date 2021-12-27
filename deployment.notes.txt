@@ -22,7 +22,7 @@
 
 4) run: heroku addons:create heroku-postgresql:hobby-dev
 
-5) run: heroku pg:push *your_database_goes_here* DATABASE_URL
+5) run: heroku pg:push houseplant_palace DATABASE_URL
 
 
 
