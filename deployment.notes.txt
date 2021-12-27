@@ -1,0 +1,33 @@
+
+
+0.0) set up pool to accept heroku config
+
+0.1) run: brew tap heroku/brew && brew install heroku
+
+0.2) run: npm install -g heroku then: heroku --version to check
+
+0.3) run: heroku login or heroku login -i
+
+0.4) 
+
+
+these are notes for deployment
+
+1) run: create heroku > you'll get a unique url key
+
+2) run: git push heroku master
+
+3) run: heroku open
+
+--- to get our database onto heroku
+
+4) run: heroku addons:create heroku-postgresql:hobby-dev
+
+5) run: heroku pg:push *your_database_goes_here* DATABASE_URL
+
+
+
+- heroku runs the scripts "build" to compiles your code;
+    runs build, runs start, then deploys;
+
+can npm run build to troubleshoot; will compile like it's on heroku;
