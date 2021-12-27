@@ -10,7 +10,7 @@
 - password: guest_user
 
 ### 3: Poke Around App
-- go ahead an take a look around, make some edits, add a new plant,
+- go ahead an take a look around, make some edits, or add a new plant.
 - if you like the app go ahead and register as a new user and get started today!
 
 
