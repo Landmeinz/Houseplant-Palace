@@ -6,7 +6,7 @@
 ![HP All Pages](https://user-images.githubusercontent.com/85810386/147121509-92853b4a-8e62-41d6-9b8c-9ed5ca42f602.jpg)
 
 ## Description
-- An app where a plant lover can track their plant's growth progress with photos stored in a single place.
+### An app where a plant lover can track their plant's growth progress with photos stored in a single place.
 
 ## A Live Preview of Houseplant Palace Hosted on Heroku:
 ### 1: Click on the link below and allow 20-30 seconds for app to wake up
