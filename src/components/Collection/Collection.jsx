@@ -63,6 +63,7 @@ function Collection(props) {
     justifyContent: 'center',
     borderRadius: 1,
     width: 170,
+    cursor: 'pointer',
 
   }; // sxInfoBox
 
