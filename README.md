@@ -3,8 +3,8 @@
 
 # Project Hosted on Heroku
 ### To preview Houseplant Palace: 
-##### 1) Click on the link below and allow 20-30 seconds for app to wake up
-##### 2) Sign in as guest_user
+###### 1) Click on the link below and allow 20-30 seconds for app to wake up
+###### 2) Sign in as guest_user
 - https://polar-temple-90290.herokuapp.com/#/dashboard
 - username: guest_user
 - password: guest_user
