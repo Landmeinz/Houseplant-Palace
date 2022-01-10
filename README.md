@@ -9,7 +9,7 @@
 
 ## A Live Preview of Houseplant Palace Hosted on Heroku:
 ### 1: Click on the link below and allow 20-30 seconds for app to wake up
-- https://polar-temple-90290.herokuapp.com/#/dashboard
+- https://houseplant-palace-2022.herokuapp.com/
 
 ### 2: Sign in as guest_user
 - username: guest_user
