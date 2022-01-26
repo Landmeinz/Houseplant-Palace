@@ -2,7 +2,7 @@
 - Duration: Solo Project Challenge 2.5 Weeks
 
 ## Description
-### A mobile forward app where a plant lover can track their plant's growth progress with photos stored in a single place.
+### A mobile forward web app where plant lovers can track their plant's growth, get watering notifications, and store info and progress photos in a single place.
 
 ## Project Screenshots
 ![HP All Pages](https://user-images.githubusercontent.com/85810386/147121509-92853b4a-8e62-41d6-9b8c-9ed5ca42f602.jpg)
@@ -26,6 +26,7 @@
 - REACT
 - REDUX
 - SAGA
+- MUI
 - NODE
 - EXPRESS
 - AXIOS
